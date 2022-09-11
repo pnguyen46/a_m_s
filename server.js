@@ -9,7 +9,6 @@ const flash = require("express-flash");
 const logger = require("morgan");
 const connectDB = require("./config/database");
 const mainRoutes = require("./routes/main");
-const postRoutes = require("./routes/posts");
 
 //Use .env file in config folder
 require("dotenv").config({ path: "./config/.env" });
@@ -52,10 +51,12 @@ app.use(passport.session());
 
 //Use flash messages for errors, info, ect...
 app.use(flash());
-
+app.use((req,res,next) => {
+  res.locals.searchResult = req.session.searchResult;
+  return next();
+})
 //Setup Routes For Which The Server Is Listening
 app.use("/", mainRoutes);
-app.use("/post", postRoutes);
 
 //Server Running
 app.listen(process.env.PORT, () => {
