@@ -19,10 +19,6 @@ const InventorySchema = new mongoose.Schema({
   },
   location: {
     type: String,
-  },
-  identifier: {
-    type:String,
-    default:'inventory'
   }
 });
 

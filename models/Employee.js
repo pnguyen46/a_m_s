@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const CustomerSchema = new mongoose.Schema({
+const EmployeeSchema = new mongoose.Schema({
     name: {
         type:String,
         required:true
@@ -18,11 +18,22 @@ const CustomerSchema = new mongoose.Schema({
         required:true,
     },
     repair: {
+        type:Array,
+    },
+    DOB: {
+        type: String,
+    },
+    specialty:{
         type:String,
     },
-    fav_tech: {
-        type: String,
+    class:{
+        type:String,
+        default:'Apprentice'
+    },
+    status:{
+        type:String,
+        required:true
     }
 });
   
-module.exports = mongoose.model('Customer', CustomerSchema,'customer');
+module.exports = mongoose.model('Employee', EmployeeSchema,'employee');
