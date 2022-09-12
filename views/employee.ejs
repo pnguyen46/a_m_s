@@ -48,7 +48,7 @@
       <div class="row">
         <div class="col-3 border">
           <a class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#employeeForm">Add Employee</a>
-          <a class="btn btn-primary btn-sm">View All Employee</a>
+          <a class="btn btn-primary btn-sm" href="/employee">View All Employee</a>
         </div>
         <div class="col mt-2">
           <!--table-->
@@ -84,7 +84,7 @@
                     <button type="submit" class="btn btn-primary btn-sm editBtn" data-bs-toggle="modal" data-bs-target="#employeeEditModal" data-bs-id="<%=item._id%>" data-bs-identifier="employee">Edit</button>
                   </td>
                   <td>
-                    <form action="/employee/deleteItem<%=item._id%>?_method=DELETE" method="POST">
+                    <form action="/employee/deleteItem/<%=item._id%>?_method=DELETE" method="POST">
                       <button type="submit" class="btn btn-primary btn-sm">Delete</button>
                     </form>
                   </td>
@@ -194,7 +194,7 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Edit Customer</h5>
+            <h5 class="modal-title">Edit Employee</h5>
             <button
               type="button"
               class="btn-close"
@@ -204,45 +204,72 @@
           </div>
           <div class="modal-body">
             <!--form-->
-            <form id="customerEditForm" action="" method="POST">
+            <form id="employeeEditForm" action="" method="POST">
               <div class="mb-3">
-                <label for="editCustomerName" class="form-label">Name</label>
+                <label for="editEmployeeName" class="form-label">Name</label>
                 <input
                   type="text"
                   class="form-control"
-                  id="editCustomerName"
-                  name="editCustomerName"
+                  id="editEmployeeName"
+                  name="editEmployeeName"
                   aria-describedby=""
                   value=""
                 />
               </div>
               <div class="mb-3">
-                <label for="editCustomerAddr" class="form-label">Address</label>
+                <label for="editEmployeeAddr" class="form-label">Address</label>
                 <input
                   type="text"
                   class="form-control"
-                  id="editCustomerAddr"
-                  name="editCustomerAddr"
+                  id="editEmployeeAddr"
+                  name="editEmployeeAddr"
                   min="0"
                 />
               </div>
               <div class="mb-3">
-                <label for="editCustomerPhone" class="form-label">Phone Number</label>
+                <label for="editEmployeePhone" class="form-label">Phone Number</label>
                 <input
                   type="number"
                   class="form-control"
-                  id="editCustomerPhone"
-                  name="editCustomerPhone"
+                  id="editEmployeePhone"
+                  name="editEmployeePhone"
                   min="0"
                 />
               </div>
               <div class="mb-3">
-                <label for="editCustomerFavTech" class="form-label">Favorite Technician</label>
+                <label for="editEmployeeRepair" class="form-label">Repairs</label>
                 <input
                   type="text"
                   class="form-control"
-                  id="editCustomerFavTech"
-                  name="editCustomerFavTech"
+                  id="editEmployeeRepair"
+                  name="editEmployeeRepair"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="editEmployeeSpecialty" class="form-label">Specialty</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="editEmployeeSpecialty"
+                  name="editEmployeeSpecialty"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="editEmployeeClass" class="form-label">Class</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="editEmployeeClass"
+                  name="editEmployeeClass"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="editEmployeeStatus" class="form-label">Status</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="editEmployeeStatus"
+                  name="editEmployeeStatus"
                 />
               </div>
               <button type="submit" class="btn btn-primary">Update</button>

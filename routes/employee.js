@@ -3,9 +3,9 @@ const router = Router();
 const employeeController = require('../controllers/employee');
 
 router.get('/',employeeController.getIndex);
-router.get('/:id',);
+router.get('/:id',employeeController.getEmployee);
 router.post('/',employeeController.addEmployee);
-router.put('/editItem/:id',);
-router.delete('/deleteItem/:id',);
+router.put('/editItem/:id',employeeController.editEmployee);
+router.delete('/deleteItem/:id',employeeController.deleteEmployee);
 
 module.exports = router;

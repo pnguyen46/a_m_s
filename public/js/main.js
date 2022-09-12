@@ -45,6 +45,16 @@ function setModalContent(modalType,data){
       document.getElementById('editLocation').setAttribute('value',data.location);
       document.getElementById('editForm').setAttribute('action',`/${modalType}/editItem/${data._id}?_method=PUT`)
       break;
+    case 'employee':
+      document.getElementById('editEmployeeName').setAttribute('value',data.name);
+      document.getElementById('editEmployeeAddr').setAttribute('value',data.address);
+      document.getElementById('editEmployeePhone').setAttribute('value',data.phone_number);
+      document.getElementById('editEmployeeRepair').setAttribute('value',data.repair);
+      document.getElementById('editEmployeeSpecialty').setAttribute('value',data.specialty);
+      document.getElementById('editEmployeeClass').setAttribute('value',data.class);
+      document.getElementById('editEmployeeStatus').setAttribute('value',data.status);
+      document.getElementById('employeeEditForm').setAttribute('action',`/${modalType}/editItem/${data._id}?_method=PUT`)
+      break;
   
     default:
       break;
@@ -60,7 +70,7 @@ async function editItem(event){
     });
     const {item} = await response.json();
     const [data] = item;
-    setModalContent(data.identifier,data);
+    setModalContent(route,data);
   } catch (error) {
     return console.error(error);
   }
