@@ -46,45 +46,7 @@
     <div class="container">
       <h1 class="text-center">Customer</h1>
       <div class="row">
-        <div class="col-2 border">
-          <h3>Search Customers:</h3>
-          <form class="" action="/inventory/seatchItem" method="GET">
-            <input
-              name="searchItem"
-              class="form-control me-2"
-              type="search"
-              placeholder="Item Name"
-              aria-label="Search"
-            />
-            <input
-              name="searchQty"
-              class="form-control me-2"
-              type="number"
-              placeholder="Item Quantity"
-              aria-label="Search"
-            />
-            <input
-              name="searchBrand"
-              class="form-control me-2"
-              type="search"
-              placeholder="Item Brand"
-              aria-label="Search"
-            />
-            <input
-              name="searchLocation"
-              class="form-control me-2"
-              type="search"
-              placeholder="Item Location"
-              aria-label="Search"
-            />
-            <button class="btn btn-outline-primary" type="submit">
-              Search
-            </button>
-            <button class="btn btn-outline-primary ms-2" type="reset">
-              Reset
-            </button>
-          </form>
-        </div>
+      
         <div class="col mt-2">
           <!--table-->
           <table class="table justify-content-end">
@@ -98,14 +60,34 @@
                 <th scope="col">Repairs</th>
                 <th scope="col">Perfer Technician</th>
                 <th scope="col" class="text-end">
-                  <a class="btn btn-primary btn-sm">Add Customer</a>
+                  <a class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#customerForm">Add Customer</a>
                 </th>
                 <th scope="col" class="">
                   <a class="btn btn-primary btn-sm">View All Customer</a>
                 </th>
               </tr>
             </thead>
-            <tbody></tbody>
+            <tbody>
+              <%customers.forEach((item,indx) => {%>
+                <tr>
+                  <td><%=indx + 1%></td>
+                  <td><%=item.name%></td>
+                  <td><%=item.address%></td>
+                  <td><%=item.phone_number%></td>
+                  <td><%=item.joined_date%></td>
+                  <td><%=item.repair%></td>
+                  <td><%=item.fav_tech%></td>
+                  <td>
+                    <button type="submit" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editModal" data-bs-id="<%=item._id%>">Edit</button>
+                  </td>
+                  <td>
+                    <form action="/customer/<%=item._id%>?_method=DELETE" method="POST">
+                      <button type="submit" class="btn btn-primary btn-sm">Delete</button>
+                    </form>
+                  </td>
+                </tr>
+              <%})%>
+            </tbody>
           </table>
           <!--/table-->
         </div>
@@ -114,11 +96,11 @@
     <!--/container-->
 
     <!--modal-->
-    <div class="modal" id="itemForm" tabindex="-1">
+    <div class="modal" id="customerForm" tabindex="-1">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Add Inventory</h5>
+            <h5 class="modal-title">Add Customer</h5>
             <button
               type="button"
               class="btn-close"
@@ -128,43 +110,52 @@
           </div>
           <div class="modal-body">
             <!--form-->
-            <form action="inventory" method="POST">
+            <form action="/customer" method="POST">
               <div class="mb-3">
-                <label for="itemName" class="form-label">Item Name</label>
+                <label for="customerName" class="form-label">Name</label>
                 <input
                   type="text"
                   class="form-control"
-                  id="itemName"
-                  name="itemName"
+                  id="customerName"
+                  name="customerName"
                   aria-describedby=""
                 />
               </div>
               <div class="mb-3">
-                <label for="itemQty" class="form-label">Quantity</label>
+                <label for="customerAddr" class="form-label">Address</label>
                 <input
-                  type="number"
+                  type="text"
                   class="form-control"
-                  id="itemQty"
-                  name="itemQty"
+                  id="customerAddr"
+                  name="customerAddr"
                   min="0"
                 />
               </div>
               <div class="mb-3">
-                <label for="itemLocation" class="form-label">Brand</label>
+                <label for="customerPhone" class="form-label">Phone Number</label>
                 <input
-                  type="text"
+                  type="tel"
                   class="form-control"
-                  id="itemBrand"
-                  name="itemBrand"
+                  id="customerPhone"
+                  name="customerPhone"
                 />
               </div>
               <div class="mb-3">
-                <label for="itemLocation" class="form-label">Location</label>
+                <label for="customerRepair" class="form-label">Repairs</label>
                 <input
                   type="text"
                   class="form-control"
-                  id="itemLocation"
-                  name="itemLocation"
+                  id="customerRepair"
+                  name="customerRepair"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="customerTech" class="form-label">Perfer Technician</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="customerTech"
+                  name="customerTech"
                 />
               </div>
               <button type="submit" class="btn btn-primary">Add</button>
