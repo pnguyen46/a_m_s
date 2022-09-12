@@ -2,7 +2,9 @@ const express = require("express");
 const router = express.Router();
 const authController = require("../controllers/auth");
 const homeController = require("../controllers/home");
+
 const inventoryRoutes = require('./inventory');
+const customerRoutes = require('./customer');
 const { ensureAuth, ensureGuest } = require("../middleware/auth");
 
 //Main Routes - simplified for now
@@ -14,6 +16,7 @@ router.get("/signup", authController.getSignup);
 router.post("/signup", authController.postSignup);
 
 router.use('/inventory', inventoryRoutes);
+router.use('/customer', customerRoutes);
 
 
 module.exports = router;
