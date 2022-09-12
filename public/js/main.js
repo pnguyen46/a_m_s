@@ -36,12 +36,14 @@ function setModalContent(modalType,data){
       document.getElementById('editCustomerAddr').setAttribute('value',data.address);
       document.getElementById('editCustomerPhone').setAttribute('value',data.phone_number);
       document.getElementById('editCustomerFavTech').setAttribute('value',data.fav_tech);
+      document.getElementById('customerEditForm').setAttribute('action',`/${modalType}/editItem/${data._id}?_method=PUT`)
       break;
     case 'inventory':
       document.getElementById('editName').setAttribute('value',data.name);
       document.getElementById('editQty').setAttribute('value',data.quantity);
       document.getElementById('editBrand').setAttribute('value',data.brand);
       document.getElementById('editLocation').setAttribute('value',data.location);
+      document.getElementById('editForm').setAttribute('action',`/${modalType}/editItem/${data._id}?_method=PUT`)
       break;
   
     default:
@@ -58,7 +60,6 @@ async function editItem(event){
     });
     const {item} = await response.json();
     const [data] = item;
-    console.log(data);
     setModalContent(data.identifier,data);
   } catch (error) {
     return console.error(error);
