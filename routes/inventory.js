@@ -13,7 +13,7 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-router.get("/seatchItem", async (req, res, next) => {
+router.get("/searchItem", async (req, res, next) => {
   try {
     const { searchItem, searchQty, searchBrand, searchLocation } = req.query;
     const item = await inventory.find({

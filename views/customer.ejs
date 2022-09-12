@@ -46,6 +46,10 @@
     <div class="container">
       <h1 class="text-center">Customer</h1>
       <div class="row">
+        <div class="col-3 border">
+          <a class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#customerForm">Add Customer</a>
+          <a class="btn btn-primary btn-sm">View All Customer</a>
+        </div>
       
         <div class="col mt-2">
           <!--table-->
@@ -59,12 +63,12 @@
                 <th scope="col">Joined Date</th>
                 <th scope="col">Repairs</th>
                 <th scope="col">Perfer Technician</th>
-                <th scope="col" class="text-end">
+                <!-- <th scope="col" class="text-end">
                   <a class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#customerForm">Add Customer</a>
                 </th>
                 <th scope="col" class="">
                   <a class="btn btn-primary btn-sm">View All Customer</a>
-                </th>
+                </th> -->
               </tr>
             </thead>
             <tbody>
@@ -78,7 +82,7 @@
                   <td><%=item.repair%></td>
                   <td><%=item.fav_tech%></td>
                   <td>
-                    <button type="submit" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editModal" data-bs-id="<%=item._id%>">Edit</button>
+                    <button type="submit" class="btn btn-primary btn-sm editBtn" data-bs-toggle="modal" data-bs-target="#customerEditModal" data-bs-id="<%=item._id%>" data-bs-identifier="customer">Edit</button>
                   </td>
                   <td>
                     <form action="/customer/<%=item._id%>?_method=DELETE" method="POST">
@@ -169,11 +173,11 @@
     <!--/modal-->
 
     <!--modal-->
-    <div class="modal" id="editModal" tabindex="-1">
+    <div class="modal" id="customerEditModal" tabindex="-1">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Edit Inventory</h5>
+            <h5 class="modal-title">Edit Customer</h5>
             <button
               type="button"
               class="btn-close"
@@ -183,43 +187,45 @@
           </div>
           <div class="modal-body">
             <!--form-->
-            <form id="editForm" action="" method="POST">
+            <form id="customerEditForm" action="" method="POST">
               <div class="mb-3">
-                <label for="editName" class="form-label">Item Name</label>
+                <label for="editCustomerName" class="form-label">Name</label>
                 <input
                   type="text"
                   class="form-control"
-                  id="editName"
-                  name="editName"
+                  id="editCustomerName"
+                  name="editCustomerName"
                   aria-describedby=""
+                  value=""
                 />
               </div>
               <div class="mb-3">
-                <label for="editQty" class="form-label">Quantity</label>
+                <label for="editCustomerAddr" class="form-label">Address</label>
                 <input
-                  type="number"
+                  type="text"
                   class="form-control"
-                  id="editQty"
-                  name="editQty"
+                  id="editCustomerAddr"
+                  name="editCustomerAddr"
                   min="0"
                 />
               </div>
               <div class="mb-3">
-                <label for="editBrand" class="form-label">Brand</label>
+                <label for="editCustomerPhone" class="form-label">Phone Number</label>
                 <input
-                  type="text"
+                  type="number"
                   class="form-control"
-                  id="editBrand"
-                  name="editBrand"
+                  id="editCustomerPhone"
+                  name="editCustomerPhone"
+                  min="0"
                 />
               </div>
               <div class="mb-3">
-                <label for="editLocation" class="form-label">Location</label>
+                <label for="editCustomerFavTech" class="form-label">Favorite Technician</label>
                 <input
                   type="text"
                   class="form-control"
-                  id="editLocation"
-                  name="editLocation"
+                  id="editCustomerFavTech"
+                  name="editCustomerFavTech"
                 />
               </div>
               <button type="submit" class="btn btn-primary">Update</button>

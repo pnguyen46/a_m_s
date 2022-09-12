@@ -22,6 +22,10 @@ const CustomerSchema = new mongoose.Schema({
     },
     fav_tech: {
         type: String,
+    },
+    identifier:{
+        type:String,
+        default: 'customer'
     }
 });
   

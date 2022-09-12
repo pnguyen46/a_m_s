@@ -20,6 +20,10 @@ const InventorySchema = new mongoose.Schema({
   location: {
     type: String,
   },
+  identifier: {
+    type:String,
+    default:'inventory'
+  }
 });
 
 module.exports = mongoose.model('Inventory', InventorySchema,'inventory');

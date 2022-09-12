@@ -8,6 +8,15 @@ module.exports = {
             return next(error);
         }
     },
+    getCustomer: async (req,res,next) =>{
+        try {
+            const item = await customer.find({_id:req.params.id});
+            res.json({item});
+        } catch (error) {
+            return next(error);
+        }
+    }
+    ,
     addCustomer:async (req,res,next) => {
         try {
             const date = new Date().toDateString();
@@ -17,6 +26,21 @@ module.exports = {
             return next(error);
         }
     },
+    editCustomer:async (req,res,next) => {
+        try {
+            await customer.findOneAndUpdate({_id:req.params.id},{
+                name:req.body.editCustomerName,
+                address: req.body.editCustomerAddr,
+                phone_number: req.body.editCustomerPhone,
+                fav_tech:req.body.editCustomerFavTech
+            });
+            console.log("Item Updated");
+            res.redirect('/customer');
+        } catch (error) {
+            return next(error);
+        }
+    }
+    ,
     deleteCustomer: async (req,res,next) => {
         try {
             await customer.findOneAndDelete({_id:req.params.id});
