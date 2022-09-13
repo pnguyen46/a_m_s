@@ -29,6 +29,12 @@ Array.from(editBtn).forEach((el)=>{
   el.addEventListener('click', editItem)
 })
 
+const addInputBoxBtn = document.getElementById('addInputBox');
+addInputBoxBtn.addEventListener('click',addInputBox);
+
+const deleteInputBoxBtn = document.getElementById('deleteInputBox');
+deleteInputBoxBtn.addEventListener('click',deleteInputBox)
+
 function setModalContent(modalType,data){
   switch (modalType) {
     case 'customer':
@@ -84,5 +90,44 @@ async function editItem(event){
     setModalContent(route,data);
   } catch (error) {
     return console.error(error);
+  }
+}
+
+function setAttributes(element, attributes) {
+  Object.keys(attributes).forEach(attr => {
+    element.setAttribute(attr, attributes[attr]);
+  });
+}
+
+function addInputBox(){
+  const formEle = addInputBoxBtn.parentElement.previousElementSibling;
+  const container = document.createElement('div');
+  container.setAttribute('class','d-flex');
+
+  const partNameInputBox = document.createElement('input');
+  const partNameAttributes = {
+    type: 'text',
+    class:'form-control w-75',
+    name: 'repairParts',
+  };
+  setAttributes(partNameInputBox,partNameAttributes);
+
+  const partQtyInputBox = document.createElement('input');
+  const partQtyAttributes = {
+    type: 'number',
+    class:'form-control w-25',
+    name: 'repairParts',
+  };
+  setAttributes(partQtyInputBox,partQtyAttributes);
+  container.appendChild(partNameInputBox);
+  container.appendChild(partQtyInputBox);
+  formEle.appendChild(container);
+}
+
+
+function deleteInputBox(){
+  const formEl = document.getElementById('partContainer');
+  if(formEl.children.length > 1){
+    formEl.removeChild(formEl.lastElementChild);
   }
 }

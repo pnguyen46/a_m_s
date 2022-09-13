@@ -26,7 +26,6 @@ module.exports = {
                 cost:req.body.repairCost,
                 date:undefined,
                 technician:req.body.repairTech,
-                status:req.body.repairStatus
             });
             console.log('Ticket Created!');
             res.redirect('/ticket');

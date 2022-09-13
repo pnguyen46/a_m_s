@@ -10,14 +10,14 @@ const TicketSchema = new mongoose.Schema({
         required:true
     },
     hour:{
-        type:String,
+        type:Number,
         required:true
     },
     parts:{
         type:Array
     },
     cost:{
-        type:String,
+        type:Number,
         required:true
     },
     date:{
@@ -30,7 +30,12 @@ const TicketSchema = new mongoose.Schema({
     },
     status:{
         type:String,
+        default:'In progress',
         required:true
+    },
+    closed: {
+        type:Boolean,
+        default: false
     }
 });
   
