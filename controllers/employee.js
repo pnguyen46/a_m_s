@@ -19,6 +19,9 @@ module.exports = {
     addEmployee: async (req,res,next) => {
         try {
             const date = new Date().toDateString();
+            if(!req.body.employeeClass){
+                req.body.employeeClass = undefined;
+            }
             await employee.create({
                 name:req.body.employeeName,
                 address:req.body.employeeAddr,

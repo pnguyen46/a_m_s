@@ -6,6 +6,7 @@ const homeController = require("../controllers/home");
 const inventoryRoutes = require('./inventory');
 const customerRoutes = require('./customer');
 const employeeRoutes = require('./employee');
+const ticketRoutes = require('./ticket');
 const { ensureAuth, ensureGuest } = require("../middleware/auth");
 
 //Main Routes - simplified for now
@@ -19,6 +20,7 @@ router.post("/signup", authController.postSignup);
 router.use('/inventory', inventoryRoutes);
 router.use('/customer', customerRoutes);
 router.use('/employee', employeeRoutes);
+router.use('/ticket',ticketRoutes);
 
 
 module.exports = router;
