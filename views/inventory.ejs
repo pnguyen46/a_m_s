@@ -239,7 +239,7 @@
                 />
               </div>
               <button type="submit" class="btn btn-primary">Add</button>
-              <button type="reset" class="btn btn-primary">Reset</button>
+              <button type="reset" id="hiddenBtn" class="btn btn-primary">Reset</button>
             </form>
             <!--/form-->
           </div>
@@ -247,70 +247,6 @@
       </div>
     </div>
     <!--/modal-->
-
-    <!--modal-->
-    <div class="modal" id="editModal" tabindex="-1">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Edit Inventory</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <!--form-->
-            <form id="editForm" action="" method="POST">
-              <div class="mb-3">
-                <label for="editName" class="form-label">Item Name</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="editName"
-                  name="editName"
-                  aria-describedby=""
-                />
-              </div>
-              <div class="mb-3">
-                <label for="editQty" class="form-label">Quantity</label>
-                <input
-                  type="number"
-                  class="form-control"
-                  id="editQty"
-                  name="editQty"
-                  min="0"
-                />
-              </div>
-              <div class="mb-3">
-                <label for="editBrand" class="form-label">Brand</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="editBrand"
-                  name="editBrand"
-                />
-              </div>
-              <div class="mb-3">
-                <label for="editLocation" class="form-label">Location</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="editLocation"
-                  name="editLocation"
-                />
-              </div>
-              <button type="submit" class="btn btn-primary">Update</button>
-            </form>
-            <!--/form-->
-          </div>
-        </div>
-      </div>
-    </div>
-    <!--/modal-->
-
     <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 1: Bootstrap Bundle with Popper -->

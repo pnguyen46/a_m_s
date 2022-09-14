@@ -36,7 +36,7 @@ Array.from(editBtn).forEach((el) => {
 // const deleteInputBoxBtn = document.getElementById('deleteInputBox');
 // deleteInputBoxBtn.addEventListener('click',deleteInputBox)
 
-function setModalContent(modalType, data) {
+function setModalContent(modalType, data, dataId) {
   switch (modalType) {
     case "customer":
       document
@@ -59,18 +59,10 @@ function setModalContent(modalType, data) {
         );
       break;
     case "inventory":
-      document.getElementById("itemName").setAttribute("value", data.name);
-      document.getElementById("itemQty").setAttribute("value", data.quantity);
-      document.getElementById("itemBrand").setAttribute("value", data.brand);
-      document
-        .getElementById("itemLocation")
-        .setAttribute("value", data.location);
-      document
-        .getElementById("form")
-        .setAttribute(
-          "action",
-          `/${modalType}/editItem/${data._id}?_method=PUT`
-        );
+      const formEl = document.getElementById("form");
+      const inputEle = document.querySelectorAll("#form input");
+      inputEle.forEach((item, indx) => (item.value = data[indx]));
+      formEl.action = `/${modalType}/editItem/${dataId}?_method=PUT`;
       break;
     case "employee":
       document
@@ -136,16 +128,28 @@ function setModalContent(modalType, data) {
 
 async function editItem(event) {
   try {
-    const form = document.getElementById('form');
+    const form = document.getElementById("form");
     const itemId = event.target.getAttribute("data-bs-id");
     const route = event.target.getAttribute("data-bs-identifier");
+
+    //retrieveJson(route,itemId) : fn()
     const response = await fetch(`${route}/${itemId}`, {
       method: "GET",
     });
     const { item } = await response.json();
     const [data] = item;
+    //filterData(dataArr) : fn()
+    const filteredData = [];
+    let data_id = undefined;
+    for (const item in data) {
+      if (item !== "__v" && item !== "_id" && item !== "userId") {
+        filteredData.push(data[item]);
+      } else if (item === "_id") {
+        data_id = data[item];
+      }
+    }
     form.reset();
-    setModalContent(route, data);
+    setModalContent(route, filteredData, data_id);
   } catch (error) {
     return console.error(error);
   }
@@ -185,14 +189,17 @@ function addInputBox() {
 const resetAddBtn = document.getElementById("resetAddBtn");
 resetAddBtn.addEventListener("click", (event) => {
   document.getElementById("resetBtn").setAttribute("data-bs-type", "edit");
+  document.getElementById("hiddenBtn").classList.add("d-none");
 });
 
 const resetBtn = document.getElementById("resetBtn");
 resetBtn.addEventListener("click", (event) => {
   const flag = event.target.getAttribute("data-bs-type");
   if (flag === "edit") {
+    const enableResetBtn = document.getElementById("hiddenBtn");
+    enableResetBtn.classList.remove("d-none");
     const input = document.querySelectorAll("#form input");
-    input.forEach(item => item.value = '');
+    input.forEach((item) => (item.value = ""));
     resetBtn.setAttribute("data-bs-type", "");
   }
 });
