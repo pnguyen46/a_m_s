@@ -26,11 +26,12 @@ module.exports = {
                 name:req.body.employeeName,
                 address:req.body.employeeAddr,
                 phone_number:req.body.employeePhone,
+                joined_date:date,
                 repair:req.body.employeeRepair,
+                DOB:'',
                 specialty:req.body.employeeSpecialty,
                 class:req.body.employeeClass,
-                status:req.body.employeeStatus,
-                joined_date:date
+                status:req.body.employeeStatus
             });
             return res.redirect('/employee');
         } catch (error) {

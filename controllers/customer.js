@@ -20,7 +20,14 @@ module.exports = {
     addCustomer:async (req,res,next) => {
         try {
             const date = new Date().toDateString();
-            await customer.create({name:req.body.customerName,address:req.body.customerAddr,phone_number:req.body.customerPhone,repair:req.body.customerRepair,fav_tech:req.body.customerTech,joined_date:date})
+            await customer.create({
+                name:req.body.customerName,
+                address:req.body.customerAddr,
+                phone_number:req.body.customerPhone,
+                repair:req.body.customerRepair,
+                fav_tech:req.body.customerTech,
+                joined_date:date
+            })
             res.redirect('/customer');
         } catch (error) {
             return next(error);

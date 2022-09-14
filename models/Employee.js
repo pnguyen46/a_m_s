@@ -27,8 +27,7 @@ const EmployeeSchema = new mongoose.Schema({
         type:String,
     },
     class:{
-        type:String,
-        default:'Apprentice'
+        type:String
     },
     status:{
         type:String,

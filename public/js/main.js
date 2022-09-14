@@ -30,126 +30,68 @@ Array.from(editBtn).forEach((el) => {
   el.addEventListener("click", editItem);
 });
 
+const resetAddBtn = document.getElementById("resetAddBtn");
+resetAddBtn.addEventListener("click", (event) => {
+  document.getElementById("resetBtn").setAttribute("data-bs-type", "edit");
+  document.getElementById("hiddenBtn").classList.add("d-none");
+});
+
+const resetBtn = document.getElementById("resetBtn");
+resetBtn.addEventListener("click", (event) => {
+  const flag = event.target.getAttribute("data-bs-type");
+  if (flag === "edit") {
+    const enableResetBtn = document.getElementById("hiddenBtn");
+    enableResetBtn.classList.remove("d-none");
+    const input = document.querySelectorAll("#form input");
+    input.forEach((item) => (item.value = ""));
+    resetBtn.setAttribute("data-bs-type", "");
+  }
+});
 // const addInputBoxBtn = document.getElementById('addInputBox');
 // addInputBoxBtn.addEventListener('click',addInputBox);
 
 // const deleteInputBoxBtn = document.getElementById('deleteInputBox');
 // deleteInputBoxBtn.addEventListener('click',deleteInputBox)
 
-function setModalContent(modalType, data, dataId) {
-  switch (modalType) {
-    case "customer":
-      document
-        .getElementById("editCustomerName")
-        .setAttribute("value", data.name);
-      document
-        .getElementById("editCustomerAddr")
-        .setAttribute("value", data.address);
-      document
-        .getElementById("editCustomerPhone")
-        .setAttribute("value", data.phone_number);
-      document
-        .getElementById("editCustomerFavTech")
-        .setAttribute("value", data.fav_tech);
-      document
-        .getElementById("customerEditForm")
-        .setAttribute(
-          "action",
-          `/${modalType}/editItem/${data._id}?_method=PUT`
-        );
-      break;
-    case "inventory":
-      const formEl = document.getElementById("form");
-      const inputEle = document.querySelectorAll("#form input");
-      inputEle.forEach((item, indx) => (item.value = data[indx]));
-      formEl.action = `/${modalType}/editItem/${dataId}?_method=PUT`;
-      break;
-    case "employee":
-      document
-        .getElementById("editEmployeeName")
-        .setAttribute("value", data.name);
-      document
-        .getElementById("editEmployeeAddr")
-        .setAttribute("value", data.address);
-      document
-        .getElementById("editEmployeePhone")
-        .setAttribute("value", data.phone_number);
-      document
-        .getElementById("editEmployeeRepair")
-        .setAttribute("value", data.repair);
-      document
-        .getElementById("editEmployeeSpecialty")
-        .setAttribute("value", data.specialty);
-      document
-        .getElementById("editEmployeeClass")
-        .setAttribute("value", data.class);
-      document
-        .getElementById("editEmployeeStatus")
-        .setAttribute("value", data.status);
-      document
-        .getElementById("employeeEditForm")
-        .setAttribute(
-          "action",
-          `/${modalType}/editItem/${data._id}?_method=PUT`
-        );
-      break;
-    case "ticket":
-      document
-        .getElementById("repairEditType")
-        .setAttribute("value", data.repairType);
-      document.getElementById("repairEditHrs").setAttribute("value", data.hour);
-      document
-        .getElementById("repairEditParts")
-        .setAttribute("value", data.parts);
-      document
-        .getElementById("repairEditCost")
-        .setAttribute("value", data.cost);
-      document
-        .getElementById("repairEditDate")
-        .setAttribute("value", new Date(data.date).toDateString());
-      document
-        .getElementById("repairEditTech")
-        .setAttribute("value", data.technician);
-      document
-        .getElementById("repairEditStatus")
-        .setAttribute("value", data.status);
-      document
-        .getElementById("repairEditModal")
-        .setAttribute(
-          "action",
-          `/${modalType}/editItem/${data._id}?_method=PUT`
-        );
-      break;
-
-    default:
-      break;
-  }
-}
-
-async function editItem(event) {
+async function getJSONData(route,id){
   try {
-    const form = document.getElementById("form");
-    const itemId = event.target.getAttribute("data-bs-id");
-    const route = event.target.getAttribute("data-bs-identifier");
-
-    //retrieveJson(route,itemId) : fn()
-    const response = await fetch(`${route}/${itemId}`, {
+    const response = await fetch(`${route}/${id}`, {
       method: "GET",
     });
     const { item } = await response.json();
     const [data] = item;
-    //filterData(dataArr) : fn()
-    const filteredData = [];
-    let data_id = undefined;
-    for (const item in data) {
-      if (item !== "__v" && item !== "_id" && item !== "userId") {
-        filteredData.push(data[item]);
-      } else if (item === "_id") {
-        data_id = data[item];
-      }
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+function filterArr(dataObj){
+  console.log(dataObj);
+  const filteredData = [];
+  for (const item in dataObj) {
+    if (item !== "__v" && item !== "_id" && item !== "userId" && !Array.isArray(item)) {
+      filteredData.push(dataObj[item]);
     }
-    form.reset();
-    setModalContent(route, filteredData, data_id);
+  }
+  return filteredData;
+}
+
+function setValues(route,data,id){
+  console.log(data);
+  const formEl = document.getElementById("form");
+  const inputEle = document.querySelectorAll("#form input");
+  formEl.reset();
+  inputEle.forEach((item, indx) => (item.value = data[indx]));
+  formEl.action = `/${route}/editItem/${id}?_method=PUT`;
+}
+async function editItem(event) {
+  try {
+    const itemId = event.target.getAttribute("data-bs-id");
+    const route = event.target.getAttribute("data-bs-identifier");
+    const data = await getJSONData(route,itemId);
+    const filteredData = filterArr(data);
+    setValues(route,filteredData,data._id);
   } catch (error) {
     return console.error(error);
   }
@@ -185,21 +127,3 @@ function addInputBox() {
   container.appendChild(partQtyInputBox);
   formEle.appendChild(container);
 }
-
-const resetAddBtn = document.getElementById("resetAddBtn");
-resetAddBtn.addEventListener("click", (event) => {
-  document.getElementById("resetBtn").setAttribute("data-bs-type", "edit");
-  document.getElementById("hiddenBtn").classList.add("d-none");
-});
-
-const resetBtn = document.getElementById("resetBtn");
-resetBtn.addEventListener("click", (event) => {
-  const flag = event.target.getAttribute("data-bs-type");
-  if (flag === "edit") {
-    const enableResetBtn = document.getElementById("hiddenBtn");
-    enableResetBtn.classList.remove("d-none");
-    const input = document.querySelectorAll("#form input");
-    input.forEach((item) => (item.value = ""));
-    resetBtn.setAttribute("data-bs-type", "");
-  }
-});
