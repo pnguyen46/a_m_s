@@ -53,13 +53,15 @@
               href="#"
               data-bs-toggle="modal"
               data-bs-target="#itemForm"
+              data-bs-type=""
+              id="resetBtn"
             >
               Add To Inventory
             </button>
           </nav>
         </div>
         <div class="col border">
-          <h3>Search Inventory:</h3>
+          <!-- <h3>Search Inventory:</h3>
           <form
             class="d-inline-flex"
             action="/inventory/seatchItem"
@@ -99,7 +101,7 @@
             <button class="btn btn-outline-primary ms-2" type="reset">
               Reset
             </button>
-          </form>
+          </form> -->
           <!--table-->
           <table class="table">
             <thead>
@@ -123,8 +125,9 @@
                   <button
                     type="submit"
                     class="btn btn-primary btn-sm editBtn"
+                    id="resetAddBtn"
                     data-bs-toggle="modal"
-                    data-bs-target="#editModal"
+                    data-bs-target="#itemForm"
                     data-bs-identifier="inventory"
                     data-bs-id="<%=item._id%>"
                   >
@@ -196,7 +199,7 @@
           </div>
           <div class="modal-body">
             <!--form-->
-            <form action="inventory" method="POST">
+            <form action="inventory" method="POST" id="form">
               <div class="mb-3">
                 <label for="itemName" class="form-label">Item Name</label>
                 <input
