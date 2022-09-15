@@ -22,12 +22,15 @@ const EmployeeSchema = new mongoose.Schema({
     },
     DOB: {
         type: String,
+        required:true
     },
     specialty:{
         type:String,
     },
     class:{
-        type:String
+        type:String,
+        reuired:true,
+        default:'Apprentice'
     },
     status:{
         type:String,

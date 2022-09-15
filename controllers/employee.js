@@ -3,6 +3,7 @@ module.exports = {
     getIndex: async (req,res,next) => {
         try {
             const employees = await employee.find({});
+            console.log(employees);
             res.render('employee',{title:'Employee',employees});
         } catch (error) {
             return next(error);
@@ -18,17 +19,17 @@ module.exports = {
     },
     addEmployee: async (req,res,next) => {
         try {
-            const date = new Date().toDateString();
             if(!req.body.employeeClass){
                 req.body.employeeClass = undefined;
             }
+
             await employee.create({
                 name:req.body.employeeName,
                 address:req.body.employeeAddr,
                 phone_number:req.body.employeePhone,
-                joined_date:date,
+                joined_date:req.body.employeeJDate,
                 repair:req.body.employeeRepair,
-                DOB:'',
+                DOB:req.body.employeeDOB,
                 specialty:req.body.employeeSpecialty,
                 class:req.body.employeeClass,
                 status:req.body.employeeStatus
@@ -47,7 +48,8 @@ module.exports = {
                 repair:req.body.editEmployeeRepair,
                 specialty:req.body.editEmployeeSpecialty,
                 class:req.body.editEmployeeClass,
-                status:req.body.editEmployeeStatus
+                status:req.body.editEmployeeStatus,
+                DOB:req.body.employeeDOB
             });
             console.log("Item Updated");
             res.redirect('/employee');

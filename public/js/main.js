@@ -30,28 +30,22 @@ Array.from(editBtn).forEach((el) => {
   el.addEventListener("click", editItem);
 });
 
-const resetAddBtn = document.getElementById("resetAddBtn");
-resetAddBtn.addEventListener("click", (event) => {
-  document.getElementById("resetBtn").setAttribute("data-bs-type", "edit");
-  document.getElementById("hiddenBtn").classList.add("d-none");
-});
+const resetAddBtn = document.getElementById("resetAddBtn")
+if(resetAddBtn){
+  resetAddBtn.addEventListener("click", (event) => {
+    document.getElementById("resetBtn").setAttribute("data-bs-type", "edit");
+    document.getElementById("hiddenBtn").classList.add("d-none");
+  });
+}
 
 const resetBtn = document.getElementById("resetBtn");
-resetBtn.addEventListener("click", (event) => {
-  const flag = event.target.getAttribute("data-bs-type");
-  if (flag === "edit") {
-    const enableResetBtn = document.getElementById("hiddenBtn");
-    enableResetBtn.classList.remove("d-none");
-    const input = document.querySelectorAll("#form input");
-    input.forEach((item) => (item.value = ""));
-    resetBtn.setAttribute("data-bs-type", "");
-  }
-});
-// const addInputBoxBtn = document.getElementById('addInputBox');
-// addInputBoxBtn.addEventListener('click',addInputBox);
+resetBtn.addEventListener("click", clearValues);
 
-// const deleteInputBoxBtn = document.getElementById('deleteInputBox');
-// deleteInputBoxBtn.addEventListener('click',deleteInputBox)
+const addInputBoxBtn = document.getElementById('addInputBox');
+addInputBoxBtn.addEventListener('click',addInputBox);
+
+const deleteInputBoxBtn = document.getElementById('deleteInputBox');
+deleteInputBoxBtn.addEventListener('click',deleteInputBox)
 
 async function getJSONData(route,id){
   try {
@@ -66,34 +60,37 @@ async function getJSONData(route,id){
   }
 }
 
-function filterArr(dataObj){
-  console.log(dataObj);
-  const filteredData = [];
-  for (const item in dataObj) {
-    if (item !== "__v" && item !== "_id" && item !== "userId" && !Array.isArray(item)) {
-      filteredData.push(dataObj[item]);
-    }
-  }
-  return filteredData;
-}
-
-function setValues(route,data,id){
-  console.log(data);
+function displayValues(route,data,id){
   const formEl = document.getElementById("form");
   const inputEle = document.querySelectorAll("#form input");
+  const idArr = Array.from(inputEle).filter(item => item.getAttribute('id') !== 'parts').map(item => item.getAttribute('id'));
+  const filteredArr = idArr.map(id => data[id]);
+  console.log(filteredArr);
   formEl.reset();
-  inputEle.forEach((item, indx) => (item.value = data[indx]));
+  inputEle.forEach((item, indx) => (item.value = filteredArr[indx]));
   formEl.action = `/${route}/editItem/${id}?_method=PUT`;
 }
-async function editItem(event) {
+
+async function editItem(event){
   try {
     const itemId = event.target.getAttribute("data-bs-id");
     const route = event.target.getAttribute("data-bs-identifier");
     const data = await getJSONData(route,itemId);
-    const filteredData = filterArr(data);
-    setValues(route,filteredData,data._id);
+    displayValues(route,data,data._id);
   } catch (error) {
     return console.error(error);
+  }
+}
+
+
+function clearValues(){
+  const flag = event.target.getAttribute("data-bs-type");
+  if (flag === "edit") {
+    const enableResetBtn = document.getElementById("hiddenBtn");
+    enableResetBtn.classList.remove("d-none");
+    const input = document.querySelectorAll("#form input");
+    input.forEach((item) => (item.value = ""));
+    resetBtn.setAttribute("data-bs-type", "");
   }
 }
 
@@ -126,4 +123,11 @@ function addInputBox() {
   container.appendChild(partNameInputBox);
   container.appendChild(partQtyInputBox);
   formEle.appendChild(container);
+}
+
+function deleteInputBox(){
+  const partContainerEle = document.getElementById('partContainer');
+  if(partContainerEle.children.length > 1){
+    partContainerEle.removeChild(partContainerEle.lastElementChild);
+  }
 }

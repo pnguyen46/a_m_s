@@ -1,8 +1,12 @@
 const ticket = require('../models/Ticket');
 module.exports = {
-    getIndex:async (req,res,next) => {
+    getIndex:async function(req,res,next){
         try {
             const tickets = await ticket.find({userId:req.user._id});
+            const [data] = tickets;
+            const {parts} = data;
+            const partlist = module.exports.partListBuilder(parts);
+            tickets[0]['parts'] = partlist;
             res.render('ticket',{title:'Ticket',tickets});
         } catch (error) {
             return next(error);
@@ -18,14 +22,19 @@ module.exports = {
     },
     postTicket: async (req,res,next) => {
         try {
+            if(!req.body.repairStatus){
+                req.body.repairStatus = undefined;
+            }
+            console.log(req.body.repairParts);
             await ticket.create({
                 userId:req.user._id,
                 repairType:req.body.repairType,
                 hour:req.body.repairHours,
                 parts:req.body.repairParts,
                 cost:req.body.repairCost,
-                date:undefined,
+                date:req.body.repairDate,
                 technician:req.body.repairTech,
+                status:req.body.repairStatus
             });
             console.log('Ticket Created!');
             res.redirect('/ticket');
@@ -48,5 +57,17 @@ module.exports = {
         } catch (error) {
             return next(error);
         }
+    },
+    partListBuilder:(arr) => {
+        const filteredArr = [];
+        let temp = undefined;
+        while (arr.length > 0) {
+            temp = [];
+            for (let i = 0; i < 2; i++) {
+                temp.push(arr.shift());
+            }
+            filteredArr.push(temp);
+        }
+        return filteredArr.map(item => item.join(' x '));
     }
 }

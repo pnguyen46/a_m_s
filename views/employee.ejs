@@ -51,7 +51,7 @@
             class="btn btn-primary btn-sm"
             data-bs-toggle="modal"
             data-bs-target="#itemForm"
-            data-bs-type=""
+            data-bs-type="edit"
             id="resetBtn"
             >Add Employee</a
           >
@@ -81,7 +81,7 @@
               <tr>
                 <td><%=indx + 1%></td>
                 <td><%=item.name%></td>
-                <td><%=item.date%></td>
+                <td><%=item.DOB%></td>
                 <td><%=item.address%></td>
                 <td><%=item.phone_number%></td>
                 <td><%=item.repair%></td>
@@ -139,91 +139,91 @@
             <!--form-->
             <form action="/employee" method="POST" id="form">
               <div class="mb-3">
-                <label for="employeeName" class="form-label">Name</label>
+                <label for="name" class="form-label">Name</label>
                 <input
                   type="text"
                   class="form-control"
-                  id="employeeName"
+                  id="name"
                   name="employeeName"
                   aria-describedby=""
                 />
               </div>
               <div class="mb-3">
-                <label for="employeeAddr" class="form-label">Address</label>
+                <label for="address" class="form-label">Address</label>
                 <input
                   type="text"
                   class="form-control"
-                  id="employeeAddr"
+                  id="address"
                   name="employeeAddr"
                   min="0"
                 />
               </div>
               <div class="mb-3">
-                <label for="employeePhone" class="form-label"
+                <label for="phone_number" class="form-label"
                   >Phone Number</label
                 >
                 <input
                   type="tel"
                   class="form-control"
-                  id="employeePhone"
+                  id="phone_number"
                   name="employeePhone"
                 />
               </div>
               <div class="mb-3">
-                <label for="employeeJDate" class="form-label"
+                <label for="joined_date" class="form-label"
                   >Joined Date</label
                 >
                 <input
-                  type="text"
+                  type="date"
                   class="form-control"
-                  id="employeeJDate"
+                  id="joined_date"
                   name="employeeJDate"
                 />
               </div>
               <div class="mb-3">
-                <label for="employeeRepair" class="form-label">Repairs</label>
+                <label for="repair" class="form-label">Repairs</label>
                 <input
                   type="text"
                   class="form-control"
-                  id="employeeRepair"
+                  id="repair"
                   name="employeeRepair"
                 />
               </div>
               <div class="mb-3">
-                <label for="employeeDOB" class="form-label">DOB</label>
+                <label for="DOB" class="form-label">DOB</label>
                 <input
-                  type="text"
+                  type="date"
                   class="form-control"
-                  id="employeeDOB"
+                  id="DOB"
                   name="employeeDOB"
                 />
               </div>
               <div class="mb-3">
-                <label for="employeeSpecialty" class="form-label"
+                <label for="specialty" class="form-label"
                   >Specialty</label
                 >
                 <input
                   type="text"
                   class="form-control"
-                  id="employeeSpecialty"
+                  id="specialty"
                   name="employeeSpecialty"
                 />
               </div>
               <div class="mb-3">
-                <label for="employeeClass" class="form-label">Class</label>
+                <label for="class" class="form-label">Class</label>
                 <input
                   type="text"
                   class="form-control"
-                  id="employeeClass"
+                  id="class"
                   name="employeeClass"
                 />
               </div>
               <div class="mb-3">
-                <label for="employeeStatus" class="form-label">Status</label>
+                <label for="status" class="form-label">Status</label>
                 <input
                   type="text"
                   class="form-control"
-                  id="employeeStatus"
+                  id="status"
                   name="employeeStatus"
                 />
               </div>

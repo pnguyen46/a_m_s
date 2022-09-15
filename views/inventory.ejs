@@ -53,7 +53,7 @@
               href="#"
               data-bs-toggle="modal"
               data-bs-target="#itemForm"
-              data-bs-type=""
+              data-bs-type="edit"
               id="resetBtn"
             >
               Add To Inventory
@@ -157,7 +157,7 @@
                     type="submit"
                     class="btn btn-primary btn-sm editBtn"
                     data-bs-toggle="modal"
-                    data-bs-target="#editModal"
+                    data-bs-target="#itemForm"
                     data-bs-id="<%=item._id%>"
                     data-bs-identifier="inventory"
                   >
@@ -201,40 +201,40 @@
             <!--form-->
             <form action="inventory" method="POST" id="form">
               <div class="mb-3">
-                <label for="itemName" class="form-label">Item Name</label>
+                <label for="name" class="form-label">Item Name</label>
                 <input
                   type="text"
                   class="form-control"
-                  id="itemName"
+                  id="name"
                   name="itemName"
                   aria-describedby=""
                 />
               </div>
               <div class="mb-3">
-                <label for="itemQty" class="form-label">Quantity</label>
+                <label for="quantity" class="form-label">Quantity</label>
                 <input
                   type="number"
                   class="form-control"
-                  id="itemQty"
+                  id="quantity"
                   name="itemQty"
                   min="0"
                 />
               </div>
               <div class="mb-3">
-                <label for="itemLocation" class="form-label">Brand</label>
+                <label for="brand" class="form-label">Brand</label>
                 <input
                   type="text"
                   class="form-control"
-                  id="itemBrand"
+                  id="brand"
                   name="itemBrand"
                 />
               </div>
               <div class="mb-3">
-                <label for="itemLocation" class="form-label">Location</label>
+                <label for="location" class="form-label">Location</label>
                 <input
                   type="text"
                   class="form-control"
-                  id="itemLocation"
+                  id="location"
                   name="itemLocation"
                 />
               </div>

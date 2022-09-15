@@ -46,13 +46,19 @@
     <div class="container">
       <h1 class="text-center">Ticket</h1>
       <div class="row mt-5">
-
         <h2 class="text-center">Active Ticket</h2>
         <div class="col-3 border">
-          <a class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#ticketForm">Create Ticket</a>
+          <a
+            class="btn btn-primary btn-sm"
+            data-bs-toggle="modal"
+            data-bs-target="#itemForm"
+            data-bs-type="edit"
+            id="resetBtn"
+            >Create Ticket</a
+          >
           <a class="btn btn-primary btn-sm">View All Tickets</a>
         </div>
-      
+
         <div class="col">
           <!--table-->
           <table class="table">
@@ -70,29 +76,55 @@
             </thead>
             <tbody class="text-center">
               <%tickets.forEach((item,indx) => {%>
-                <tr>
-                  <td><%=indx + 1%></td>
-                  <td><%=item.repairType%></td>
-                  <td><%=item.hour%></td>
-                  <td></td>
-                  <td><%=item.cost%></td>
-                  <td><%=new Date(item.date).toDateString()%></td>
-                  <td><%=item.technician%></td>
-                  <td><%=item.status%></td>
-                  <td>
-                    <button type="submit" class="btn btn-primary btn-sm editBtn" data-bs-toggle="modal" data-bs-target="#repairEditModal" data-bs-id="<%=item._id%>" data-bs-identifier="ticket">Edit</button>
-                  </td>
-                  <td>
-                    <form action="/ticket/deleteItem/<%=item._id%>?_method=DELETE" method="POST">
-                      <button type="submit" class="btn btn-primary btn-sm">Delete</button>
-                    </form>
-                  </td>
-                  <td>
-                    <form action="/ticket/closeTicket/<%=item._id%>?_method=PUT" method="POST">
-                      <button type="submit" class="btn btn-primary btn-sm">Close</button>
-                    </form>
-                  </td>
-                </tr>
+              <tr>
+                <td><%=indx + 1%></td>
+                <td><%=item.repairType%></td>
+                <td><%=item.hour%></td>
+                <td>
+                  <ul>
+                    <%item.parts.forEach(el => {%>
+                        <li><%=el%></li>
+                    <%})%>
+                  </ul>
+                </td>
+                <td><%=item.cost%></td>
+                <td><%=item.date%></td>
+                <td><%=item.technician%></td>
+                <td><%=item.status%></td>
+                <td>
+                  <button
+                    type="submit"
+                    id="resetAddBtn"
+                    class="btn btn-primary btn-sm editBtn"
+                    data-bs-toggle="modal"
+                    data-bs-target="#itemForm"
+                    data-bs-id="<%=item._id%>"
+                    data-bs-identifier="ticket"
+                  >
+                    Edit
+                  </button>
+                </td>
+                <td>
+                  <form
+                    action="/ticket/deleteItem/<%=item._id%>?_method=DELETE"
+                    method="POST"
+                  >
+                    <button type="submit" class="btn btn-primary btn-sm">
+                      Delete
+                    </button>
+                  </form>
+                </td>
+                <td>
+                  <form
+                    action="/ticket/closeTicket/<%=item._id%>?_method=PUT"
+                    method="POST"
+                  >
+                    <button type="submit" class="btn btn-primary btn-sm">
+                      Close
+                    </button>
+                  </form>
+                </td>
+              </tr>
               <%})%>
             </tbody>
           </table>
@@ -109,7 +141,7 @@
         <div class="col-3 border order-1 mt-1">
           <a class="btn btn-primary btn-sm">View All Tickets</a>
         </div>
-      
+
         <div class="col">
           <!--table-->
           <table class="table">
@@ -124,8 +156,7 @@
                 <th scope="col">Date</th>
               </tr>
             </thead>
-            <tbody>
-            </tbody>
+            <tbody></tbody>
           </table>
           <!--/table-->
         </div>
@@ -134,7 +165,7 @@
     <!--/container-->
 
     <!--modal-->
-    <div class="modal" id="ticketForm" tabindex="-1">
+    <div class="modal" id="itemForm" tabindex="-1">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -148,9 +179,9 @@
           </div>
           <div class="modal-body">
             <!--form-->
-            <form action="/ticket" method="POST">
+            <form action="/ticket" method="POST" id="form">
               <div class="mb-3">
-                <label for="repairType" class="form-label">Name</label>
+                <label for="repairType" class="form-label">Repair Type</label>
                 <input
                   type="text"
                   class="form-control"
@@ -160,45 +191,22 @@
                 />
               </div>
               <div class="mb-3">
-                <label for="repairHours" class="form-label">Hours</label>
+                <label for="hour" class="form-label">Hours</label>
                 <input
                   type="number"
                   class="form-control"
-                  id="repairHours"
+                  id="hour"
                   name="repairHours"
                   min="0"
-                  step="0.01"
+                  step="0.10"
                 />
               </div>
               <div class="mb-3">
-                <label for="repairParts" class="form-label">Parts</label>
-                <div id="partContainer">
-                  <div class="d-flex">
-                    <input
-                      type="text"
-                      class="form-control w-75"
-                      id="repairParts"
-                      name="repairParts"
-                    />
-                    <input
-                      type="number"
-                      class="form-control w-25"
-                      id="repairParts"
-                      name="repairParts"
-                    />
-                  </div>
-                </div>
-                <div class="d-flex justify-content-end mt-3">
-                  <button class="btn btn-primary btn-sm" id="addInputBox" type="button">Add Input Box</button>
-                  <button class="btn btn-primary btn-sm ms-1" id="deleteInputBox" type="button">Delete Input Box</button>
-                </div>
-              </div>
-              <div class="mb-3">
-                <label for="repairCost" class="form-label">Cost</label>
+                <label for="cost" class="form-label">Cost</label>
                 <input
                   type="number"
                   class="form-control"
-                  id="repairCost"
+                  id="cost"
                   name="repairCost"
                   min="0"
                   step="0.01"
@@ -207,113 +215,69 @@
               <div class="mb-3">
                 <label for="repairDate" class="form-label">Date</label>
                 <input
-                  type="datetime"
+                  type="date"
                   class="form-control"
-                  id="repairDate"
+                  id="date"
                   name="repairDate"
                 />
               </div>
               <div class="mb-3">
-                <label for="repairTech" class="form-label">Technician</label>
+                <label for="technician" class="form-label">Technician</label>
                 <input
                   type="text"
                   class="form-control"
-                  id="repairTech"
+                  id="technician"
                   name="repairTech"
                 />
               </div>
+              <div class="mb-3">
+                <label for="status" class="form-label">Status</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="status"
+                  name="repairStatus"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="parts" class="form-label">Parts</label>
+                <div id="partContainer">
+                  <div class="d-flex">
+                    <input
+                      type="text"
+                      class="form-control w-75"
+                      id="parts"
+                      name="repairParts"
+                    />
+                    <input
+                      type="number"
+                      class="form-control w-25"
+                      id="parts"
+                      name="repairParts"
+                    />
+                  </div>
+                </div>
+                <div class="d-flex justify-content-end mt-3">
+                  <button
+                    class="btn btn-primary btn-sm"
+                    id="addInputBox"
+                    type="button"
+                  >
+                    Add Input Box
+                  </button>
+                  <button
+                    class="btn btn-primary btn-sm ms-1"
+                    id="deleteInputBox"
+                    type="button"
+                  >
+                    Delete Input Box
+                  </button>
+                </div>
+              </div>
               <button type="submit" class="btn btn-primary">Add</button>
-              <button type="reset" class="btn btn-primary">Reset</button>
-            </form>
-            <!--/form-->
-          </div>
-        </div>
-      </div>
-    </div>
-    <!--/modal-->
-
-    <!--modal-->
-    <div class="modal" id="repairEditModal" tabindex="-1">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Edit Customer</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <!--form-->
-            <form id="repairEditForm" action="" method="POST">
-              <div class="mb-3">
-                <label for="repairEditType" class="form-label">Name</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="repairEditType"
-                  name="repairEditType"
-                  aria-describedby=""
-                  value=""
-                />
-              </div>
-              <div class="mb-3">
-                <label for="repairEditHrs" class="form-label">Hours</label>
-                <input
-                  type="num"
-                  class="form-control"
-                  id="repairEditHrs"
-                  name="repairEditHrs"
-                />
-              </div>
-              <div class="mb-3">
-                <label for="repairEditParts" class="form-label">Parts</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="repairEditParts"
-                  name="repairEditParts"
-                />
-              </div>
-              <div class="mb-3">
-                <label for="repairEditCost" class="form-label">Cost</label>
-                <input
-                  type="number"
-                  class="form-control"
-                  id="repairEditCost"
-                  name="repairEditCost"
-                />
-              </div>
-              <div class="mb-3">
-                <label for="repairEditDate" class="form-label">Date</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="repairEditDate"
-                  name="repairEditDate"
-                />
-              </div>
-              <div class="mb-3">
-                <label for="repairEditTech" class="form-label">Technician</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="repairEditTech"
-                  name="repairEditTech"
-                />
-              </div>
-              <div class="mb-3">
-                <label for="repairEditStatus" class="form-label">Status</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="repairEditStatus"
-                  name="repairEditStatus"
-                />
-              </div>
-              <button type="submit" class="btn btn-primary">Update</button>
+              <button type="reset" id="hiddenBtn" class="btn btn-primary">
+                Reset
+              </button>
             </form>
             <!--/form-->
           </div>
