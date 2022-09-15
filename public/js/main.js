@@ -47,6 +47,7 @@ addInputBoxBtn.addEventListener('click',addInputBox);
 const deleteInputBoxBtn = document.getElementById('deleteInputBox');
 deleteInputBoxBtn.addEventListener('click',deleteInputBox)
 
+
 async function getJSONData(route,id){
   try {
     const response = await fetch(`${route}/${id}`, {
