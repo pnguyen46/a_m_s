@@ -53,6 +53,7 @@
             data-bs-toggle="modal"
             data-bs-target="#itemForm"
             data-bs-type="edit"
+            data-bs-identifier="ticket"
             id="resetBtn"
             >Create Ticket</a
           >
@@ -81,7 +82,7 @@
                 <td><%=item.repairType%></td>
                 <td><%=item.hour%></td>
                 <td>
-                  <ul>
+                  <ul class="list-unstyled">
                     <%item.parts.forEach(el => {%>
                         <li><%=el%></li>
                     <%})%>
@@ -94,8 +95,7 @@
                 <td>
                   <button
                     type="submit"
-                    id="resetAddBtn"
-                    class="btn btn-primary btn-sm editBtn"
+                    class="btn btn-primary btn-sm editBtn resetAddBtn"
                     data-bs-toggle="modal"
                     data-bs-target="#itemForm"
                     data-bs-id="<%=item._id%>"
@@ -263,18 +263,18 @@
                     id="addInputBox"
                     type="button"
                   >
-                    Add Input Box
+                    Add Part
                   </button>
                   <button
                     class="btn btn-primary btn-sm ms-1"
                     id="deleteInputBox"
                     type="button"
                   >
-                    Delete Input Box
+                    Delete Part
                   </button>
                 </div>
               </div>
-              <button type="submit" class="btn btn-primary">Add</button>
+              <button type="submit" id="updateBtn" class="btn btn-primary">Add</button>
               <button type="reset" id="hiddenBtn" class="btn btn-primary">
                 Reset
               </button>

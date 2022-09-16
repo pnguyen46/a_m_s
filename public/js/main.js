@@ -30,12 +30,16 @@ Array.from(editBtn).forEach((el) => {
   el.addEventListener("click", editItem);
 });
 
-const resetAddBtn = document.getElementById("resetAddBtn")
+const resetAddBtn = document.querySelectorAll(".resetAddBtn")
 if(resetAddBtn){
-  resetAddBtn.addEventListener("click", (event) => {
-    document.getElementById("resetBtn").setAttribute("data-bs-type", "edit");
-    document.getElementById("hiddenBtn").classList.add("d-none");
-  });
+  Array.from(resetAddBtn).forEach(item => {
+    item.addEventListener("click", (event) => {
+      document.getElementById("resetBtn").setAttribute("data-bs-type", "edit");
+      document.getElementById("hiddenBtn").classList.add("d-none");
+      document.getElementById('updateBtn').innerText = 'Update';
+    });
+  })
+
 }
 
 const resetBtn = document.getElementById("resetBtn");
@@ -62,10 +66,21 @@ async function getJSONData(route,id){
 
 function displayValues(route,data,id){
   const formEl = document.getElementById("form");
+  const partContainer = document.getElementById('partContainer');
+  partContainer.innerHTML = '';
+  const {parts} = data;
+  for(let i = 0;i < parts.length / 2;i++){
+    addInputBox();
+  }
   const inputEle = document.querySelectorAll("#form input");
-  const idArr = Array.from(inputEle).filter(item => item.getAttribute('id') !== 'parts').map(item => item.getAttribute('id'));
-  const filteredArr = idArr.map(id => data[id]);
-  console.log(filteredArr);
+  const idArr = Array.from(inputEle).map(item => item.getAttribute('id'));
+  const filteredArr = idArr.map(id => {
+    if(id === 'parts'){
+      return data[id].shift();
+    }else{
+      return data[id];
+    }
+  });
   formEl.reset();
   inputEle.forEach((item, indx) => (item.value = filteredArr[indx]));
   formEl.action = `/${route}/editItem/${id}?_method=PUT`;
@@ -86,8 +101,18 @@ async function editItem(event){
 function clearValues(){
   const flag = event.target.getAttribute("data-bs-type");
   if (flag === "edit") {
+    const form = document.getElementById('form');
+    form.action = `/${event.target.getAttribute('data-bs-identifier')}`;
     const enableResetBtn = document.getElementById("hiddenBtn");
     enableResetBtn.classList.remove("d-none");
+    const addBtn = document.getElementById('updateBtn');
+    addBtn.innerHTML = 'Add';
+    const partRow = document.querySelectorAll('#partContainer div');
+    partRow.forEach((item,indx) => {
+      if(indx !== 0){
+        item.remove();
+      }
+    })
     const input = document.querySelectorAll("#form input");
     input.forEach((item) => (item.value = ""));
     resetBtn.setAttribute("data-bs-type", "");
@@ -110,6 +135,7 @@ function addInputBox() {
     type: "text",
     class: "form-control w-75",
     name: "repairParts",
+    id:'parts'
   };
   setAttributes(partNameInputBox, partNameAttributes);
 
@@ -118,6 +144,7 @@ function addInputBox() {
     type: "number",
     class: "form-control w-25",
     name: "repairParts",
+    id:'parts'
   };
   setAttributes(partQtyInputBox, partQtyAttributes);
   container.appendChild(partNameInputBox);
