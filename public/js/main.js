@@ -25,31 +25,20 @@
 //   }
 // });
 
-const editBtn = document.querySelectorAll(".btn.editBtn");
+const editBtn = document.querySelectorAll(".editBtn");
 Array.from(editBtn).forEach((el) => {
   el.addEventListener("click", editItem);
 });
+const addInputBoxBtn = document.querySelector('#addInputBox');
+const deleteInputBoxBtn = document.querySelector('#deleteInputBox');
 
-const resetAddBtn = document.querySelectorAll(".resetAddBtn")
-if(resetAddBtn){
-  Array.from(resetAddBtn).forEach(item => {
-    item.addEventListener("click", (event) => {
-      document.getElementById("resetBtn").setAttribute("data-bs-type", "edit");
-      document.getElementById("hiddenBtn").classList.add("d-none");
-      document.getElementById('updateBtn').innerText = 'Update';
-    });
-  })
-
+if(addInputBoxBtn !== null){
+  addInputBoxBtn.addEventListener('click',addInputBox);
+  deleteInputBoxBtn.addEventListener('click',deleteInputBox)
 }
 
 const resetBtn = document.getElementById("resetBtn");
 resetBtn.addEventListener("click", clearValues);
-
-const addInputBoxBtn = document.getElementById('addInputBox');
-addInputBoxBtn.addEventListener('click',addInputBox);
-
-const deleteInputBoxBtn = document.getElementById('deleteInputBox');
-deleteInputBoxBtn.addEventListener('click',deleteInputBox)
 
 
 async function getJSONData(route,id){
@@ -67,11 +56,14 @@ async function getJSONData(route,id){
 
 function displayValues(route,data,id){
   const formEl = document.getElementById("form");
-  const partContainer = document.getElementById('partContainer');
-  partContainer.innerHTML = '';
-  const {parts} = data;
-  for(let i = 0;i < parts.length / 2;i++){
-    addInputBox();
+  //fn
+  if(route === '/ticket'){
+    const partContainer = document.getElementById('partContainer');
+    partContainer.innerHTML = '';
+    const {parts} = data;
+    for(let i = 0;i < parts.length / 2;i++){
+      addInputBox();
+    }
   }
   const inputEle = document.querySelectorAll("#form input");
   const idArr = Array.from(inputEle).map(item => item.getAttribute('id'));
@@ -91,6 +83,13 @@ async function editItem(event){
   try {
     const itemId = event.target.getAttribute("data-bs-id");
     const route = event.target.getAttribute("data-bs-identifier");
+    const resetAddBtn = document.getElementById("resetBtn");
+    resetAddBtn.setAttribute("data-bs-type", "edit");;
+    const formResetBtn = document.getElementById("hiddenBtn");
+    formResetBtn.classList.add("d-none");
+    const addBtn = document.getElementById('updateBtn')
+    addBtn.innerText = 'Update';
+
     const data = await getJSONData(route,itemId);
     displayValues(route,data,data._id);
   } catch (error) {

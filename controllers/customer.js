@@ -35,10 +35,11 @@ module.exports = {
     editCustomer:async (req,res,next) => {
         try {
             await customer.findOneAndUpdate({_id:req.params.id},{
-                name:req.body.editCustomerName,
-                address: req.body.editCustomerAddr,
-                phone_number: req.body.editCustomerPhone,
-                fav_tech:req.body.editCustomerFavTech
+                name:req.body.customerName,
+                address: req.body.customerAddr,
+                phone_number: req.body.customerPhone,
+                repair:req.body.customerRepair,
+                fav_tech:req.body.customerTech
             });
             console.log("Item Updated");
             res.redirect('/customer');

@@ -42,14 +42,15 @@ module.exports = {
     editEmployee:async (req,res,next) => {
         try {
             await employee.findOneAndUpdate({_id:req.params.id},{
-                name:req.body.editEmployeeName,
-                address:req.body.editEmployeeAddr,
-                phone_number:req.body.editEmployeePhone,
-                repair:req.body.editEmployeeRepair,
-                specialty:req.body.editEmployeeSpecialty,
-                class:req.body.editEmployeeClass,
-                status:req.body.editEmployeeStatus,
-                DOB:req.body.employeeDOB
+                name:req.body.employeeName,
+                address:req.body.employeeAddr,
+                phone_number:req.body.employeePhone,
+                joined_date:req.body.employeeJDate,
+                repair:req.body.employeeRepair,
+                DOB:req.body.employeeDOB,
+                specialty:req.body.employeeSpecialty,
+                class:req.body.employeeClass,
+                status:req.body.employeeStatus
             });
             console.log("Item Updated");
             res.redirect('/employee');

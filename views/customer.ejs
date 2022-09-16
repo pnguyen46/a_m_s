@@ -52,6 +52,7 @@
             data-bs-toggle="modal"
             data-bs-target="#itemForm"
             data-bs-type="edit"
+            data-bs-identifier="customer"
             id="resetBtn"
             >Add Customer</a
           >
@@ -96,7 +97,6 @@
                     data-bs-target="#itemForm"
                     data-bs-id="<%=item._id%>"
                     data-bs-identifier="customer"
-                    id="resetAddBtn"
                   >
                     Edit
                   </button>
@@ -199,7 +199,7 @@
                   name="customerTech"
                 />
               </div>
-              <button type="submit" class="btn btn-primary">Add</button>
+              <button id="updateBtn" type="submit" class="btn btn-primary">Add</button>
               <button id="hiddenBtn" type="reset" class="btn btn-primary">
                 Reset
               </button>
