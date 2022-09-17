@@ -90,7 +90,15 @@
                 </td>
                 <td><%=item.cost%></td>
                 <td><%=item.date%></td>
-                <td><%=item.technician%></td>
+                <td>
+                  <%employees.forEach(el => {%>
+                        <%if(el._id == item.technician){%>
+                          <a href="">
+                            <%=el.name%>
+                          </a>
+                        <%}%>
+                  <%})%>
+                </td>
                 <td><%=item.status%></td>
                 <td>
                   <button
@@ -223,12 +231,11 @@
               </div>
               <div class="mb-3">
                 <label for="technician" class="form-label">Technician</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="technician"
-                  name="repairTech"
-                />
+                <select name="repairTech" id="technician">
+                  <%employees.forEach(el => {%>
+                    <option value="<%=el._id%>"><%=el.name%></option>
+                  <%})%>
+                </select>
               </div>
               <div class="mb-3">
                 <label for="status" class="form-label">Status</label>

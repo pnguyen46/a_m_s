@@ -1,15 +1,19 @@
 const ticket = require('../models/Ticket');
+const employee = require('../models/Employee');
+
 module.exports = {
     getIndex:async function(req,res,next){
         try {
             const filteredArr = [];
             const tickets = await ticket.find({userId:req.user._id});
+            // console.log(tickets);
+            const employees = await employee.find({});
             const parts = tickets.map(item => item.parts);
             parts.forEach(item => {
                 filteredArr.push(module.exports.partListBuilder(item));
             })
             tickets.forEach((item,indx) => item['parts'] = filteredArr[indx]);
-            res.render('ticket',{title:'Ticket',tickets});
+            res.render('ticket',{title:'Ticket',tickets,employees});
         } catch (error) {
             return next(error);
         }

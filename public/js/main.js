@@ -56,12 +56,13 @@ async function getJSONData(route,id){
 
 function displayValues(route,data,id){
   const formEl = document.getElementById("form");
-  //fn
-  if(route === '/ticket'){
-    const partContainer = document.getElementById('partContainer');
+
+  const partContainer = document.getElementById('partContainer');
+  if(partContainer !== null){
     partContainer.innerHTML = '';
     const {parts} = data;
-    for(let i = 0;i < parts.length / 2;i++){
+    console.log(parts);
+    for(let i = 0;i < parts.length/2;i++){
       addInputBox();
     }
   }
@@ -74,9 +75,21 @@ function displayValues(route,data,id){
       return data[id];
     }
   });
+
   formEl.reset();
+
   inputEle.forEach((item, indx) => (item.value = filteredArr[indx]));
   formEl.action = `/${route}/editItem/${id}?_method=PUT`;
+  const options = document.getElementById('technician').children;
+  if(options !== null){
+    Array.from(options).forEach(item => {
+      if(item.getAttribute('value') == data.technician){
+        item.setAttribute('selected',true);
+      }else{
+        item.removeAttribute('selected');
+      }
+    });
+  }
 }
 
 async function editItem(event){
@@ -90,8 +103,10 @@ async function editItem(event){
     const addBtn = document.getElementById('updateBtn')
     addBtn.innerText = 'Update';
 
+    //Array
     const data = await getJSONData(route,itemId);
     displayValues(route,data,data._id);
+
   } catch (error) {
     return console.error(error);
   }
@@ -101,6 +116,10 @@ async function editItem(event){
 function clearValues(){
   const flag = event.target.getAttribute("data-bs-type");
   if (flag === "edit") {
+    const options = document.getElementById('technician').children;
+    Array.from(options).forEach(item => {
+      item.removeAttribute('selected');
+    })
     const form = document.getElementById('form');
     form.action = `/${event.target.getAttribute('data-bs-identifier')}`;
     const enableResetBtn = document.getElementById("hiddenBtn");
