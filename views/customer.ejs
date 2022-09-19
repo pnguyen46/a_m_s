@@ -190,15 +190,6 @@
                 />
               </div>
               <div class="mb-3">
-                <label for="repair" class="form-label">Repairs</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="repair"
-                  name="customerRepair"
-                />
-              </div>
-              <div class="mb-3">
                 <label for="fav_tech" class="form-label"
                   >Perfer Technician</label
                 >
@@ -208,6 +199,59 @@
                   id="fav_tech"
                   name="customerTech"
                 />
+              </div>
+              <div class="mb-3">
+                <h3>Vehicle Information:</h3>
+                <div class="col d-flex gap-2 flex-wrap">
+                  <label for="vehicleYear" class="form-label">Year:</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="vehicleYear"
+                    name="vehiYear"
+                    style="flex-basis: 20%;"
+                  />
+                  <label for="vehicleMake" class="form-label">Make:</label>
+                  <input
+                  type="text"
+                  class="form-control"
+                  id="vehicleMake"
+                  name="vehiMake"
+                  style="flex-basis: 50%;"
+                  />
+                  <label for="vehicleModel" class="form-label">Model:</label>
+                  <input
+                  type="text"
+                  class="form-control w-50"
+                  id="vehicleModel"
+                  name="vehiModel"
+                  />
+                  <label for="vehicleEngine" class="form-label">Engine:</label>
+                  <input
+                  type="text"
+                  class="form-control"
+                  id="vehicleEngine"
+                  name="vehiEngine"
+                  style="flex-basis: 20%;"
+                  />
+                  <label for="vehicleMileage" class="form-label">Mileage:</label>
+                  <input
+                  type="text"
+                  class="form-control"
+                  id="vehicleMileage"
+                  name="vehiMileage"
+                  style="flex-basis: 20%;"
+                  />
+                  <label for="vehicleVIN" class="form-label">VIN number:</label>
+                  <input
+                  type="text"
+                  class="form-control"
+                  id="vehicleVIN"
+                  name="vehiVIN"
+                  step="0.01"
+                  style="flex-basis: 40%;"
+                  />
+                </div>
               </div>
               <button id="updateBtn" type="submit" class="btn btn-primary">Add</button>
               <button id="hiddenBtn" type="reset" class="btn btn-primary">

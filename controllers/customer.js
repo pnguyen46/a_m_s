@@ -25,7 +25,13 @@ module.exports = {
                 phone_number:req.body.customerPhone,
                 repair:req.body.customerRepair,
                 fav_tech:req.body.customerTech,
-                joined_date:req.body.joinedDate
+                joined_date:req.body.joinedDate,
+                vehicleYear: req.body.vehiYear,
+                vehicleMake: req.body.vehiMake,
+                vehicleModel:req.body.vehiModel,
+                vehicleEngine: req.body.vehiEngine,
+                vehicleMileage: req.body.vehiMileage,
+                vehicleVIN:req.body.vehiVIN
             })
             res.redirect('/customer');
         } catch (error) {

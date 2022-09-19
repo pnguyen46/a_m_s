@@ -76,19 +76,23 @@ function displayValues(route,data,id){
     }
   });
 
+  console.log(filteredArr);
+
   formEl.reset();
 
   inputEle.forEach((item, indx) => (item.value = filteredArr[indx]));
   formEl.action = `/${route}/editItem/${id}?_method=PUT`;
-  const options = document.getElementById('technician').children;
-  if(options !== null){
-    Array.from(options).forEach(item => {
-      if(item.getAttribute('value') == data.technician){
-        item.setAttribute('selected',true);
-      }else{
-        item.removeAttribute('selected');
-      }
-    });
+  if(route === '/ticket'){
+    const options = document.getElementById('technician').children || null;
+    if(options !== null){
+      Array.from(options).forEach(item => {
+        if(item.getAttribute('value') == data.technician){
+          item.setAttribute('selected',true);
+        }else{
+          item.removeAttribute('selected');
+        }
+      });
+    }
   }
 }
 
