@@ -7,6 +7,7 @@ const inventoryRoutes = require('./inventory');
 const customerRoutes = require('./customer');
 const employeeRoutes = require('./employee');
 const ticketRoutes = require('./ticket');
+const registrationRoutes = require('./registration');
 const { ensureAuth, ensureGuest } = require("../middleware/auth");
 
 //Main Routes - simplified for now
@@ -21,6 +22,6 @@ router.use('/inventory', inventoryRoutes);
 router.use('/customer', customerRoutes);
 router.use('/employee', employeeRoutes);
 router.use('/ticket',ticketRoutes);
-
+router.use('/registration', registrationRoutes)
 
 module.exports = router;

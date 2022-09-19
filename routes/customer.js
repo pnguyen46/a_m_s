@@ -8,4 +8,5 @@ router.post('/',customerController.addCustomer);
 router.put('/editItem/:id',customerController.editCustomer);
 router.delete('/deleteItem/:id',customerController.deleteCustomer);
 
+
 module.exports = router;

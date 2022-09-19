@@ -44,109 +44,11 @@
     </nav>
     <!--/nav-->
     <div class="container">
-      <h1 class="text-center">Customer</h1>
-      <div class="row">
-        <div class="col-2 border">
-          <a
-            class="btn btn-primary btn-sm"
-            data-bs-toggle="modal"
-            data-bs-target="#itemForm"
-            data-bs-type="edit"
-            data-bs-identifier="customer"
-            id="resetBtn"
-            >Add Customer</a
-          >
-          <a class="btn btn-primary btn-sm">View All Customer</a>
-        </div>
-
-        <div class="col mt-2">
-          <!--table-->
-          <table class="table justify-content-end">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Name</th>
-                <th scope="col">Address</th>
-                <th scope="col">Phone Number</th>
-                <th scope="col">Joined Date</th>
-                <th scope="col">Repairs</th>
-                <th scope="col">Perfer Technician</th>
-                <!-- <th scope="col" class="text-end">
-                  <a class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#customerForm">Add Customer</a>
-                </th>
-                <th scope="col" class="">
-                  <a class="btn btn-primary btn-sm">View All Customer</a>
-                </th> -->
-              </tr>
-            </thead>
-            <tbody>
-              <%customers.forEach((item,indx) => {%>
-              <tr>
-                <td><%=indx + 1%></td>
-                <td><%=item.name%></td>
-                <td><%=item.address%></td>
-                <td><%=item.phone_number%></td>
-                <td><%=item.joined_date%></td>
-                <td><%=item.repair%></td>
-                <td><%=item.fav_tech%></td>
-                <td>
-                  <button
-                    type="submit"
-                    class="btn btn-primary btn-sm editBtn"
-                    data-bs-toggle="modal"
-                    data-bs-target="#itemForm"
-                    data-bs-id="<%=item._id%>"
-                    data-bs-identifier="customer"
-                  >
-                    Edit
-                  </button>
-                </td>
-                <td>
-                  <form
-                    action="/customer/deleteItem/<%=item._id%>?_method=DELETE"
-                    method="POST"
-                  >
-                    <button type="submit" class="btn btn-primary btn-sm">
-                      Delete
-                    </button>
-                  </form>
-                </td>
-                <td>
-                  <form
-                    action="/ticket/createTicket/<%=item._id%>"
-                    method="POST"
-                  >
-                    <button type="submit" class="btn btn-primary btn-sm">
-                      Create Ticket
-                    </button>
-                  </form>
-                </td>
-              </tr>
-              <%})%>
-            </tbody>
-          </table>
-          <!--/table-->
-        </div>
-      </div>
-    </div>
-    <!--/container-->
-
-    <!--modal-->
-    <div class="modal" id="itemForm" tabindex="-1">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Add Customer</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <!--form-->
-            <form action="/customer" method="POST" id="form">
+      <div class="row mt-3">
+        <div class="col-6">
+          <h1 class="text-center">Add Customer</h1>
+          <div class="row w-75 mx-auto">
+            <form action="/customer" method="POST" id="form" class="border p-3">
               <div class="mb-3">
                 <label for="name" class="form-label">Name</label>
                 <input
@@ -209,16 +111,123 @@
                   name="customerTech"
                 />
               </div>
-              <button id="updateBtn" type="submit" class="btn btn-primary">Add</button>
-              <button id="hiddenBtn" type="reset" class="btn btn-primary">
+              <div class="d-flex justify-content-end gap-2">
+                <button id="updateBtn" type="submit" class="btn btn-primary">Add</button>
+                <button id="hiddenBtn" type="reset" class="btn btn-primary">
+                  Reset
+                </button>
+              </div>
+            </form>
+          </div> 
+        </div>
+        <div class="col-6">
+          <h1 class="text-center">Create Ticket</h1>
+          <div class="row w-75 mx-auto">
+            <!--form-->
+          <form action="/ticket" method="POST" id="form" class="border p-3">
+            <div class="mb-3">
+              <label for="repairType" class="form-label">Repair Type</label>
+              <input
+                type="text"
+                class="form-control"
+                id="repairType"
+                name="repairType"
+                aria-describedby=""
+              />
+            </div>
+            <div class="mb-3">
+              <label for="hour" class="form-label">Hours</label>
+              <input
+                type="number"
+                class="form-control"
+                id="hour"
+                name="repairHours"
+                min="0"
+                step="0.10"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="cost" class="form-label">Cost</label>
+              <input
+                type="number"
+                class="form-control"
+                id="cost"
+                name="repairCost"
+                min="0"
+                step="0.01"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="repairDate" class="form-label">Date</label>
+              <input
+                type="date"
+                class="form-control"
+                id="date"
+                name="repairDate"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="technician" class="form-label">Technician</label>
+              <select name="repairTech" id="technician">
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="status" class="form-label">Status</label>
+              <input
+                type="text"
+                class="form-control"
+                id="status"
+                name="repairStatus"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="parts" class="form-label">Parts</label>
+              <div id="partContainer">
+                <div class="d-flex">
+                  <input
+                    type="text"
+                    class="form-control w-75"
+                    id="parts"
+                    name="repairParts"
+                  />
+                  <input
+                    type="number"
+                    class="form-control w-25"
+                    id="parts"
+                    name="repairParts"
+                  />
+                </div>
+              </div>
+              <div class="d-flex gap-2 mt-3">
+                <button
+                  class="btn btn-primary btn-sm"
+                  id="addInputBox"
+                  type="button"
+                >
+                  Add Part
+                </button>
+                <button
+                  class="btn btn-primary btn-sm"
+                  id="deleteInputBox"
+                  type="button"
+                >
+                  Delete Part
+                </button>
+              </div>
+            </div>
+            <div class="d-flex justify-content-end gap-2">
+              <button type="submit" id="updateBtn" class="btn btn-primary">Add</button>
+              <button type="reset" id="hiddenBtn" class="btn btn-primary">
                 Reset
               </button>
-            </form>
-            <!--/form-->
+            </div>
+          </form>
+          <!--/form-->
           </div>
         </div>
       </div>
     </div>
+    <!--/container-->
 
     <!-- Optional JavaScript; choose one of the two! -->
 
