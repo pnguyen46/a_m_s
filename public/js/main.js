@@ -38,7 +38,31 @@ if(addInputBoxBtn !== null){
 }
 
 const resetBtn = document.getElementById("resetBtn");
-resetBtn.addEventListener("click", clearValues);
+if(resetBtn !== null){
+  resetBtn.addEventListener("click", clearValues);
+}
+
+const newVehicleBtn = document.getElementById('newVBtn');
+newVehicleBtn.addEventListener('click',(event) => {
+  const partContainer = document.getElementById('vehicleContainer');
+  const vForms = partContainer.children;
+  const baseFormInput = vForms[0].innerHTML;
+  const form = document.createElement('div');
+  form.setAttribute('class',vForms[0].getAttribute('class'));
+  form.innerHTML = baseFormInput;
+  partContainer.appendChild(form);
+
+  
+  const deleteVehicleBtn = document.querySelectorAll('.deleteVBtn');
+  Array.from(deleteVehicleBtn).forEach(item => item.addEventListener('click',(event)=>{
+    const partContainer = document.getElementById('vehicleContainer');
+    if(partContainer.children.length > 1){
+      partContainer.removeChild(event.target.parentElement);
+    }
+  }))
+});
+
+
 
 
 async function getJSONData(route,id){

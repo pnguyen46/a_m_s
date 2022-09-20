@@ -1,4 +1,5 @@
 const customer = require('../models/Customer');
+const vehicle = require('../models/Vehicle');
 module.exports = {
     getIndex:async (req,res,next) => {
         try {
@@ -19,20 +20,36 @@ module.exports = {
     ,
     addCustomer:async (req,res,next) => {
         try {
-            await customer.create({
+            const vehicleArr = req.body.vehicle;
+            const formatVehicleArr = [];
+            let currIndx = 0;
+            for(let i = 1; i <= vehicleArr.length;i++){
+                if(i % 6 === 0){
+                    formatVehicleArr.push(vehicleArr.slice(currIndx,i));
+                    currIndx = i;
+                }
+            }
+            const nCustomer = await customer.create({
                 name:req.body.customerName,
                 address:req.body.customerAddr,
                 phone_number:req.body.customerPhone,
                 repair:req.body.customerRepair,
                 fav_tech:req.body.customerTech,
                 joined_date:req.body.joinedDate,
-                vehicleYear: req.body.vehiYear,
-                vehicleMake: req.body.vehiMake,
-                vehicleModel:req.body.vehiModel,
-                vehicleEngine: req.body.vehiEngine,
-                vehicleMileage: req.body.vehiMileage,
-                vehicleVIN:req.body.vehiVIN
             })
+            
+            formatVehicleArr.forEach(async item => {
+                await vehicle.create({
+                vehicleYear: item[0],
+                vehicleMake: item[1],
+                vehicleModel:item[2],
+                vehicleEngine: item[3],
+                vehicleMileage: item[4],
+                vehicleVIN:item[5],
+                customerId:nCustomer._id
+                })
+            })
+
             res.redirect('/customer');
         } catch (error) {
             return next(error);
