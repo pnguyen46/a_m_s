@@ -43,7 +43,10 @@ if(resetBtn !== null){
 }
 
 const newVehicleBtn = document.getElementById('newVBtn');
-newVehicleBtn.addEventListener('click',(event) => {
+newVehicleBtn.addEventListener('click',addVehicleInputBox);
+
+
+function addVehicleInputBox(){
   const partContainer = document.getElementById('vehicleContainer');
   const vForms = partContainer.children;
   const baseFormInput = vForms[0].innerHTML;
@@ -60,47 +63,65 @@ newVehicleBtn.addEventListener('click',(event) => {
       partContainer.removeChild(event.target.parentElement);
     }
   }))
-});
-
-
-
+}
 
 async function getJSONData(route,id){
   try {
     const response = await fetch(`${route}/${id}`, {
       method: "GET",
     });
-    const { item } = await response.json();
+    const { item,vehicles } = await response.json();
     const [data] = item;
+    data.vehicles = vehicles;
     return data;
   } catch (error) {
     console.error(error);
   }
 }
 
-function displayValues(route,data,id){
+async function displayValues(route,data,id){
+
+
   const formEl = document.getElementById("form");
 
   const partContainer = document.getElementById('partContainer');
   if(partContainer !== null){
     partContainer.innerHTML = '';
     const {parts} = data;
-    console.log(parts);
     for(let i = 0;i < parts.length/2;i++){
       addInputBox();
     }
   }
+
+  const vehicleContainer = document.getElementById('vehicleContainer');
+  if(vehicleContainer !== null){
+    const vehicleChild = vehicleContainer.children;
+    Array.from(vehicleChild).forEach((item,indx) => {
+      if(indx !== 0){
+        vehicleContainer.removeChild(item);
+      }
+    })
+    const {vehicles} = data;
+    for(let i = 1; i < vehicles.length;i++){
+      addVehicleInputBox();
+    }
+    const filterVehicleArr = vehicles.map(item => {
+      return Object.values(item);
+    }).map(item => item.slice(1,7)).reduce((acc,next) => acc.concat(...next),[]);
+    data.vehicles = filterVehicleArr;
+  }
+
   const inputEle = document.querySelectorAll("#form input");
   const idArr = Array.from(inputEle).map(item => item.getAttribute('id'));
   const filteredArr = idArr.map(id => {
     if(id === 'parts'){
       return data[id].shift();
+    }else if(id === 'vehicles'){
+      return data[id].shift();
     }else{
       return data[id];
     }
   });
-
-  console.log(filteredArr);
 
   formEl.reset();
 

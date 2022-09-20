@@ -12,7 +12,8 @@ module.exports = {
     getCustomer: async (req,res,next) =>{
         try {
             const item = await customer.find({_id:req.params.id});
-            res.json({item});
+            const vehicles = await vehicle.find({customerId:req.params.id});
+            res.json({item,vehicles});
         } catch (error) {
             return next(error);
         }
