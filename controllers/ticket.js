@@ -1,6 +1,7 @@
 const ticket = require('../models/Ticket');
 const employee = require('../models/Employee');
 const vehicle = require('../models/Vehicle');
+const customer = require('../models/Customer');
 
 module.exports = {
     getIndex:async function(req,res,next){
@@ -30,11 +31,14 @@ module.exports = {
     },
     postTicket: async (req,res,next) => {
         try {
-            if(!req.body.repairStatus){
-                req.body.repairStatus = undefined;
-            }
-            // console.log(req.body.repairParts);
-            await ticket.create({
+            const nCustomer = await customer.create({
+                name:req.body.customerName,
+                address:req.body.customerAddr,
+                phone_number:req.body.customerPhone,
+                joined_date: new Date().toDateString()
+            });
+
+            const repairTicket = await ticket.create({
                 userId:req.user._id,
                 repairType:req.body.repairType,
                 hour:req.body.repairHours,
@@ -42,7 +46,31 @@ module.exports = {
                 cost:req.body.repairCost,
                 date:req.body.repairDate,
                 technician:req.body.repairTech,
-                status:req.body.repairStatus
+                customer:nCustomer._id
+            })
+
+            const repairVehicle = req.body.vehicle;
+            const formatVehicleArr = [];
+            let currIndx = 0;
+            for(let i = 1; i <= repairVehicle.length;i++){
+                if(i % 6 === 0){
+                    formatVehicleArr.push(repairVehicle.slice(currIndx,i));
+                    currIndx = i;
+                }
+            }
+            formatVehicleArr.forEach(async item => {
+                const neVehicle = await vehicle.create({
+                    vehicleYear: item[0],
+                    vehicleMake: item[1],
+                    vehicleModel:item[2],
+                    vehicleEngine: item[3],
+                    vehicleMileage: item[4],
+                    vehicleVIN:item[5],
+                    customerId:nCustomer._id
+                });
+                await ticket.findByIdAndUpdate(repairTicket._id,{
+                    $push:{vehicles:neVehicle._id}
+                });
             });
             console.log('Ticket Created!');
             res.redirect('/ticket');

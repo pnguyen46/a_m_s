@@ -25,7 +25,8 @@ const TicketSchema = new mongoose.Schema({
         required:true
     },
     technician:{
-        type:String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref:'Employee',
         required:true
     },
     status:{
@@ -36,6 +37,14 @@ const TicketSchema = new mongoose.Schema({
     closed: {
         type:Boolean,
         default: false
+    },
+    customer:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref:'Customer'
+    },
+    vehicles:{
+        type:Array,
+        default:[]
     }
 });
   

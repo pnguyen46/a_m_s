@@ -16,6 +16,7 @@ const CustomerSchema = new mongoose.Schema({
     joined_date: {
         type:String,
         required:true,
+        default:Date.now
     },
     repair: {
         type:String,

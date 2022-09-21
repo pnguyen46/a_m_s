@@ -29,13 +29,8 @@
 // Array.from(editBtn).forEach((el) => {
 //   el.addEventListener("click", editItem);
 // });
-// const addInputBoxBtn = document.querySelector('#addInputBox');
-// const deleteInputBoxBtn = document.querySelectorAll('.deleteInputBox');
 
-// if(addInputBoxBtn !== null){
-//   addInputBoxBtn.addEventListener('click',addInputBox);
-//   Array.from(deleteInputBoxBtn).forEach(item => item.addEventListener('click',deleteInputBox))
-// }
+
 
 // const resetBtn = document.getElementById("resetBtn");
 // if(resetBtn !== null){
@@ -196,60 +191,74 @@ function addVehicleInputBox(){
 //   }
 // }
 
-// function setAttributes(element, attributes) {
-//   Object.keys(attributes).forEach((attr) => {
-//     element.setAttribute(attr, attributes[attr]);
-//   });
-// }
+//Add & Delete Btn for parts
+const addInputBoxBtn = document.querySelector('#addInputBox');
+const deleteInputBoxBtn = document.querySelectorAll('.deleteInputBox');
 
-// function addInputBox() {
-//   const formEle = addInputBoxBtn.parentElement.previousElementSibling;
-//   const container = document.createElement("div");
-//   container.setAttribute("class", "d-flex gap-2 my-2");
+if(addInputBoxBtn !== null){
+  addInputBoxBtn.addEventListener('click',addInputBox);
+  Array.from(deleteInputBoxBtn).forEach(item => item.addEventListener('click',deleteInputBox))
+}
 
-//   const partNameInputBox = document.createElement("input");
-//   const partNameAttr = {
-//     type: "text",
-//     placeholder:"Name",
-//     class: "form-control w-75",
-//     name: "repairParts",
-//     id:'parts'
-//   };
-//   setAttributes(partNameInputBox, partNameAttr);
 
-//   const partQtyInputBox = document.createElement("input");
-//   const partQtyAttr = {
-//     type: "number",
-//     placeholder:"Qty",
-//     class: "form-control w-25",
-//     name: "repairParts",
-//     id:'parts'
-//   };
+// set attributes for element
+function setAttributes(element, attributes) {
+  Object.keys(attributes).forEach((attr) => {
+    element.setAttribute(attr, attributes[attr]);
+  });
+}
+
+//add input for part section
+function addInputBox() {
+  const formEle = addInputBoxBtn.parentElement.previousElementSibling;
+  const container = document.createElement("div");
+  container.setAttribute("class", "d-flex gap-2 my-2");
+
+  const partNameInputBox = document.createElement("input");
+  const partNameAttr = {
+    type: "text",
+    placeholder:"Name",
+    class: "form-control w-75",
+    name: "repairParts",
+    id:'parts'
+  };
+  setAttributes(partNameInputBox, partNameAttr);
+
+  const partQtyInputBox = document.createElement("input");
+  const partQtyAttr = {
+    type: "number",
+    placeholder:"Qty",
+    class: "form-control w-25",
+    name: "repairParts",
+    id:'parts'
+  };
   
-//   const deleteBtn = document.createElement('button');
-//   const deleteBtnAttr = {
-//     type:'button',
-//     class:'btn btn-primary btn-sm deleteInputBox'
-//   }
-//   setAttributes(deleteBtn,deleteBtnAttr);
-//   deleteBtn.innerText = 'Delete';
-//   deleteBtn.addEventListener('click',deleteInputBox);
+  const deleteBtn = document.createElement('button');
+  const deleteBtnAttr = {
+    type:'button',
+    class:'btn btn-primary btn-sm deleteInputBox'
+  }
+  setAttributes(deleteBtn,deleteBtnAttr);
+  deleteBtn.innerText = 'Delete';
+  deleteBtn.addEventListener('click',deleteInputBox);
 
 
-//   setAttributes(partQtyInputBox, partQtyAttr);
-//   container.appendChild(partNameInputBox);
-//   container.appendChild(partQtyInputBox);
-//   container.appendChild(deleteBtn);
-//   formEle.appendChild(container);
-// }
+  setAttributes(partQtyInputBox, partQtyAttr);
+  container.appendChild(partNameInputBox);
+  container.appendChild(partQtyInputBox);
+  container.appendChild(deleteBtn);
+  formEle.appendChild(container);
+}
 
-// function deleteInputBox(){
-//   const partContainerEle = document.getElementById('partContainer');
-//   if(partContainerEle.children.length > 1){
-//     partContainerEle.removeChild(event.target.parentElement);
-//   }
-// }
+function deleteInputBox(){
+  const partContainerEle = document.getElementById('partContainer');
+  if(partContainerEle.children.length > 1){
+    partContainerEle.removeChild(event.target.parentElement);
+  }
+}
 
+
+//Preset element in view form
 const editMode = document.getElementById('editMode');
 editMode.addEventListener('click',(event) => {
   const form = document.querySelectorAll('#form input');
