@@ -62,6 +62,7 @@
                 name="customerName"
                 aria-describedby=""
                 value="<%=item.name%>"
+                disabled
               />
             </div>
             <div class="mb-3">
@@ -72,6 +73,7 @@
                 id="address"
                 name="customerAddr"
                 value="<%=item.address%>"
+                disabled
               />
             </div>
             <div class="mb-3">
@@ -82,6 +84,7 @@
                 id="phone_number"
                 name="customerPhone"
                 value="<%=item.phone_number%>"
+                disabled
               />
             </div>
             <div class="mb-3">
@@ -92,6 +95,7 @@
                 id="joined_date"
                 name="joinedDate"
                 value="<%=item.joined_date%>"
+                disabled
               />
             </div>
             <div class="mb-3">
@@ -101,6 +105,7 @@
                 class="form-control"
                 id="fav_tech"
                 name="customerTech"
+                disabled
               />
             </div>
             <div class="mb-3">
@@ -122,6 +127,7 @@
                     name="vehicle"
                     style="flex-basis: 20%"
                     value="<%=el.vehicleYear%>"
+                    disabled
                   />
                   <label for="vehicleMake" class="form-label">Make:</label>
                   <input
@@ -131,6 +137,7 @@
                     name="vehicle"
                     style="flex-basis: 50%"
                     value="<%=el.vehicleMake%>"
+                    disabled
                   />
                   <label for="vehicleModel" class="form-label">Model:</label>
                   <input
@@ -139,6 +146,7 @@
                     id="vehicles"
                     name="vehicle"
                     value="<%=el.vehicleModel%>"
+                    disabled
                   />
                   <label for="vehicleEngine" class="form-label">Engine:</label>
                   <input
@@ -148,6 +156,7 @@
                     name="vehicle"
                     style="flex-basis: 20%"
                     value="<%=el.vehicleEngine%>"
+                    disabled
                   />
                   <label for="vehicleMileage" class="form-label"
                     >Mileage:</label
@@ -159,6 +168,7 @@
                     name="vehicle"
                     style="flex-basis: 20%"
                     value="<%=el.vehicleMileage%>"
+                    disabled
                   />
                   <label for="vehicleVIN" class="form-label">VIN number:</label>
                   <input
@@ -168,6 +178,7 @@
                     name="vehicle"
                     style="flex-basis: 40%"
                     value="<%=el.vehicleVIN%>"
+                    disabled
                   />
                   <a
                     class="btn btn-danger btn-sm ms-auto deleteVBtn d-none edit"

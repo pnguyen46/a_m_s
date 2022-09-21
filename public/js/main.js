@@ -252,10 +252,13 @@ function addVehicleInputBox(){
 
 const editMode = document.getElementById('editMode');
 editMode.addEventListener('click',(event) => {
+  const form = document.querySelectorAll('#form input');
   const editItem = document.querySelectorAll('.edit');
-  const deleteVehiBtn = document.querySelectorAll('.deleteVBtn');
   Array.from(editItem).forEach(item => {
     item.classList.remove('d-none');
   });
+  Array.from(form).forEach(item => {
+    item.removeAttribute('disabled');
+  })
   editMode.classList.add('d-none');
-})
+});

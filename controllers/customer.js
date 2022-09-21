@@ -108,12 +108,19 @@ module.exports = {
     formatVehicles: (arr) => {
         const formatVehicleArr = [];
         let currIndx = 0;
+        let emptyInputIndx = undefined;
         for(let i = 0; i <= arr.length;i++){
             if(i % 7 === 0){
                 formatVehicleArr.push(arr.slice(currIndx,i));
                 currIndx = i;
             }
         }
-        return formatVehicleArr;
+        formatVehicleArr.forEach((item,indx) => {
+            if(item.every(item => item === '')){
+                emptyInputIndx = indx;
+            }
+        });
+        const finalArr = formatVehicleArr.filter((item,indx) => indx !== emptyInputIndx)
+        return finalArr;
     }
 };
