@@ -30,11 +30,11 @@ Array.from(editBtn).forEach((el) => {
   el.addEventListener("click", editItem);
 });
 const addInputBoxBtn = document.querySelector('#addInputBox');
-const deleteInputBoxBtn = document.querySelector('#deleteInputBox');
+const deleteInputBoxBtn = document.querySelectorAll('.deleteInputBox');
 
 if(addInputBoxBtn !== null){
   addInputBoxBtn.addEventListener('click',addInputBox);
-  deleteInputBoxBtn.addEventListener('click',deleteInputBox)
+  Array.from(deleteInputBoxBtn).forEach(item => item.addEventListener('click',deleteInputBox))
 }
 
 const resetBtn = document.getElementById("resetBtn");
@@ -128,7 +128,8 @@ async function displayValues(route,data,id){
   inputEle.forEach((item, indx) => (item.value = filteredArr[indx]));
   formEl.action = `/${route}/editItem/${id}?_method=PUT`;
   if(route === '/ticket'){
-    const options = document.getElementById('technician').children || null;
+    const options = document.getElementById('technician').children;
+    console.log(options);
     if(options !== null){
       Array.from(options).forEach(item => {
         if(item.getAttribute('value') == data.technician){
@@ -196,33 +197,47 @@ function setAttributes(element, attributes) {
 function addInputBox() {
   const formEle = addInputBoxBtn.parentElement.previousElementSibling;
   const container = document.createElement("div");
-  container.setAttribute("class", "d-flex");
+  container.setAttribute("class", "d-flex gap-2 my-2");
 
   const partNameInputBox = document.createElement("input");
-  const partNameAttributes = {
+  const partNameAttr = {
     type: "text",
+    placeholder:"Name",
     class: "form-control w-75",
     name: "repairParts",
     id:'parts'
   };
-  setAttributes(partNameInputBox, partNameAttributes);
+  setAttributes(partNameInputBox, partNameAttr);
 
   const partQtyInputBox = document.createElement("input");
-  const partQtyAttributes = {
+  const partQtyAttr = {
     type: "number",
+    placeholder:"Qty",
     class: "form-control w-25",
     name: "repairParts",
     id:'parts'
   };
-  setAttributes(partQtyInputBox, partQtyAttributes);
+  
+  const deleteBtn = document.createElement('button');
+  const deleteBtnAttr = {
+    type:'button',
+    class:'btn btn-primary btn-sm deleteInputBox'
+  }
+  setAttributes(deleteBtn,deleteBtnAttr);
+  deleteBtn.innerText = 'Delete';
+  deleteBtn.addEventListener('click',deleteInputBox);
+
+
+  setAttributes(partQtyInputBox, partQtyAttr);
   container.appendChild(partNameInputBox);
   container.appendChild(partQtyInputBox);
+  container.appendChild(deleteBtn);
   formEle.appendChild(container);
 }
 
 function deleteInputBox(){
   const partContainerEle = document.getElementById('partContainer');
   if(partContainerEle.children.length > 1){
-    partContainerEle.removeChild(partContainerEle.lastElementChild);
+    partContainerEle.removeChild(event.target.parentElement);
   }
 }
