@@ -1,5 +1,6 @@
 const ticket = require('../models/Ticket');
 const employee = require('../models/Employee');
+const vehicle = require('../models/Vehicle');
 
 module.exports = {
     getIndex:async function(req,res,next){
@@ -60,6 +61,7 @@ module.exports = {
                 status:req.body.repairStatus,
                 parts:req.body.repairParts
             });
+            await vehicle.findByIdAndUpdate()
             console.log('Item Updated!');
             res.redirect('/ticket');
         } catch (error) {

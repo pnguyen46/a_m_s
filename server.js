@@ -35,6 +35,21 @@ app.use(logger("dev"));
 //Use forms for put / delete
 app.use(methodOverride("_method"));
 
+app.use( function( req, res, next ) {
+  // this middleware will call for each requested
+  // and we checked for the requested query properties
+  // if _method was existed
+  // then we know, clients need to call DELETE request instead
+  if ( req.query._method == 'DELETE' ) {
+      // change the original METHOD
+      // into DELETE method
+      req.method = 'DELETE';
+      // and set requested url to /user/12
+      req.url = req.path;
+  }       
+  next(); 
+});
+
 // Setup Sessions - stored in MongoDB
 app.use(
   session({
