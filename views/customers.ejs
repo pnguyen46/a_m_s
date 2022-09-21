@@ -100,7 +100,11 @@
                   >
                     Edit
                   </button> -->
-                  <a class="btn btn-primary btn-sm" href="customer/<%=item._id%>" >View</a>
+                  <a
+                    class="btn btn-primary btn-sm"
+                    href="/customer/<%=item._id%>"
+                    >View</a
+                  >
                 </td>
                 <td>
                   <form
@@ -180,9 +184,7 @@
                 />
               </div>
               <div class="mb-3">
-                <label for="joined_date" class="form-label"
-                  >Joined Date</label
-                >
+                <label for="joined_date" class="form-label">Joined Date</label>
                 <input
                   type="date"
                   class="form-control"
@@ -211,57 +213,72 @@
                       class="form-control"
                       id="vehicles"
                       name="vehicle"
-                      style="flex-basis: 20%;"
+                      style="flex-basis: 20%"
                     />
                     <label for="vehicleMake" class="form-label">Make:</label>
                     <input
-                    type="text"
-                    class="form-control"
-                    id="vehicles"
-                    name="vehicle"
-                    style="flex-basis: 50%;"
+                      type="text"
+                      class="form-control"
+                      id="vehicles"
+                      name="vehicle"
+                      style="flex-basis: 50%"
                     />
                     <label for="vehicleModel" class="form-label">Model:</label>
                     <input
-                    type="text"
-                    class="form-control w-50"
-                    id="vehicles"
-                    name="vehicle"
+                      type="text"
+                      class="form-control w-50"
+                      id="vehicles"
+                      name="vehicle"
                     />
-                    <label for="vehicleEngine" class="form-label">Engine:</label>
+                    <label for="vehicleEngine" class="form-label"
+                      >Engine:</label
+                    >
                     <input
-                    type="text"
-                    class="form-control"
-                    id="vehicles"
-                    name="vehicle"
-                    style="flex-basis: 20%;"
+                      type="text"
+                      class="form-control"
+                      id="vehicles"
+                      name="vehicle"
+                      style="flex-basis: 20%"
                     />
-                    <label for="vehicleMileage" class="form-label">Mileage:</label>
+                    <label for="vehicleMileage" class="form-label"
+                      >Mileage:</label
+                    >
                     <input
-                    type="text"
-                    class="form-control"
-                    id="vehicles"
-                    name="vehicle"
-                    style="flex-basis: 20%;"
+                      type="text"
+                      class="form-control"
+                      id="vehicles"
+                      name="vehicle"
+                      style="flex-basis: 20%"
                     />
-                    <label for="vehicleVIN" class="form-label">VIN number:</label>
+                    <label for="vehicleVIN" class="form-label"
+                      >VIN number:</label
+                    >
                     <input
-                    type="text"
-                    class="form-control"
-                    id="vehicles"
-                    name="vehicle"
-                    step="0.01"
-                    style="flex-basis: 40%;"
-                    value=""
+                      type="text"
+                      class="form-control"
+                      id="vehicles"
+                      name="vehicle"
+                      step="0.01"
+                      style="flex-basis: 40%"
+                      value=""
                     />
-                    <button class="btn btn-primary ms-auto deleteVBtn" type="button">delete</button>
+                    <button
+                      class="btn btn-primary ms-auto deleteVBtn"
+                      type="button"
+                    >
+                      delete
+                    </button>
                   </div>
                 </div>
               </div>
               <div class="my-3">
-                <button class="btn btn-primary" type="button" id="newVBtn">Add New Vehicle</button>
+                <button class="btn btn-primary" type="button" id="newVBtn">
+                  Add New Vehicle
+                </button>
               </div>
-              <button id="updateBtn" type="submit" class="btn btn-primary">Add</button>
+              <button id="updateBtn" type="submit" class="btn btn-primary">
+                Add
+              </button>
               <button id="hiddenBtn" type="reset" class="btn btn-primary">
                 Reset
               </button>

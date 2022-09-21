@@ -49,18 +49,18 @@ newVehicleBtn.addEventListener('click',addVehicleInputBox);
 function addVehicleInputBox(){
   const partContainer = document.getElementById('vehicleContainer');
   const vForms = partContainer.children;
-  const baseFormInput = vForms[0].innerHTML;
+  const baseFormInput = vForms[vForms.length - 1].innerHTML;
   const form = document.createElement('div');
   form.setAttribute('class',vForms[0].getAttribute('class'));
   form.innerHTML = baseFormInput;
   Array.from(form.children).forEach(item => {
     item.setAttribute('value','');
   });
-  const deleteBtn = form.querySelector('.deleteVBtn');
-  deleteBtn.innerText = 'Delete';
-  deleteBtn.classList.remove('btn-danger');
-  deleteBtn.classList.add('btn-primary');
-  deleteBtn.removeAttribute('href');
+  // const deleteBtn = form.querySelector('.deleteVBtn');
+  // deleteBtn.innerText = 'Delete';
+  // deleteBtn.classList.remove('btn-danger');
+  // deleteBtn.classList.add('btn-primary');
+  // deleteBtn.removeAttribute('href');
   partContainer.appendChild(form);
 
   
@@ -258,7 +258,4 @@ editMode.addEventListener('click',(event) => {
     item.classList.remove('d-none');
   });
   editMode.classList.add('d-none');
-  Array.from(deleteVehiBtn).forEach(item => {
-    item.innerText = 'Delete Vehicle';
-  })
 })
