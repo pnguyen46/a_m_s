@@ -260,14 +260,18 @@ function deleteInputBox(){
 
 //Preset element in view form
 const editMode = document.getElementById('editMode');
-editMode.addEventListener('click',(event) => {
-  const form = document.querySelectorAll('#form input');
-  const editItem = document.querySelectorAll('.edit');
-  Array.from(editItem).forEach(item => {
-    item.classList.remove('d-none');
+if(editMode !== null){
+  editMode.addEventListener('click',(event) => {
+    const form = document.querySelectorAll('#form input');
+    const editItem = document.querySelectorAll('.edit');
+    const selectSec = document.getElementById('technician');
+    Array.from(editItem).forEach(item => {
+      item.classList.remove('d-none');
+    });
+    Array.from(form).forEach(item => {
+      item.removeAttribute('disabled');
+    })
+    selectSec.removeAttribute('disabled');
+    editMode.classList.add('d-none');
   });
-  Array.from(form).forEach(item => {
-    item.removeAttribute('disabled');
-  })
-  editMode.classList.add('d-none');
-});
+}

@@ -8,23 +8,38 @@ module.exports = {
         try {
             const filteredArr = [];
             const tickets = await ticket.find({userId:req.user._id});
-            // console.log(tickets);
             const employees = await employee.find({});
             const parts = tickets.map(item => item.parts);
             parts.forEach(item => {
                 filteredArr.push(module.exports.partListBuilder(item));
             })
             tickets.forEach((item,indx) => item['parts'] = filteredArr[indx]);
-            res.render('ticket',{title:'Ticket',tickets,employees});
+            res.render('tickets',{title:'Ticket',tickets,employees});
         } catch (error) {
             return next(error);
         }
     },
     getTicket:async (req,res,next) => {
         try {
-            const item = await ticket.find({_id:req.params.id,userId:req.user._id});
-            console.log(item);
-            res.json({item});
+            const vehicles = [];
+            const reTicket = await ticket.find({_id:req.params.id,userId:req.user._id});
+            const [tickVehicle] = reTicket.map(item => item.vehicles);
+            tickVehicle.forEach(async item => {
+                const result = await vehicle.findById(item);
+                vehicles.push(result);
+            });
+            const [objTic] = reTicket;
+            const employees = await employee.find({});
+            const ticCustomer = await customer.findById(objTic.customer);
+            let currIndx = 0;
+            const parts = [];
+            for(let i = 0; i <= objTic.parts.length;i++){
+                if(i !== 0 && i % 2 === 0){
+                    parts.push(objTic.parts.slice(currIndx,i));
+                    currIndx = i;
+               }
+            }
+            res.render('view/ticket',{title:"View Ticket",employees,vehicles,objTic,ticCustomer,parts});
         } catch (error) {
             return next(error);
         }
@@ -91,7 +106,7 @@ module.exports = {
             });
             await vehicle.findByIdAndUpdate()
             console.log('Item Updated!');
-            res.redirect('/ticket');
+            res.redirect('/tickets');
         } catch (error) {
             return next(error);
         }
@@ -100,7 +115,7 @@ module.exports = {
         try {
             await ticket.findOneAndDelete({_id:req.params.id,userId:req.user._id});
             console.log('Ticket Deleted');
-            res.redirect('/ticket');
+            res.redirect('/tickets');
         } catch (error) {
             return next(error);
         }

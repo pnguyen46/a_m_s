@@ -90,17 +90,17 @@
                 <td><%=item.cost%></td>
                 <td><%=item.date%></td>
                 <td>
-                  <%employees.forEach(el => {%>
-                        <%if(el._id == item.technician){%>
-                          <a href="">
-                            <%=el.name%>
-                          </a>
-                        <%}%>
+                  <%employees.forEach(ele => {%>
+                      <%if(String(ele._id) == item.technician){%>
+                        <a href="">
+                          <%=ele.name%>
+                        </a>
+                      <%}%>
                   <%})%>
                 </td>
                 <td><%=item.status%></td>
                 <td>
-                  <button
+                  <!-- <button
                     type="submit"
                     class="btn btn-primary btn-sm editBtn"
                     data-bs-toggle="modal"
@@ -109,7 +109,12 @@
                     data-bs-identifier="ticket"
                   >
                     Edit
-                  </button>
+                  </button> -->
+                  <a
+                  class="btn btn-primary btn-sm"
+                  href="/ticket/<%=item._id%>"
+                  >View</a
+                >
                 </td>
                 <td>
                   <form
