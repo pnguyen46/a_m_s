@@ -4,6 +4,7 @@ const ticketController = require('../controllers/ticket');
 
 router.get('/',ticketController.getIndex);
 router.get('/register',ticketController.register);
+router.get('/edit/:id',ticketController.editTicket)
 router.get('/register/:id',ticketController.customerRegister);
 router.get('/:id',ticketController.getTicket);
 router.post('/',ticketController.postTicket);

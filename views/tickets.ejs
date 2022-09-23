@@ -104,42 +104,16 @@
                   <%})%>
                 </td>
                 <td><%=item.status%></td>
-                <td>
-                  <!-- <button
-                    type="submit"
-                    class="btn btn-primary btn-sm editBtn"
-                    data-bs-toggle="modal"
-                    data-bs-target="#itemForm"
-                    data-bs-id="<%=item._id%>"
-                    data-bs-identifier="ticket"
-                  >
-                    Edit
-                  </button> -->
-                  <a
-                  class="btn btn-primary btn-sm"
-                  href="/ticket/<%=item._id%>"
-                  >View</a
-                >
-                </td>
-                <td>
-                  <form
-                    action="/ticket/deleteItem/<%=item._id%>?_method=DELETE"
-                    method="POST"
-                  >
-                    <button type="submit" class="btn btn-primary btn-sm">
-                      Delete
-                    </button>
-                  </form>
-                </td>
-                <td>
-                  <form
-                    action="/ticket/closeTicket/<%=item._id%>?_method=PUT"
-                    method="POST"
-                  >
-                    <button type="submit" class="btn btn-primary btn-sm">
-                      Close
-                    </button>
-                  </form>
+                <td class="">
+                  <div class="d-flex justify-content-between">
+                    <a
+                    class="btn btn-primary btn-sm"
+                    href="/ticket/<%=item._id%>"
+                    >View</a>
+                    <a class="btn btn-primary btn-sm" href="/ticket/edit/<%=item._id%>">Update</a>
+                    <a class="btn btn-primary btn-sm" href="/ticket/deleteItem/<%=item._id%>?_method=DELETE">Delete</a>
+                    <a class="btn btn-primary btn-sm" href="/ticket/closeTicket/<%=item._id%>?_method=PUT">Close</a>
+                  </div>
                 </td>
               </tr>
               <%})%>

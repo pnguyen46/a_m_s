@@ -46,7 +46,10 @@ app.use( function( req, res, next ) {
       req.method = 'DELETE';
       // and set requested url to /user/12
       req.url = req.path;
-  } 
+  }else if(req.query._method == 'PUT') {
+    req.method = 'PUT';
+    req.url = req.path;
+  }
   next(); 
 });
 

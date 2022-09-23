@@ -96,6 +96,7 @@ module.exports = {
     },
     updateTicket: async (req,res,next) => {
         try {
+            // console.log(req.body)
             await ticket.findOneAndUpdate({_id:req.params.id,userId:req.user._id},{
                 repairType:req.body.repairType,
                 hour:req.body.repairHours,
@@ -105,9 +106,34 @@ module.exports = {
                 status:req.body.repairStatus,
                 parts:req.body.repairParts
             });
-            // await vehicle.findByIdAndUpdate()
+
+            await customer.findByIdAndUpdate(req.body.customerId,{
+                name:req.body.customerName,
+                address:req.body.customerAddr,
+                phone_number:req.body.customerPhone,
+            });
+
+            const formatVehicleArr = [];
+            const upVehicle = req.body.vehicle;
+            let currIndx = 0;
+            for(let i = 1; i <= upVehicle.length;i++){
+                if(i % 7 === 0){
+                    formatVehicleArr.push(upVehicle.slice(currIndx,i));
+                    currIndx = i;
+                }
+            }
+            formatVehicleArr.forEach(async upVehicle => {
+                await vehicle.findByIdAndUpdate(upVehicle[0],{
+                    vehicleYear: upVehicle[1],
+                    vehicleMake: upVehicle[2],
+                    vehicleModel:upVehicle[3],
+                    vehicleEngine: upVehicle[4],
+                    vehicleMileage: upVehicle[5],
+                    vehicleVIN:upVehicle[6],
+                });
+            });
             console.log('Item Updated!');
-            res.redirect('/tickets');
+            res.redirect('/ticket');
         } catch (error) {
             return next(error);
         }
@@ -116,7 +142,7 @@ module.exports = {
         try {
             await ticket.findOneAndDelete({_id:req.params.id,userId:req.user._id});
             console.log('Ticket Deleted');
-            res.redirect('/tickets');
+            res.redirect('/ticket');
         } catch (error) {
             return next(error);
         }
@@ -151,6 +177,41 @@ module.exports = {
                 technician:req.body.repairTech,
                 customer:req.params.id
             });
+
+            if(Array.isArray(req.body.vehicles)){
+                const vehicles = req.body.vehicles;
+                vehicles.forEach(async vehicle => {
+                    await ticket.findByIdAndUpdate(repairTicket._id,{
+                        $push:{vehicles: vehicle}
+                    });
+                });
+            }else{
+                await ticket.findByIdAndUpdate(repairTicket._id,{
+                    $push:{vehicles: req.body.vehicles}
+                });
+            }
+            console.log('Ticket Created!');
+            res.redirect('/ticket');
+        } catch (error) {
+            return next(error);
+        }
+    },
+    editTicket:async(req,res,next) => {
+        try {
+            const ticketId = req.params.id;
+            const tickets = await ticket.findById(ticketId);
+            const employees = await employee.find({});
+            const ticCustomer = await customer.findById(tickets.customer);
+            const vehicles = await vehicle.find({customerId:tickets.customer});
+            let currIndx = 0;
+            const parts = [];
+            for(let i = 0; i <= tickets.parts.length;i++){
+                if(i !== 0 && i % 2 === 0){
+                    parts.push(tickets.parts.slice(currIndx,i));
+                    currIndx = i;
+               }
+            }
+            res.render('edit/ticket',{title:'Update Ticket',employees,tickets,ticketId,ticCustomer,vehicles,parts});
         } catch (error) {
             return next(error);
         }
