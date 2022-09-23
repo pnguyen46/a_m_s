@@ -46,11 +46,12 @@ module.exports = {
     },
     postTicket: async (req,res,next) => {
         try {
+            console.log(req.body)
             const nCustomer = await customer.create({
                 name:req.body.customerName,
                 address:req.body.customerAddr,
                 phone_number:req.body.customerPhone,
-                joined_date: new Date().toDateString()
+                joined_date: undefined
             });
 
             const repairTicket = await ticket.create({
@@ -116,6 +117,22 @@ module.exports = {
             await ticket.findOneAndDelete({_id:req.params.id,userId:req.user._id});
             console.log('Ticket Deleted');
             res.redirect('/tickets');
+        } catch (error) {
+            return next(error);
+        }
+    },
+    register:async (req,res,next) => {
+        try {
+            const employees = await employee.find({});
+            res.render('create/ticket',{title:'Create Ticket',employees});
+        } catch (error) {
+            return next(error);
+        }
+    },
+    customerRegister:async (req,res,next) => {
+        try {
+            const employees = await employee.find({});
+            res.render('create/cusTicket',{title:'Create Ticket',employees});
         } catch (error) {
             return next(error);
         }

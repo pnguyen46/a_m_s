@@ -3,6 +3,7 @@ const router = Router();
 const ticketController = require('../controllers/ticket');
 
 router.get('/',ticketController.getIndex);
+router.get('/register',ticketController.register);
 router.get('/:id',ticketController.getTicket);
 router.post('/',ticketController.postTicket);
 router.put('/editItem/:id',ticketController.updateTicket);

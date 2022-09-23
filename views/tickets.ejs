@@ -46,8 +46,13 @@
     <div class="container">
       <h1 class="text-center">Ticket</h1>
       <div class="row mt-5">
+        <div class="row">
+          <div class="col">
+            <a href="/ticket/register" class="btn btn-primary ">Create Ticket</a>     
+          </div>
+        </div>
         <h2 class="text-center">Active Ticket</h2>
-        <div class="col-3 border">
+        <!-- <div class="col-3 border">
           <a
             class="btn btn-primary btn-sm"
             data-bs-toggle="modal"
@@ -57,7 +62,7 @@
             id="resetBtn"
             >Create Ticket</a>
           <a class="btn btn-primary btn-sm">View All Tickets</a>
-        </div>
+        </div> -->
 
         <div class="col">
           <!--table-->
@@ -175,232 +180,6 @@
       </div>
     </div>
     <!--/container-->
-
-    <!--modal-->
-    <div class="modal" id="itemForm" tabindex="-1">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Create Ticket</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <!--form-->
-            <form action="/ticket" method="POST" id="form">
-              <div class="mb-3">
-                <label for="repairType" class="form-label">Repair Type</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="repairType"
-                  name="repairType"
-                  aria-describedby=""
-                />
-              </div>
-              <div class="mb-3">
-                <label for="hour" class="form-label">Hours</label>
-                <input
-                  type="number"
-                  class="form-control"
-                  id="hour"
-                  name="repairHours"
-                  min="0"
-                  step="0.10"
-                />
-              </div>
-              <div class="mb-3">
-                <label for="cost" class="form-label">Cost</label>
-                <input
-                  type="number"
-                  class="form-control"
-                  id="cost"
-                  name="repairCost"
-                  min="0"
-                  step="0.01"
-                />
-              </div>
-              <div class="mb-3">
-                <label for="repairDate" class="form-label">Date</label>
-                <input
-                  type="date"
-                  class="form-control"
-                  id="date"
-                  name="repairDate"
-                />
-              </div>
-              <div class="mb-3">
-                <label for="technician" class="form-label"><h3>Technician:</h3></label>
-                <select name="repairTech" id="technician">
-                  <%employees.forEach(el => {%>
-                    <option value="<%=el._id%>"><%=el.name%></option>
-                  <%})%>
-                </select>
-              </div>
-              <!-- <div class="mb-3">
-                <label for="status" class="form-label">Status</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="status"
-                  name="repairStatus"
-                />
-              </div> -->
-              <div class="mb-3">
-                <h3>Customer Information</h3>
-                <div class="mb-3">
-                  <label for="name" class="form-label">Name</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="name"
-                    name="customerName"
-                    aria-describedby=""
-                  />
-                </div>
-                <div class="mb-3">
-                  <label for="address" class="form-label">Address</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="address"
-                    name="customerAddr"
-                    min="0"
-                  />
-                </div>
-                <div class="mb-3">
-                  <label for="phone_number" class="form-label"
-                    >Phone Number</label
-                  >
-                  <input
-                    type="tel"
-                    class="form-control"
-                    id="phone_number"
-                    name="customerPhone"
-                  />
-                </div>
-              </div>
-              <div class="mb-3">
-                <h3>Vehicle Information</h3>
-                <div id="vehicleContainer">
-                  <div class="col d-flex gap-2 mt-2 flex-wrap edit">
-                    <label for="vehicleYear" class="form-label">Year:</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="vehicles"
-                      name="vehicle"
-                      style="flex-basis: 20%"
-                    />
-                    <label for="vehicleMake" class="form-label">Make:</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="vehicles"
-                      name="vehicle"
-                      style="flex-basis: 50%"
-                    />
-                    <label for="vehicleModel" class="form-label">Model:</label>
-                    <input
-                      type="text"
-                      class="form-control w-50"
-                      id="vehicles"
-                      name="vehicle"
-                    />
-                    <label for="vehicleEngine" class="form-label">Engine:</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="vehicles"
-                      name="vehicle"
-                      style="flex-basis: 20%"
-                    />
-                    <label for="vehicleMileage" class="form-label"
-                      >Mileage:</label
-                    >
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="vehicles"
-                      name="vehicle"
-                      style="flex-basis: 20%"
-                    />
-                    <label for="vehicleVIN" class="form-label">VIN number:</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="vehicles"
-                      name="vehicle"
-                      style="flex-basis: 40%"
-                    />
-                    <a
-                      class="btn btn-primary btn-sm ms-auto deleteVBtn"
-                      type="button"
-                      >Delete</a
-                    >
-                  </div>
-                </div>
-                <div class="my-3">
-                  <button
-                    class="btn btn-primary edit"
-                    type="button"
-                    id="newVBtn"
-                  >
-                    Add New Vehicle
-                  </button>
-                </div>
-              </div>
-              <div class="mb-3">
-                <label for="parts" class="form-label"><h3>Parts</h3></label>
-                <div id="partContainer">
-                  <div class="d-flex gap-2 my-2">
-                    <input
-                      type="text"
-                      placeholder="Name"
-                      class="form-control w-75"
-                      id="parts"
-                      name="repairParts"
-                    />
-                    <input
-                      type="number"
-                      placeholder="Qty"
-                      class="form-control w-25"
-                      id="parts"
-                      name="repairParts"
-                    />
-                    <button
-                    class="btn btn-primary btn-sm ms-1 deleteInputBox"
-                    type="button"
-                    >
-                    Delete
-                    </button>
-                  </div>
-                </div>
-                <div class="d-flex justify-content-end mt-3">
-                  <button
-                    class="btn btn-primary btn-sm"
-                    id="addInputBox"
-                    type="button"
-                  >
-                    Add Part
-                  </button>
-                </div>
-              </div>
-              <button type="submit" id="updateBtn" class="btn btn-primary">Add</button>
-              <button type="reset" id="hiddenBtn" class="btn btn-primary">
-                Reset
-              </button>
-            </form>
-            <!--/form-->
-          </div>
-        </div>
-      </div>
-    </div>
-    <!--/modal-->
 
     <!-- Optional JavaScript; choose one of the two! -->
 
