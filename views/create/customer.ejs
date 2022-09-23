@@ -92,12 +92,18 @@
               <label for="fav_tech" class="form-label"
                 >Perfer Technician</label
               >
-              <input
+              <!-- <input
                 type="text"
                 class="form-control"
                 id="fav_tech"
                 name="customerTech"
-              />
+              /> -->
+              <select name="customerTech" id="fav_tech">
+                <option value="">None</option>
+                <%employees.forEach(employee => {%>
+                  <option value="<%=employee._id%>"><%=employee.name%></option>
+                <%})%>
+              </select>
             </div>
             <div class="mb-3">
               <h3>Vehicle Information:</h3>

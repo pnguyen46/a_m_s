@@ -44,6 +44,7 @@
     </nav>
     <!--/nav-->
     <div class="container">
+      <a href="/customer">Views All Customers</a>  
       <h1 class="text-center">View Customer</h1>
       <div class="row justify-content-center">
         <div class="col-5">
@@ -100,13 +101,23 @@
             </div>
             <div class="mb-3">
               <label for="fav_tech" class="form-label">Perfer Technician</label>
-              <input
+              <!-- <input
                 type="text"
                 class="form-control"
                 id="fav_tech"
                 name="customerTech"
                 disabled
-              />
+              /> -->
+              <select name="customerTech" id="fav_tech" disabled>
+                <option value="">None</option>
+                <%employees.forEach(employee =>{%>
+                  <%if(employee._id == item.fav_tech){%>
+                    <option value="<%=employee._id%>" selected><%=employee.name%></option>
+                  <%}else{%>
+                    <option value="<%=employee._id%>"><%=employee.name%></option>
+                  <%}%>
+                <%})%>
+              </select>
             </div>
             <div class="mb-3">
               <h3>Vehicle Information:</h3>

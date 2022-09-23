@@ -1,10 +1,12 @@
 const customer = require('../models/Customer');
 const vehicle = require('../models/Vehicle');
+const employee = require('../models/Employee');
 module.exports = {
     getIndex:async (req,res,next) => {
         try {
             const customers = await customer.find({});
-            return res.render('customers',{title:'Customer',customers});
+            const employees = await employee.find({});
+            return res.render('customers',{title:'Customer',customers,employees});
         } catch (error) {
             return next(error);
         }
@@ -13,7 +15,8 @@ module.exports = {
         try {
             const [item] = await customer.find({_id:req.params.id}).lean();
             const vehicles = await vehicle.find({customerId:req.params.id});
-            return res.render('view/customer',{title:'View Customer',item,vehicles});
+            const employees = await employee.find({});
+            return res.render('view/customer',{title:'View Customer',item,vehicles,employees});
         } catch (error) {
             return next(error);
         }
@@ -107,7 +110,8 @@ module.exports = {
     },
     registerCustomer:async (req,res,next) => {
         try {
-            res.render('create/customer',{title:'Create Customer'})
+            const employees = await employee.find({});
+            res.render('create/customer',{title:'Create Customer',employees})
         } catch (error) {
             return next(error);
         }
@@ -116,8 +120,9 @@ module.exports = {
         try {
             const [item] = await customer.find({_id:req.params.id}).lean();
             console.log(item);
+            const employees = await employee.find({});
             const vehicles = await vehicle.find({customerId:req.params.id});
-            return res.render('edit/customer',{title:'Update Customer',item,vehicles});
+            return res.render('edit/customer',{title:'Update Customer',item,vehicles,employees});
         } catch (error) {
             return next(error);
         }
