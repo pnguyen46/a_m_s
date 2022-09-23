@@ -44,12 +44,11 @@
     </nav>
     <!--/nav-->
     <div class="container">
-      <a href="/ticket">View All Tickets</a>
-      <h1 class="text-center">View Ticket</h1>
+      <h1 class="text-center">Update Ticket</h1>
       <div class="row justify-content-center">
         <div class="col-5">
           <!--form-->
-          <form action="/ticket" method="POST" id="form">
+          <form action="/ticket/editItem/<%=ticketId%>?_method=PUT" method="POST" id="form">
             <div class="mb-3">
               <label for="repairType" class="form-label">Repair Type</label>
               <input
@@ -58,8 +57,7 @@
                 id="repairType"
                 name="repairType"
                 aria-describedby=""
-                value="<%=objTic.repairType%>"
-                disabled
+                value="<%=tickets.repairType%>"
               />
             </div>
             <div class="mb-3">
@@ -71,8 +69,7 @@
                 name="repairHours"
                 min="0"
                 step="0.10"
-                value="<%=objTic.hour%>"
-                disabled
+                value="<%=tickets.hour%>"
               />
             </div>
             <div class="mb-3">
@@ -84,8 +81,7 @@
                 name="repairCost"
                 min="0"
                 step="0.01"
-                value="<%=objTic.cost%>"
-                disabled
+                value="<%=tickets.cost%>"
               />
             </div>
             <div class="mb-3">
@@ -95,32 +91,21 @@
                 class="form-control"
                 id="date"
                 name="repairDate"
-                value="<%=objTic.date%>"
-                disabled
+                value="<%=tickets.date%>"
               />
             </div>
             <div class="mb-3">
               <label for="technician" class="form-label"><h3>Technician:</h3></label>
-              <select name="repairTech" id="technician" disabled>
-                <%employees.forEach(el => {%>
-                  <%if(String(el._id) == objTic.technician){%>
-                    <option value="<%=el._id%>" selected><%=el.name%></option>
+              <select name="repairTech" id="technician">
+                <option value="">None</option>
+                <%employees.forEach(employee =>{%>
+                  <%if(String(employee._id) == tickets.technician){%>
+                    <option value="<%=employee._id%>" selected><%=employee.name%></option>
                   <%}else{%>
-                    <option value="<%=el._id%>"><%=el.name%></option>
+                    <option value="<%=employee._id%>"><%=employee.name%></option>
                   <%}%>
                 <%})%>
               </select>
-            </div>
-            <div class="mb-3">
-              <label for="status" class="form-label">Status</label>
-              <input
-                type="text"
-                class="form-control"
-                id="status"
-                name="repairStatus"
-                value="<%=objTic.status%>"
-                disabled
-              />
             </div>
             <div class="mb-3">
               <h3>Customer Information</h3>
@@ -133,7 +118,6 @@
                   name="customerName"
                   aria-describedby=""
                   value="<%=ticCustomer.name%>"
-                  disabled
                 />
               </div>
               <div class="mb-3">
@@ -145,7 +129,6 @@
                   name="customerAddr"
                   min="0"
                   value="<%=ticCustomer.address%>"
-                  disabled
                 />
               </div>
               <div class="mb-3">
@@ -158,91 +141,77 @@
                   id="phone_number"
                   name="customerPhone"
                   value="<%=ticCustomer.phone_number%>"
-                  disabled
                 />
               </div>
             </div>
             <div class="mb-3">
-              <h3>Vehicle Information:</h3>
+              <h3>Vehicle Information</h3>
               <div id="vehicleContainer">
-                <%vehicles.forEach(el => {%>
-                <div class="col d-flex gap-2 mt-2 flex-wrap">
-                  <input
-                    type="text"
-                    name="vehicle"
-                    value="<%=el._id%>"
-                    hidden
-                  />
-                  <label for="vehicleYear" class="form-label">Year:</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="vehicles"
-                    name="vehicle"
-                    style="flex-basis: 20%"
-                    value="<%=el.vehicleYear%>"
-                    disabled
-                  />
-                  <label for="vehicleMake" class="form-label">Make:</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="vehicles"
-                    name="vehicle"
-                    style="flex-basis: 50%"
-                    value="<%=el.vehicleMake%>"
-                    disabled
-                  />
-                  <label for="vehicleModel" class="form-label">Model:</label>
-                  <input
-                    type="text"
-                    class="form-control w-50"
-                    id="vehicles"
-                    name="vehicle"
-                    value="<%=el.vehicleModel%>"
-                    disabled
-                  />
-                  <label for="vehicleEngine" class="form-label">Engine:</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="vehicles"
-                    name="vehicle"
-                    style="flex-basis: 20%"
-                    value="<%=el.vehicleEngine%>"
-                    disabled
-                  />
-                  <label for="vehicleMileage" class="form-label"
-                    >Mileage:</label
-                  >
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="vehicles"
-                    name="vehicle"
-                    style="flex-basis: 20%"
-                    value="<%=el.vehicleMileage%>"
-                    disabled
-                  />
-                  <label for="vehicleVIN" class="form-label">VIN number:</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="vehicles"
-                    name="vehicle"
-                    style="flex-basis: 40%"
-                    value="<%=el.vehicleVIN%>"
-                    disabled
-                  />
-                </div>
+                <%vehicles.forEach(vehicle => {%>
+                    <div class="col d-flex gap-2 mt-2 flex-wrap edit">
+                      <label for="vehicleYear" class="form-label">Year:</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="vehicles"
+                        name="vehicle"
+                        style="flex-basis: 20%"
+                        value="<%=vehicle.vehicleYear%>"
+                      />
+                      <label for="vehicleMake" class="form-label">Make:</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="vehicles"
+                        name="vehicle"
+                        style="flex-basis: 50%"
+                        value="<%=vehicle.vehicleMake%>"
+                      />
+                      <label for="vehicleModel" class="form-label">Model:</label>
+                      <input
+                        type="text"
+                        class="form-control w-50"
+                        id="vehicles"
+                        name="vehicle"
+                        value="<%=vehicle.vehicleModel%>"
+                      />
+                      <label for="vehicleEngine" class="form-label">Engine:</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="vehicles"
+                        name="vehicle"
+                        style="flex-basis: 20%"
+                        value="<%=vehicle.vehicleEngine%>"
+                      />
+                      <label for="vehicleMileage" class="form-label"
+                        >Mileage:</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="vehicles"
+                        name="vehicle"
+                        style="flex-basis: 20%"
+                        value="<%=vehicle.vehicleMileage%>"
+                      />
+                      <label for="vehicleVIN" class="form-label">VIN number:</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="vehicles"
+                        name="vehicle"
+                        style="flex-basis: 40%"
+                        value="<%=vehicle.vehicleVIN%>"
+                      />
+                    </div>
                 <%})%>
               </div>
             </div>
             <div class="mb-3">
               <label for="parts" class="form-label"><h3>Parts</h3></label>
               <div id="partContainer">
-                <%if(parts){%>
-                  <%parts.forEach(part => {%>
+                <%parts.forEach(part => {%>
                     <div class="d-flex gap-2 my-2">
                       <input
                         type="text"
@@ -251,7 +220,6 @@
                         id="parts"
                         name="repairParts"
                         value="<%=part[0]%>"
-                        disabled
                       />
                       <input
                         type="number"
@@ -260,16 +228,31 @@
                         id="parts"
                         name="repairParts"
                         value="<%=part[1]%>"
-                        disabled
                       />
+                      <button
+                      class="btn btn-primary btn-sm ms-1 deleteInputBox"
+                      type="button"
+                      >
+                      Delete
+                      </button>
                     </div>
-                  <%})%>
-                <%}%>  
+                <%})%>
+              </div>
+              <div class="d-flex justify-content-end mt-3">
+                <button
+                  class="btn btn-primary btn-sm"
+                  id="addInputBox"
+                  type="button"
+                >
+                  Add Part
+                </button>
               </div>
             </div>
-            <a type="button" class="btn btn-primary" href="/ticket/edit/<%=objTic._id%>">
-              Edit
-            </a>
+            <button type="submit" id="updateBtn" class="btn btn-primary">Update</button>
+            <button type="reset" id="hiddenBtn" class="btn btn-primary">
+              Reset
+            </button>
+            <a type="button" class="btn btn-danger" href="/ticket/<%=ticketId%>">Cancel</a>
           </form>
           <!--/form-->
         </div>

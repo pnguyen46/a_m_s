@@ -169,6 +169,26 @@ module.exports = {
             return next(error);
         }
     },
+    editTicket:async(req,res,next) => {
+        try {
+            const ticketId = req.params.id;
+            const tickets = await ticket.findById(ticketId);
+            const employees = await employee.find({});
+            const ticCustomer = await customer.findById(tickets.customer);
+            const vehicles = await vehicle.find({customerId:tickets.customer});
+            let currIndx = 0;
+            const parts = [];
+            for(let i = 0; i <= tickets.parts.length;i++){
+                if(i !== 0 && i % 2 === 0){
+                    parts.push(tickets.parts.slice(currIndx,i));
+                    currIndx = i;
+               }
+            }
+            res.render('edit/ticket',{title:'Update Ticket',employees,tickets,ticketId,ticCustomer,vehicles,parts});
+        } catch (error) {
+            return next(error);
+        }
+    },
     partListBuilder:(arr) => {
         const filteredArr = [];
         let temp = undefined;
