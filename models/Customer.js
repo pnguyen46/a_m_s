@@ -16,7 +16,11 @@ const CustomerSchema = new mongoose.Schema({
     joined_date: {
         type:String,
         required:true,
-        default:Date.now
+        default:() => {
+            const date = new Date();
+            joinDate = `${date.getFullYear()}-0${date.getMonth() + 1}-${date.getDate()}`;
+            return joinDate;
+        }
     },
     repair: {
         type:String,

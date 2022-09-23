@@ -44,15 +44,12 @@
     </nav>
     <!--/nav-->
     <div class="container">
-      <h1 class="text-center">View Customer</h1>
+      <a href="/customer">Views All Customers</a>  
+      <h1 class="text-center">Create Customer</h1>
       <div class="row justify-content-center">
         <div class="col-5">
           <!--form-->
-          <form
-            action="editItem/<%=item._id%>?_method=PUT"
-            method="POST"
-            id="form"
-          >
+          <form action="/customer" method="POST" id="form">
             <div class="mb-3">
               <label for="name" class="form-label">Name</label>
               <input
@@ -60,9 +57,6 @@
                 class="form-control"
                 id="name"
                 name="customerName"
-                aria-describedby=""
-                value="<%=item.name%>"
-                disabled
               />
             </div>
             <div class="mb-3">
@@ -72,19 +66,17 @@
                 class="form-control"
                 id="address"
                 name="customerAddr"
-                value="<%=item.address%>"
-                disabled
               />
             </div>
             <div class="mb-3">
-              <label for="phone_number" class="form-label">Phone Number</label>
+              <label for="phone_number" class="form-label"
+                >Phone Number</label
+              >
               <input
                 type="tel"
                 class="form-control"
                 id="phone_number"
                 name="customerPhone"
-                value="<%=item.phone_number%>"
-                disabled
               />
             </div>
             <div class="mb-3">
@@ -94,31 +86,23 @@
                 class="form-control"
                 id="joined_date"
                 name="joinedDate"
-                value="<%=item.joined_date%>"
-                disabled
               />
             </div>
             <div class="mb-3">
-              <label for="fav_tech" class="form-label">Perfer Technician</label>
+              <label for="fav_tech" class="form-label"
+                >Perfer Technician</label
+              >
               <input
                 type="text"
                 class="form-control"
                 id="fav_tech"
                 name="customerTech"
-                disabled
               />
             </div>
             <div class="mb-3">
               <h3>Vehicle Information:</h3>
               <div id="vehicleContainer">
-                <%vehicles.forEach(el => {%>
                 <div class="col d-flex gap-2 mt-2 flex-wrap">
-                  <input
-                    type="text"
-                    name="vehicle"
-                    value="<%=el._id%>"
-                    hidden
-                  />
                   <label for="vehicleYear" class="form-label">Year:</label>
                   <input
                     type="text"
@@ -126,8 +110,6 @@
                     id="vehicles"
                     name="vehicle"
                     style="flex-basis: 20%"
-                    value="<%=el.vehicleYear%>"
-                    disabled
                   />
                   <label for="vehicleMake" class="form-label">Make:</label>
                   <input
@@ -136,8 +118,6 @@
                     id="vehicles"
                     name="vehicle"
                     style="flex-basis: 50%"
-                    value="<%=el.vehicleMake%>"
-                    disabled
                   />
                   <label for="vehicleModel" class="form-label">Model:</label>
                   <input
@@ -145,18 +125,16 @@
                     class="form-control w-50"
                     id="vehicles"
                     name="vehicle"
-                    value="<%=el.vehicleModel%>"
-                    disabled
                   />
-                  <label for="vehicleEngine" class="form-label">Engine:</label>
+                  <label for="vehicleEngine" class="form-label"
+                    >Engine:</label
+                  >
                   <input
                     type="text"
                     class="form-control"
                     id="vehicles"
                     name="vehicle"
                     style="flex-basis: 20%"
-                    value="<%=el.vehicleEngine%>"
-                    disabled
                   />
                   <label for="vehicleMileage" class="form-label"
                     >Mileage:</label
@@ -167,27 +145,39 @@
                     id="vehicles"
                     name="vehicle"
                     style="flex-basis: 20%"
-                    value="<%=el.vehicleMileage%>"
-                    disabled
                   />
-                  <label for="vehicleVIN" class="form-label">VIN number:</label>
+                  <label for="vehicleVIN" class="form-label"
+                    >VIN number:</label
+                  >
                   <input
                     type="text"
                     class="form-control"
                     id="vehicles"
                     name="vehicle"
+                    step="0.01"
                     style="flex-basis: 40%"
-                    value="<%=el.vehicleVIN%>"
-                    disabled
                   />
+                  <button
+                    class="btn btn-primary ms-auto deleteVBtn"
+                    type="button"
+                  >
+                    delete
+                  </button>
                 </div>
-                <%})%>
               </div>
             </div>
-            <a id="editMode" class="btn btn-primary" href="/customer/edit/<%=item._id%>">
-              Edit
-            </a>
-          </form>
+            <div class="my-3">
+              <button class="btn btn-primary" type="button" id="newVBtn">
+                Add New Vehicle
+              </button>
+            </div>
+            <button id="updateBtn" type="submit" class="btn btn-primary">
+              Add
+            </button>
+            <button id="hiddenBtn" type="reset" class="btn btn-primary">
+              Reset
+            </button>
+        </form>
           <!--/form-->
         </div>
       </div>

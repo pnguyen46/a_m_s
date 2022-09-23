@@ -46,7 +46,12 @@
     <div class="container">
       <h1 class="text-center">Customer</h1>
       <div class="row">
-        <div class="col-2 border">
+        <div class="col">
+          <a href="/customer/register" class="btn btn-primary">Add Customer</a>
+        </div>
+      </div>
+      <div class="row">
+        <!-- <div class="col-2 border">
           <a
             class="btn btn-primary btn-sm"
             data-bs-toggle="modal"
@@ -57,7 +62,7 @@
             >Add Customer</a
           >
           <a class="btn btn-primary btn-sm">View All Customer</a>
-        </div>
+        </div> -->
 
         <div class="col mt-2">
           <!--table-->
@@ -89,7 +94,7 @@
                 <td><%=item.joined_date%></td>
                 <td><%=item.repair%></td>
                 <td><%=item.fav_tech%></td>
-                <td>
+                <td class="d-flex justify-content-between">
                   <!-- <button
                     type="submit"
                     class="btn btn-primary btn-sm editBtn"
@@ -105,26 +110,21 @@
                     href="/customer/<%=item._id%>"
                     >View</a
                   >
-                </td>
-                <td>
-                  <form
-                    action="/customer/deleteItem/<%=item._id%>?_method=DELETE"
-                    method="POST"
+                  <a
+                    class="btn btn-primary btn-sm"
+                    href="/customer/edit/<%=item._id%>"
+                    >Update</a
                   >
-                    <button type="submit" class="btn btn-primary btn-sm">
-                      Delete
-                    </button>
-                  </form>
-                </td>
-                <td>
-                  <form
-                    action="/ticket/createTicket/<%=item._id%>"
-                    method="POST"
+                  <a
+                    class="btn btn-primary btn-sm"
+                    href="/customer/deleteItem/<%=item._id%>?_method=DELETE"
+                    >Delete</a
                   >
-                    <button type="submit" class="btn btn-primary btn-sm">
-                      Create Ticket
-                    </button>
-                  </form>
+                  <a
+                    class="btn btn-primary btn-sm"
+                    href="/ticket/createTicket/<%=item._id%>?_method=POST"
+                    >Create Ticket</a
+                  >
                 </td>
               </tr>
               <%})%>
@@ -135,159 +135,6 @@
       </div>
     </div>
     <!--/container-->
-
-    <!--modal-->
-    <div class="modal" id="itemForm" tabindex="-1">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Add Customer</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <!--form-->
-            <form action="/customer" method="POST" id="form">
-              <div class="mb-3">
-                <label for="name" class="form-label">Name</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="name"
-                  name="customerName"
-                  aria-describedby=""
-                />
-              </div>
-              <div class="mb-3">
-                <label for="address" class="form-label">Address</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="address"
-                  name="customerAddr"
-                  min="0"
-                />
-              </div>
-              <div class="mb-3">
-                <label for="phone_number" class="form-label"
-                  >Phone Number</label
-                >
-                <input
-                  type="tel"
-                  class="form-control"
-                  id="phone_number"
-                  name="customerPhone"
-                />
-              </div>
-              <div class="mb-3">
-                <label for="joined_date" class="form-label">Joined Date</label>
-                <input
-                  type="date"
-                  class="form-control"
-                  id="joined_date"
-                  name="joinedDate"
-                />
-              </div>
-              <div class="mb-3">
-                <label for="fav_tech" class="form-label"
-                  >Perfer Technician</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="fav_tech"
-                  name="customerTech"
-                />
-              </div>
-              <div class="mb-3">
-                <h3>Vehicle Information:</h3>
-                <div id="vehicleContainer">
-                  <div class="col d-flex gap-2 mt-2 flex-wrap">
-                    <label for="vehicleYear" class="form-label">Year:</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="vehicles"
-                      name="vehicle"
-                      style="flex-basis: 20%"
-                    />
-                    <label for="vehicleMake" class="form-label">Make:</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="vehicles"
-                      name="vehicle"
-                      style="flex-basis: 50%"
-                    />
-                    <label for="vehicleModel" class="form-label">Model:</label>
-                    <input
-                      type="text"
-                      class="form-control w-50"
-                      id="vehicles"
-                      name="vehicle"
-                    />
-                    <label for="vehicleEngine" class="form-label"
-                      >Engine:</label
-                    >
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="vehicles"
-                      name="vehicle"
-                      style="flex-basis: 20%"
-                    />
-                    <label for="vehicleMileage" class="form-label"
-                      >Mileage:</label
-                    >
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="vehicles"
-                      name="vehicle"
-                      style="flex-basis: 20%"
-                    />
-                    <label for="vehicleVIN" class="form-label"
-                      >VIN number:</label
-                    >
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="vehicles"
-                      name="vehicle"
-                      step="0.01"
-                      style="flex-basis: 40%"
-                      value=""
-                    />
-                    <button
-                      class="btn btn-primary ms-auto deleteVBtn"
-                      type="button"
-                    >
-                      delete
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <div class="my-3">
-                <button class="btn btn-primary" type="button" id="newVBtn">
-                  Add New Vehicle
-                </button>
-              </div>
-              <button id="updateBtn" type="submit" class="btn btn-primary">
-                Add
-              </button>
-              <button id="hiddenBtn" type="reset" class="btn btn-primary">
-                Reset
-              </button>
-            </form>
-            <!--/form-->
-          </div>
-        </div>
-      </div>
-    </div>
 
     <!-- Optional JavaScript; choose one of the two! -->
 

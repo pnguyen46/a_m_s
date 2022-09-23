@@ -36,7 +36,7 @@ module.exports = {
                 phone_number:req.body.customerPhone,
                 repair:req.body.customerRepair,
                 fav_tech:req.body.customerTech,
-                joined_date:req.body.joinedDate,
+                joined_date:undefined,
             })
             
             formatVehicleArr.forEach(async item => {
@@ -55,7 +55,7 @@ module.exports = {
             return next(error);
         }
     },
-    editCustomer:async (req,res,next) => {
+    updateCustomer:async (req,res,next) => {
         try {
             // console.log(req.body);
             const vehicles = req.body.vehicle;
@@ -101,6 +101,23 @@ module.exports = {
             await customer.findOneAndDelete({_id:req.params.id});
             console.log('Deleted Customer');
             res.redirect('/customer');
+        } catch (error) {
+            return next(error);
+        }
+    },
+    registerCustomer:async (req,res,next) => {
+        try {
+            res.render('create/customer',{title:'Create Customer'})
+        } catch (error) {
+            return next(error);
+        }
+    },
+    editCustomer:async (req,res,next) => {
+        try {
+            const [item] = await customer.find({_id:req.params.id}).lean();
+            console.log(item);
+            const vehicles = await vehicle.find({customerId:req.params.id});
+            return res.render('edit/customer',{title:'Update Customer',item,vehicles});
         } catch (error) {
             return next(error);
         }
