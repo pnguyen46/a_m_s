@@ -48,7 +48,7 @@
       <div class="row justify-content-center">
         <div class="col-5">
           <!--form-->
-          <form action="/ticket" method="POST" id="form">
+          <form action="/ticket/<%=customerId%>" method="POST" id="form">
             <div class="mb-3">
               <label for="repairType" class="form-label">Repair Type</label>
               <input
@@ -108,42 +108,42 @@
                 <%vehicles.forEach(vehicle => {%>
                   <div class="col d-flex gap-2 mt-2 flex-wrap edit">
                     <div class="form-check">
-                          <input class="form-check-input vehiCheck" type="checkbox" value="checked" name="vehicle">
+                          <input class="form-check-input vehiCheck" type="checkbox" value="<%=vehicle._id%>" name="vehicles">
                     </div>
                     <label for="vehicleYear" class="form-label">Year:</label>
                     <input
                       type="text"
                       class="form-control"
                       id="vehicles"
-                      name="vehicle"
                       style="flex-basis: 20%"
                       value="<%=vehicle.vehicleYear%>"
+                      disabled
                     />
                     <label for="vehicleMake" class="form-label">Make:</label>
                     <input
                       type="text"
                       class="form-control"
                       id="vehicles"
-                      name="vehicle"
                       style="flex-basis: 50%"
                       value="<%=vehicle.vehicleMake%>"
+                      disabled
                     />
                     <label for="vehicleModel" class="form-label">Model:</label>
                     <input
                       type="text"
                       class="form-control w-50"
                       id="vehicles"
-                      name="vehicle"
                       value="<%=vehicle.vehicleModel%>"
+                      disabled
                     />
                     <label for="vehicleEngine" class="form-label">Engine:</label>
                     <input
                       type="text"
                       class="form-control"
                       id="vehicles"
-                      name="vehicle"
                       style="flex-basis: 20%"
                       value="<%=vehicle.vehicleEngine%>"
+                      disabled
                     />
                     <label for="vehicleMileage" class="form-label"
                       >Mileage:</label
@@ -152,35 +152,21 @@
                       type="text"
                       class="form-control"
                       id="vehicles"
-                      name="vehicle"
                       style="flex-basis: 20%"
                       value="<%=vehicle.vehicleMileage%>"
+                      disabled
                     />
                     <label for="vehicleVIN" class="form-label">VIN number:</label>
                     <input
                       type="text"
                       class="form-control"
                       id="vehicles"
-                      name="vehicle"
                       style="flex-basis: 40%"
                       value="<%=vehicle.vehicleVIN%>"
+                      disabled
                     />
-                    <!-- <a
-                      class="btn btn-primary btn-sm ms-auto deleteVBtn"
-                      type="button"
-                      >Delete</a
-                    > -->
                   </div>
                 <%})%>
-              </div>
-              <div class="my-3">
-                <button
-                  class="btn btn-primary edit"
-                  type="button"
-                  id="newVBtn"
-                >
-                  Add New Vehicle
-                </button>
               </div>
             </div>
             <div class="mb-3">

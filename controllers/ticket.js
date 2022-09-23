@@ -46,7 +46,6 @@ module.exports = {
     },
     postTicket: async (req,res,next) => {
         try {
-            console.log(req.body)
             const nCustomer = await customer.create({
                 name:req.body.customerName,
                 address:req.body.customerAddr,
@@ -116,7 +115,7 @@ module.exports = {
         try {
             await ticket.findOneAndDelete({_id:req.params.id,userId:req.user._id});
             console.log('Ticket Deleted');
-            res.redirect('/tickets');
+            res.redirect('/ticket');
         } catch (error) {
             return next(error);
         }
@@ -135,6 +134,37 @@ module.exports = {
             const employees = await employee.find({});
             const vehicles = await vehicle.find({customerId});
             res.render('create/cusTicket',{title:'Create Ticket',employees,customerId,vehicles});
+        } catch (error) {
+            return next(error);
+        }
+    },
+    postCusTicket:async(req,res,next) => {
+        try {
+            console.log(req.body);
+            const repairTicket = await ticket.create({
+                userId:req.user._id,
+                repairType:req.body.repairType,
+                hour:req.body.repairHours,
+                parts:req.body.repairParts,
+                cost:req.body.repairCost,
+                date:req.body.repairDate,
+                technician:req.body.repairTech,
+                customer:req.body.customerId
+            })
+            if(Array.isArray(req.body.vehicles)){
+                const vehicles = req.body.vehicles;
+                vehicles.forEach(async vehicle => {
+                    await ticket.findByIdAndUpdate(repairTicket._id,{
+                        $push:{vehicles: vehicle}
+                    });
+                });
+            }else{
+                await ticket.findByIdAndUpdate(repairTicket._id,{
+                    $push:{vehicles: req.body.vehicles}
+                });
+            }
+            console.log('Ticket Created!');
+            res.redirect('/ticket');
         } catch (error) {
             return next(error);
         }

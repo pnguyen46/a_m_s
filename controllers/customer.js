@@ -142,7 +142,7 @@ module.exports = {
                 emptyInputIndx = indx;
             }
         });
-        const finalArr = formatVehicleArr.filter((item,indx) => indx !== emptyInputIndx)
+        const finalArr = formatVehicleArr.filter((item,indx) => indx !== emptyInputIndx);
         return finalArr;
     }
 };
