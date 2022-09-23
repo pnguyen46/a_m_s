@@ -93,104 +93,85 @@
             <div class="mb-3">
               <label for="technician" class="form-label"><h3>Technician:</h3></label>
               <select name="repairTech" id="technician">
+                <option value="">Select Technician</option>
+                <%employees.forEach(employee => {%>
+                    <option value="<%=employee._id%>"><%=employee.name%></option>
+                <%})%>
               </select>
             </div>
             <div class="mb-3">
-              <h3>Customer Information</h3>
-              <div class="mb-3">
-                <label for="name" class="form-label">Name</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="name"
-                  name="customerName"
-                  aria-describedby=""
-                />
-              </div>
-              <div class="mb-3">
-                <label for="address" class="form-label">Address</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="address"
-                  name="customerAddr"
-                  min="0"
-                />
-              </div>
-              <div class="mb-3">
-                <label for="phone_number" class="form-label"
-                  >Phone Number</label
-                >
-                <input
-                  type="tel"
-                  class="form-control"
-                  id="phone_number"
-                  name="customerPhone"
-                />
-              </div>
+              <input type="text" value="<%=customerId%>" name="customerId" hidden>
             </div>
             <div class="mb-3">
               <h3>Vehicle Information</h3>
               <div id="vehicleContainer">
-                <div class="col d-flex gap-2 mt-2 flex-wrap edit">
-                  <!-- <div class="form-check">
-                        <input class="form-check-input vehiCheck" type="checkbox" value="checked" name="vehicle">
-                  </div> -->
-                  <label for="vehicleYear" class="form-label">Year:</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="vehicles"
-                    name="vehicle"
-                    style="flex-basis: 20%"
-                  />
-                  <label for="vehicleMake" class="form-label">Make:</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="vehicles"
-                    name="vehicle"
-                    style="flex-basis: 50%"
-                  />
-                  <label for="vehicleModel" class="form-label">Model:</label>
-                  <input
-                    type="text"
-                    class="form-control w-50"
-                    id="vehicles"
-                    name="vehicle"
-                  />
-                  <label for="vehicleEngine" class="form-label">Engine:</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="vehicles"
-                    name="vehicle"
-                    style="flex-basis: 20%"
-                  />
-                  <label for="vehicleMileage" class="form-label"
-                    >Mileage:</label
-                  >
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="vehicles"
-                    name="vehicle"
-                    style="flex-basis: 20%"
-                  />
-                  <label for="vehicleVIN" class="form-label">VIN number:</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="vehicles"
-                    name="vehicle"
-                    style="flex-basis: 40%"
-                  />
-                  <a
-                    class="btn btn-primary btn-sm ms-auto deleteVBtn"
-                    type="button"
-                    >Delete</a
-                  >
-                </div>
+                <%vehicles.forEach(vehicle => {%>
+                  <div class="col d-flex gap-2 mt-2 flex-wrap edit">
+                    <div class="form-check">
+                          <input class="form-check-input vehiCheck" type="checkbox" value="checked" name="vehicle">
+                    </div>
+                    <label for="vehicleYear" class="form-label">Year:</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="vehicles"
+                      name="vehicle"
+                      style="flex-basis: 20%"
+                      value="<%=vehicle.vehicleYear%>"
+                    />
+                    <label for="vehicleMake" class="form-label">Make:</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="vehicles"
+                      name="vehicle"
+                      style="flex-basis: 50%"
+                      value="<%=vehicle.vehicleMake%>"
+                    />
+                    <label for="vehicleModel" class="form-label">Model:</label>
+                    <input
+                      type="text"
+                      class="form-control w-50"
+                      id="vehicles"
+                      name="vehicle"
+                      value="<%=vehicle.vehicleModel%>"
+                    />
+                    <label for="vehicleEngine" class="form-label">Engine:</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="vehicles"
+                      name="vehicle"
+                      style="flex-basis: 20%"
+                      value="<%=vehicle.vehicleEngine%>"
+                    />
+                    <label for="vehicleMileage" class="form-label"
+                      >Mileage:</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="vehicles"
+                      name="vehicle"
+                      style="flex-basis: 20%"
+                      value="<%=vehicle.vehicleMileage%>"
+                    />
+                    <label for="vehicleVIN" class="form-label">VIN number:</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="vehicles"
+                      name="vehicle"
+                      style="flex-basis: 40%"
+                      value="<%=vehicle.vehicleVIN%>"
+                    />
+                    <!-- <a
+                      class="btn btn-primary btn-sm ms-auto deleteVBtn"
+                      type="button"
+                      >Delete</a
+                    > -->
+                  </div>
+                <%})%>
               </div>
               <div class="my-3">
                 <button

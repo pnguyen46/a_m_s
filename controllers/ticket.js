@@ -131,8 +131,10 @@ module.exports = {
     },
     customerRegister:async (req,res,next) => {
         try {
+            const customerId = req.params.id;
             const employees = await employee.find({});
-            res.render('create/cusTicket',{title:'Create Ticket',employees});
+            const vehicles = await vehicle.find({customerId});
+            res.render('create/cusTicket',{title:'Create Ticket',employees,customerId,vehicles});
         } catch (error) {
             return next(error);
         }

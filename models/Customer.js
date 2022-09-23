@@ -27,6 +27,7 @@ const CustomerSchema = new mongoose.Schema({
     },
     fav_tech: {
         type: String,
+        default:''
     },
 });
   

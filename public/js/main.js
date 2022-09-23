@@ -35,38 +35,6 @@
 //   resetBtn.addEventListener("click", clearValues);
 // }
 
-const newVehicleBtn = document.getElementById("newVBtn");
-if (newVehicleBtn !== null) {
-  newVehicleBtn.addEventListener("click", addVehicleInputBox);
-}
-
-function addVehicleInputBox() {
-  const partContainer = document.getElementById("vehicleContainer");
-  const vForms = partContainer.children;
-  const baseFormInput = vForms[vForms.length - 1].innerHTML;
-  const form = document.createElement("div");
-  form.setAttribute("class", vForms[0].getAttribute("class"));
-  form.innerHTML = baseFormInput;
-  Array.from(form.children).forEach((item) => {
-    item.setAttribute("value", "");
-  });
-  // const deleteBtn = form.querySelector('.deleteVBtn');
-  // deleteBtn.innerText = 'Delete';
-  // deleteBtn.classList.remove('btn-danger');
-  // deleteBtn.classList.add('btn-primary');
-  // deleteBtn.removeAttribute('href');
-  partContainer.appendChild(form);
-
-  const deleteVehicleBtn = document.querySelectorAll(".deleteVBtn");
-  Array.from(deleteVehicleBtn).forEach((item) =>
-    item.addEventListener("click", (event) => {
-      const partContainer = document.getElementById("vehicleContainer");
-      if (partContainer.children.length > 1) {
-        partContainer.removeChild(event.target.parentElement);
-      }
-    })
-  );
-}
 
 // async function getJSONData(route,id){
 //   try {
@@ -254,6 +222,48 @@ function deleteInputBox() {
     partContainerEle.removeChild(event.target.parentElement);
   }
 }
+
+const newVehicleBtn = document.getElementById("newVBtn");
+if (newVehicleBtn !== null) {
+  newVehicleBtn.addEventListener("click", addVehicleInputBox);
+}
+
+function addVehicleInputBox() {
+  const partContainer = document.getElementById("vehicleContainer");
+  const vForms = partContainer.children;
+  const baseFormInput = vForms[vForms.length - 1].innerHTML;
+  const deleteBtn = document.createElement('a');
+  deleteBtn.setAttribute('class','btn btn-primary btn-sm ms-auto deleteVBtn');
+  deleteBtn.innerText = 'Delete';
+  const form = document.createElement("div");
+  form.setAttribute("class", vForms[0].getAttribute("class"));
+  form.innerHTML = baseFormInput;
+  if(form.lastElementChild.tagName === 'A'){
+    form.removeChild(form.lastElementChild);
+  }
+  form.appendChild(deleteBtn);
+  Array.from(form.children).forEach((item) => {
+    item.setAttribute("value", "");
+  });
+  
+  // const deleteBtn = form.querySelector('.deleteVBtn');
+  // deleteBtn.innerText = 'Delete';
+  // deleteBtn.classList.remove('btn-danger');
+  // deleteBtn.classList.add('btn-primary');
+  // deleteBtn.removeAttribute('href');
+  partContainer.appendChild(form);
+
+  const deleteVehicleBtn = document.querySelectorAll(".deleteVBtn");
+  Array.from(deleteVehicleBtn).forEach((item) =>
+    item.addEventListener("click", (event) => {
+      const partContainer = document.getElementById("vehicleContainer");
+      if (partContainer.children.length > 1) {
+        partContainer.removeChild(event.target.parentElement);
+      }
+    })
+  );
+}
+
 
 //Preset element in view form
 const editMode = document.getElementById("editMode");
