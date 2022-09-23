@@ -46,7 +46,7 @@ module.exports = {
     },
     postTicket: async (req,res,next) => {
         try {
-            console.log(req.body)
+            // console.log(req.body)
             const nCustomer = await customer.create({
                 name:req.body.customerName,
                 address:req.body.customerAddr,
@@ -105,7 +105,7 @@ module.exports = {
                 status:req.body.repairStatus,
                 parts:req.body.repairParts
             });
-            await vehicle.findByIdAndUpdate()
+            // await vehicle.findByIdAndUpdate()
             console.log('Item Updated!');
             res.redirect('/tickets');
         } catch (error) {
@@ -135,6 +135,22 @@ module.exports = {
             const employees = await employee.find({});
             const vehicles = await vehicle.find({customerId});
             res.render('create/cusTicket',{title:'Create Ticket',employees,customerId,vehicles});
+        } catch (error) {
+            return next(error);
+        }
+    },
+    postCusTicket:async (req,res,next) => {
+        try {
+            const repairTicket = await ticket.create({
+                userId:req.user._id,
+                repairType:req.body.repairType,
+                hour:req.body.repairHours,
+                parts:req.body.repairParts,
+                cost:req.body.repairCost,
+                date:req.body.repairDate,
+                technician:req.body.repairTech,
+                customer:req.params.id
+            });
         } catch (error) {
             return next(error);
         }
