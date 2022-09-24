@@ -103,7 +103,20 @@
                       <%}%>
                   <%})%>
                 </td>
-                <td><%=item.status%></td>
+                <td>
+                  <form action="/ticket/<%=item._id%>?_method=PUT" method="POST">
+                    <select name="status" id="statusOption">
+                      <%status.forEach((ele,indx) => {%>
+                        <%if(item.status == String(indx)){%>
+                          <option value="<%=indx%>"selected><%=ele%></option>
+                        <%}else{%>
+                          <option value="<%=indx%>"><%=ele%></option>
+                        <%}%>
+                      <%})%>
+                    </select>
+                    <button class="btn btn-primary btn-sm" type="submit">Update Status</button>
+                  </form>
+                </td>
                 <td class="">
                   <div class="d-flex justify-content-between">
                     <a

@@ -31,7 +31,7 @@ const TicketSchema = new mongoose.Schema({
     },
     status:{
         type:String,
-        default:'In progress',
+        default:'0',
         required:true
     },
     closed: {

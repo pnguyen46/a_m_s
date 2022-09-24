@@ -113,14 +113,18 @@
             </div>
             <div class="mb-3">
               <label for="status" class="form-label">Status</label>
-              <input
-                type="text"
-                class="form-control"
-                id="status"
-                name="repairStatus"
-                value="<%=objTic.status%>"
-                disabled
-              />
+              <%status.forEach((stat,indx) => {%>
+                  <%if(objTic.status == indx){%>
+                    <input
+                    type="text"
+                    class="form-control"
+                    id="status"
+                    name="repairStatus"
+                    value="<%=stat%>"
+                    disabled
+                  />
+                  <%}%>
+              <%})%>
             </div>
             <div class="mb-3">
               <h3>Customer Information</h3>

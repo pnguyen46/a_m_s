@@ -2,6 +2,12 @@ const ticket = require('../models/Ticket');
 const employee = require('../models/Employee');
 const vehicle = require('../models/Vehicle');
 const customer = require('../models/Customer');
+const status = [
+    'In progress',
+    'Delay',
+    'Terminate',
+    'Complete'
+];
 
 module.exports = {
     getIndex:async function(req,res,next){
@@ -14,7 +20,7 @@ module.exports = {
                 filteredArr.push(module.exports.partListBuilder(item));
             })
             tickets.forEach((item,indx) => item['parts'] = filteredArr[indx]);
-            res.render('tickets',{title:'Ticket',tickets,employees});
+            res.render('tickets',{title:'Ticket',tickets,employees,status});
         } catch (error) {
             return next(error);
         }
@@ -39,7 +45,7 @@ module.exports = {
                     currIndx = i;
                }
             }
-            res.render('view/ticket',{title:"View Ticket",employees,vehicles,objTic,ticCustomer,parts});
+            res.render('view/ticket',{title:"View Ticket",employees,vehicles,objTic,ticCustomer,parts,status});
         } catch (error) {
             return next(error);
         }
@@ -212,6 +218,18 @@ module.exports = {
                }
             }
             res.render('edit/ticket',{title:'Update Ticket',employees,tickets,ticketId,ticCustomer,vehicles,parts});
+        } catch (error) {
+            return next(error);
+        }
+    },
+    updateTicStatus:async(req,res,next) => {
+        try {
+            const ticketId = req.params.id;
+            await ticket.findByIdAndUpdate(ticketId,{
+                status:req.body.status
+            });
+            console.log('Ticket Status Updated!');
+            res.redirect('/ticket');
         } catch (error) {
             return next(error);
         }
