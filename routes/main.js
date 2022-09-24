@@ -23,7 +23,6 @@ router.use('/inventory', inventoryRoutes);
 router.use('/customer', customerRoutes);
 router.use('/employee', employeeRoutes);
 router.use('/ticket',ticketRoutes);
-router.use('/registration', registrationRoutes);
 router.use('/vehicle',vehicleRoutes);
 
 module.exports = router;
