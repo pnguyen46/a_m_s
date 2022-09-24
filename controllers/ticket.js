@@ -288,6 +288,20 @@ module.exports = {
             return next(error);
         }
     },
+    openTicket:async (req,res,next) => {
+        try {
+            const currTic = await ticket.findById(req.params.id);
+            if(currTic.closed){
+                await ticket.findByIdAndUpdate(req.params.id,{
+                    closed:false,
+                    status:'0'
+                });
+            }
+            res.redirect('/ticket');
+        } catch (error) {
+            return next(error);
+        }
+    },
     partListBuilder:(arr) => {
         const filteredArr = [];
         let temp = undefined;
