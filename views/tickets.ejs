@@ -142,10 +142,6 @@
     <div class="container mt-5">
       <div class="row">
         <h2 class="text-center">Closed Ticket</h2>
-        <div class="col-3 border order-1 mt-1">
-          <a class="btn btn-primary btn-sm">View All Tickets</a>
-        </div>
-
         <div class="col">
           <!--table-->
           <table class="table">
@@ -160,7 +156,36 @@
                 <th scope="col">Date</th>
               </tr>
             </thead>
-            <tbody></tbody>
+            <tbody class="text-center">
+              <%tickets.forEach((item,indx) => {%>
+                <%if(item.closed){%>
+                  <tr>
+                    <td><%=indx + 1%></td>
+                    <td><%=item._id%></td>
+                    <td><%=item.repairType%></td>
+                    <td><%=item.hour%></td>
+                    <td><%=item.cost%></td>
+                    <td>
+                      <%employees.forEach(ele => {%>
+                          <%if(String(ele._id) == item.technician){%>
+                              <%=ele.name%>
+                          <%}%>
+                      <%})%>
+                    </td>
+                    <td><%=item.date%></td>
+                    <td class="">
+                      <div class="d-flex justify-content-between">
+                        <a
+                        class="btn btn-primary btn-sm"
+                        href="/ticket/<%=item._id%>"
+                        >View</a>
+                        <a class="btn btn-primary btn-sm" href="/ticket/openTicket/<%=item._id%>?_method=PUT">Open</a>
+                      </div>
+                    </td>
+                  </tr>
+                <%}%>
+              <%})%>
+            </tbody>
           </table>
           <!--/table-->
         </div>

@@ -249,6 +249,19 @@ module.exports = {
         } catch (error) {
             return next(error);
         }
+    },closeTicket:async(req,res,next) => {
+        try {
+            const currTic = await ticket.findById(req.params.id);
+            if(currTic.status === '3'){
+                await ticket.findByIdAndUpdate(req.params.id,{
+                    closed:true
+                });
+            }
+            console.log('Ticket Closed');
+            res.redirect('/ticket');
+        } catch (error) {
+            return next(error);
+        }
     },
     partListBuilder:(arr) => {
         const filteredArr = [];

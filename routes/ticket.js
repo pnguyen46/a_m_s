@@ -9,6 +9,7 @@ router.get('/register/:id',ticketController.customerRegister);
 router.get('/:id',ticketController.getTicket);
 router.post('/',ticketController.postTicket);
 router.post('/:id',ticketController.postCusTicket);
+router.put('/closeTicket/:id',ticketController.closeTicket);
 router.put('/editItem/:id',ticketController.updateTicket);
 router.put('/:id',ticketController.updateTicStatus)
 router.delete('/deleteItem/:id',ticketController.deleteTicket);
