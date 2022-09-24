@@ -71,6 +71,14 @@ module.exports = {
                 customer:nCustomer._id
             })
 
+            await employee.findByIdAndUpdate(req.body.repairTech,{
+                $push:{repair:repairTicket._id}
+            });
+
+            await customer.findByIdAndUpdate(nCustomer._id,{
+                $push:{repair:repairTicket._id}
+            });
+
             const repairVehicle = req.body.vehicle;
             const formatVehicleArr = [];
             let currIndx = 0;
@@ -186,6 +194,10 @@ module.exports = {
 
             await customer.findByIdAndUpdate(req.params.id,{
                 $push:{repair: repairTicket._id}
+            });
+
+            await employee.findByIdAndUpdate(req.body.repairTech,{
+                $push:{repair:repairTicket._id}
             });
 
             if(Array.isArray(req.body.vehicles)){

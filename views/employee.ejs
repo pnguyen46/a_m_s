@@ -89,7 +89,13 @@
                 <td><%=item.DOB%></td>
                 <td><%=item.address%></td>
                 <td><%=item.phone_number%></td>
-                <td><%=item.repair%></td>
+                <td>
+                  <%if(!item.repair.length){%>
+                    <%=item.repair.length%>
+                  <%}else{%>
+                    <a href=""><%=item.repair.length%></a>
+                  <%}%>
+                </td>
                 <td><%=item.specialty%></td>
                 <td><%=item.class%></td>
                 <td><%=item.status%></td>

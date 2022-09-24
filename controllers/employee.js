@@ -1,9 +1,25 @@
 const employee = require('../models/Employee');
+const ticket = require('../models/Ticket');
 module.exports = {
     getIndex: async (req,res,next) => {
         try {
+            // const empIdRepair = await employee.find({},{_id:1});
+            // // console.log(empIdRepair)
+            // empIdRepair.forEach(async emp => {
+            //     const techRepairs = await ticket.find({},{_id:1},{}).where('technician').equals(emp._id);
+            //     // console.log(techRepairs)
+            //     if(techRepairs.length > 0){
+            //         const employRepair = await employee.findById(emp._id,{repair:1,_id:0});
+            //         techRepairs.forEach(async ticId => {
+            //             if(!employRepair.repair.includes(ticId._id)){
+            //                 await employee.findByIdAndUpdate(emp._id,{
+            //                 $push:{repair:ticId._id}
+            //                 });
+            //             }
+            //         })
+            //     }
+            // });
             const employees = await employee.find({});
-            console.log(employees);
             res.render('employee',{title:'Employee',employees});
         } catch (error) {
             return next(error);
@@ -20,7 +36,7 @@ module.exports = {
     },
     addEmployee: async (req,res,next) => {
         try {
-            console.log(req.body);
+            // console.log(req.body);
             // if(!req.body.employeeClass){
             //     req.body.employeeClass = undefined;
             // }
