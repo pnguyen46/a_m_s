@@ -44,7 +44,7 @@
     </nav>
     <!--/nav-->
     <div class="container">
-      <a href="/customer">Views All Customers</a>  
+      <a href="/customer">Views All Customers</a>
       <h1 class="text-center">Create Customer</h1>
       <div class="row justify-content-center">
         <div class="col-5">
@@ -69,9 +69,7 @@
               />
             </div>
             <div class="mb-3">
-              <label for="phone_number" class="form-label"
-                >Phone Number</label
-              >
+              <label for="phone_number" class="form-label">Phone Number</label>
               <input
                 type="tel"
                 class="form-control"
@@ -89,9 +87,7 @@
               />
             </div>
             <div class="mb-3">
-              <label for="fav_tech" class="form-label"
-                >Perfer Technician</label
-              >
+              <label for="fav_tech" class="form-label">Perfer Technician</label>
               <!-- <input
                 type="text"
                 class="form-control"
@@ -101,7 +97,7 @@
               <select name="customerTech" id="fav_tech">
                 <option value="">None</option>
                 <%employees.forEach(employee => {%>
-                  <option value="<%=employee._id%>"><%=employee.name%></option>
+                <option value="<%=employee._id%>"><%=employee.name%></option>
                 <%})%>
               </select>
             </div>
@@ -132,9 +128,7 @@
                     id="vehicles"
                     name="vehicle"
                   />
-                  <label for="vehicleEngine" class="form-label"
-                    >Engine:</label
-                  >
+                  <label for="vehicleEngine" class="form-label">Engine:</label>
                   <input
                     type="text"
                     class="form-control"
@@ -152,9 +146,7 @@
                     name="vehicle"
                     style="flex-basis: 20%"
                   />
-                  <label for="vehicleVIN" class="form-label"
-                    >VIN number:</label
-                  >
+                  <label for="vehicleVIN" class="form-label">VIN number:</label>
                   <input
                     type="text"
                     class="form-control"
@@ -163,12 +155,9 @@
                     step="0.01"
                     style="flex-basis: 40%"
                   />
-                  <button
-                    class="btn btn-primary ms-auto deleteVBtn"
-                    type="button"
-                  >
+                  <a class="btn btn-primary ms-auto deleteVBtn" type="button">
                     delete
-                  </button>
+                  </a>
                 </div>
               </div>
             </div>
@@ -183,7 +172,7 @@
             <button id="hiddenBtn" type="reset" class="btn btn-primary">
               Reset
             </button>
-        </form>
+          </form>
           <!--/form-->
         </div>
       </div>

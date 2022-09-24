@@ -7,7 +7,6 @@ const inventoryRoutes = require('./inventory');
 const customerRoutes = require('./customer');
 const employeeRoutes = require('./employee');
 const ticketRoutes = require('./ticket');
-const registrationRoutes = require('./registration');
 const vehicleRoutes = require('./vehicle');
 const { ensureAuth, ensureGuest } = require("../middleware/auth");
 
