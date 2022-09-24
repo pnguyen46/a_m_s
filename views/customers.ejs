@@ -86,26 +86,20 @@
             </thead>
             <tbody>
               <%customers.forEach((item,indx) => {%>
-                <tr>
-                  <td><%=indx + 1%></td>
-                  <td><%=item.name%></td>
-                  <td><%=item.address%></td>
-                  <td><%=item.phone_number%></td>
-                  <td><%=item.joined_date%></td>
-                  <td><%=item.repair%></td>
-                  <td>
-                    <%if(!item.fav_tech.length){%>
-                      None
-                    <%}else{%>
-                      <%employees.forEach(employee=>{%>
-                        <%if(String(item.fav_tech) == employee._id){%>
-                          <%=employee.name%>
-                        <%}%>
-                      <%})%>
-                    <%}%>
-                  </td>
-                  <td class="d-flex justify-content-between">
-                    <!-- <button
+              <tr>
+                <td><%=indx + 1%></td>
+                <td><%=item.name%></td>
+                <td><%=item.address%></td>
+                <td><%=item.phone_number%></td>
+                <td><%=item.joined_date%></td>
+                <td><a href=""><%=item.repair.length%></a></td>
+                <td>
+                  <%if(!item.fav_tech.length){%> None <%}else{%>
+                  <%employees.forEach(employee=>{%> <%if(String(item.fav_tech)
+                  == employee._id){%> <%=employee.name%> <%}%> <%})%> <%}%>
+                </td>
+                <td class="d-flex justify-content-between">
+                  <!-- <button
                       type="submit"
                       class="btn btn-primary btn-sm editBtn"
                       data-bs-toggle="modal"
@@ -115,28 +109,28 @@
                     >
                       Edit
                     </button> -->
-                    <a
-                      class="btn btn-primary btn-sm"
-                      href="/customer/<%=item._id%>"
-                      >View</a
-                    >
-                    <a
-                      class="btn btn-primary btn-sm"
-                      href="/customer/edit/<%=item._id%>"
-                      >Update</a
-                    >
-                    <a
-                      class="btn btn-primary btn-sm"
-                      href="/customer/deleteItem/<%=item._id%>?_method=DELETE"
-                      >Delete</a
-                    >
-                    <a
-                      class="btn btn-primary btn-sm"
-                      href="/ticket/register/<%=item._id%>"
-                      >Create Ticket</a
-                    >
-                  </td>
-                </tr>
+                  <a
+                    class="btn btn-primary btn-sm"
+                    href="/customer/<%=item._id%>"
+                    >View</a
+                  >
+                  <a
+                    class="btn btn-primary btn-sm"
+                    href="/customer/edit/<%=item._id%>"
+                    >Update</a
+                  >
+                  <a
+                    class="btn btn-primary btn-sm"
+                    href="/customer/deleteItem/<%=item._id%>?_method=DELETE"
+                    >Delete</a
+                  >
+                  <a
+                    class="btn btn-primary btn-sm"
+                    href="/ticket/register/<%=item._id%>"
+                    >Create Ticket</a
+                  >
+                </td>
+              </tr>
               <%})%>
             </tbody>
           </table>

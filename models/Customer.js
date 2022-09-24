@@ -23,7 +23,8 @@ const CustomerSchema = new mongoose.Schema({
         }
     },
     repair: {
-        type:String,
+        type:Array,
+        default:[]
     },
     fav_tech: {
         type: String,

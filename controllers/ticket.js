@@ -184,6 +184,10 @@ module.exports = {
                 customer:req.params.id
             });
 
+            await customer.findByIdAndUpdate(req.params.id,{
+                $push:{repair: repairTicket._id}
+            });
+
             if(Array.isArray(req.body.vehicles)){
                 const vehicles = req.body.vehicles;
                 vehicles.forEach(async vehicle => {
