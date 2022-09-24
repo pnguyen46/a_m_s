@@ -46,7 +46,12 @@
     <div class="container">
       <h1 class="text-center">Employee</h1>
       <div class="row">
-        <div class="col-3 border">
+        <div class="col">
+          <a href="employee/register" class="btn btn-primary">Add Employee</a>
+        </div>
+      </div>
+      <div class="row">
+        <!-- <div class="col-3 border">
           <a
             class="btn btn-primary btn-sm"
             data-bs-toggle="modal"
@@ -59,7 +64,7 @@
           <a class="btn btn-primary btn-sm" href="/employee"
             >View All Employee</a
           >
-        </div>
+        </div> -->
         <div class="col mt-2">
           <!--table-->
           <table class="table border">
@@ -73,7 +78,6 @@
                 <th scope="col">Repair</th>
                 <th scope="col">Specialty</th>
                 <th scope="col">Class</th>
-                <th scope="col">Joined Date</th>
                 <th scope="col">Status</th>
               </tr>
             </thead>
@@ -85,12 +89,36 @@
                 <td><%=item.DOB%></td>
                 <td><%=item.address%></td>
                 <td><%=item.phone_number%></td>
-                <td><%=item.repair%></td>
+                <td>
+                  <%if(!item.repair.length){%>
+                    <%=item.repair.length%>
+                  <%}else{%>
+                    <a href=""><%=item.repair.length%></a>
+                  <%}%>
+                </td>
                 <td><%=item.specialty%></td>
                 <td><%=item.class%></td>
-                <td><%=item.joined_date%></td>
                 <td><%=item.status%></td>
                 <td>
+                  <div class="d-flex justify-content-between">
+                    <a
+                      href="employee/<%=item._id%>"
+                      class="btn btn-primary btn-sm"
+                      >View</a
+                    >
+                    <a
+                      href="employee/edit/<%=item._id%>"
+                      class="btn btn-primary btn-sm"
+                      >Update</a
+                    >
+                    <a
+                      href="employee/deleteItem/<%=item._id%>?_method=DELETE"
+                      class="btn btn-primary btn-sm"
+                      >Delete</a
+                    >
+                  </div>
+                </td>
+                <!-- <td>
                   <button
                     type="submit"
                     id="resetAddBtn"
@@ -112,7 +140,7 @@
                       Delete
                     </button>
                   </form>
-                </td>
+                </td> -->
               </tr>
               <%})%>
             </tbody>
@@ -171,9 +199,7 @@
                 />
               </div>
               <div class="mb-3">
-                <label for="joined_date" class="form-label"
-                  >Joined Date</label
-                >
+                <label for="joined_date" class="form-label">Joined Date</label>
                 <input
                   type="date"
                   class="form-control"
@@ -200,9 +226,7 @@
                 />
               </div>
               <div class="mb-3">
-                <label for="specialty" class="form-label"
-                  >Specialty</label
-                >
+                <label for="specialty" class="form-label">Specialty</label>
                 <input
                   type="text"
                   class="form-control"
@@ -228,7 +252,9 @@
                   name="employeeStatus"
                 />
               </div>
-              <button id="updateBtn" type="submit" class="btn btn-primary">Add</button>
+              <button id="updateBtn" type="submit" class="btn btn-primary">
+                Add
+              </button>
               <button type="reset" id="hiddenBtn" class="btn btn-primary">
                 Reset
               </button>

@@ -16,13 +16,20 @@ const CustomerSchema = new mongoose.Schema({
     joined_date: {
         type:String,
         required:true,
+        default:() => {
+            const date = new Date();
+            joinDate = `${date.getFullYear()}-0${date.getMonth() + 1}-${date.getDate()}`;
+            return joinDate;
+        }
     },
     repair: {
-        type:String,
+        type:Array,
+        default:[]
     },
     fav_tech: {
         type: String,
-    }  
+        default:''
+    },
 });
   
 module.exports = mongoose.model('Customer', CustomerSchema,'customer');

@@ -26,7 +26,7 @@ const vehicleSchema = new mongoose.Schema({
     customerId:{
         type: mongoose.Schema.Types.ObjectId,
         ref:'Customer'
-    }  
+    } 
 });
   
 module.exports = mongoose.model('vehicle', vehicleSchema,'vehicles');
