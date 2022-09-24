@@ -263,6 +263,31 @@ module.exports = {
             return next(error);
         }
     },
+    closedTickets:async (req,res,next) => {
+        try {
+            const vehicles = [];
+            const reTicket = await ticket.find({_id:req.params.id,userId:req.user._id});
+            const [tickVehicle] = reTicket.map(item => item.vehicles);
+            tickVehicle.forEach(async item => {
+                const result = await vehicle.findById(item);
+                vehicles.push(result);
+            });
+            const [objTic] = reTicket;
+            const employees = await employee.find({});
+            const ticCustomer = await customer.findById(objTic.customer);
+            let currIndx = 0;
+            const parts = [];
+            for(let i = 0; i <= objTic.parts.length;i++){
+                if(i !== 0 && i % 2 === 0){
+                    parts.push(objTic.parts.slice(currIndx,i));
+                    currIndx = i;
+               }
+            }
+            res.render('view/closedTicket',{title:"View Closed Ticket",employees,vehicles,objTic,ticCustomer,parts,status});
+        } catch (error) {
+            return next(error);
+        }
+    },
     partListBuilder:(arr) => {
         const filteredArr = [];
         let temp = undefined;

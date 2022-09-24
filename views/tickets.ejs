@@ -81,54 +81,56 @@
             </thead>
             <tbody class="text-center">
               <%tickets.forEach((item,indx) => {%>
-              <tr>
-                <td><%=indx + 1%></td>
-                <td><%=item.repairType%></td>
-                <td><%=item.hour%></td>
-                <td>
-                  <ul class="list-unstyled">
-                    <%item.parts.forEach(el => {%>
-                        <li><%=el%></li>
-                    <%})%>
-                  </ul>
-                </td>
-                <td><%=item.cost%></td>
-                <td><%=item.date%></td>
-                <td>
-                  <%employees.forEach(ele => {%>
-                      <%if(String(ele._id) == item.technician){%>
-                        <a href="">
-                          <%=ele.name%>
-                        </a>
-                      <%}%>
-                  <%})%>
-                </td>
-                <td>
-                  <form action="/ticket/<%=item._id%>?_method=PUT" method="POST">
-                    <select name="status" id="statusOption">
-                      <%status.forEach((ele,indx) => {%>
-                        <%if(item.status == String(indx)){%>
-                          <option value="<%=indx%>"selected><%=ele%></option>
-                        <%}else{%>
-                          <option value="<%=indx%>"><%=ele%></option>
-                        <%}%>
+                <%if(!item.closed){%>
+                  <tr>
+                    <td><%=indx + 1%></td>
+                    <td><%=item.repairType%></td>
+                    <td><%=item.hour%></td>
+                    <td>
+                      <ul class="list-unstyled">
+                        <%item.parts.forEach(el => {%>
+                            <li><%=el%></li>
+                        <%})%>
+                      </ul>
+                    </td>
+                    <td><%=item.cost%></td>
+                    <td><%=item.date%></td>
+                    <td>
+                      <%employees.forEach(ele => {%>
+                          <%if(String(ele._id) == item.technician){%>
+                            <a href="">
+                              <%=ele.name%>
+                            </a>
+                          <%}%>
                       <%})%>
-                    </select>
-                    <button class="btn btn-primary btn-sm" type="submit">Update Status</button>
-                  </form>
-                </td>
-                <td class="">
-                  <div class="d-flex justify-content-between">
-                    <a
-                    class="btn btn-primary btn-sm"
-                    href="/ticket/<%=item._id%>"
-                    >View</a>
-                    <a class="btn btn-primary btn-sm" href="/ticket/edit/<%=item._id%>">Update</a>
-                    <a class="btn btn-primary btn-sm" href="/ticket/deleteItem/<%=item._id%>?_method=DELETE">Delete</a>
-                    <a class="btn btn-primary btn-sm" href="/ticket/closeTicket/<%=item._id%>?_method=PUT">Close</a>
-                  </div>
-                </td>
-              </tr>
+                    </td>
+                    <td>
+                      <form action="/ticket/<%=item._id%>?_method=PUT" method="POST">
+                        <select name="status" id="statusOption">
+                          <%status.forEach((ele,indx) => {%>
+                            <%if(item.status == String(indx)){%>
+                              <option value="<%=indx%>"selected><%=ele%></option>
+                            <%}else{%>
+                              <option value="<%=indx%>"><%=ele%></option>
+                            <%}%>
+                          <%})%>
+                        </select>
+                        <button class="btn btn-primary btn-sm" type="submit">Update Status</button>
+                      </form>
+                    </td>
+                    <td class="">
+                      <div class="d-flex justify-content-between">
+                        <a
+                        class="btn btn-primary btn-sm"
+                        href="/ticket/<%=item._id%>"
+                        >View</a>
+                        <a class="btn btn-primary btn-sm" href="/ticket/edit/<%=item._id%>">Update</a>
+                        <a class="btn btn-primary btn-sm" href="/ticket/deleteItem/<%=item._id%>?_method=DELETE">Delete</a>
+                        <a class="btn btn-primary btn-sm" href="/ticket/closeTicket/<%=item._id%>?_method=PUT">Close</a>
+                      </div>
+                    </td>
+                  </tr>
+                <%}%>
               <%})%>
             </tbody>
           </table>
@@ -177,7 +179,7 @@
                       <div class="d-flex justify-content-between">
                         <a
                         class="btn btn-primary btn-sm"
-                        href="/ticket/<%=item._id%>"
+                        href="/ticket/closedTicket/<%=item._id%>"
                         >View</a>
                         <a class="btn btn-primary btn-sm" href="/ticket/openTicket/<%=item._id%>?_method=PUT">Open</a>
                       </div>
