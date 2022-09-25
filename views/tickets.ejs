@@ -44,7 +44,7 @@
     <!--/nav-->
     <!--Active Container-->
     <div class="container">
-      <h1 class="text-center">Ticket</h1>
+      <h1 class="text-center">Tickets</h1>
       <div class="row mt-5">
         <div class="row">
           <div class="col">
@@ -52,18 +52,6 @@
           </div>
         </div>
         <h2 class="text-center">Active Ticket</h2>
-        <!-- <div class="col-3 border">
-          <a
-            class="btn btn-primary btn-sm"
-            data-bs-toggle="modal"
-            data-bs-target="#itemForm"
-            data-bs-type="edit"
-            data-bs-identifier="ticket"
-            id="resetBtn"
-            >Create Ticket</a>
-          <a class="btn btn-primary btn-sm">View All Tickets</a>
-        </div> -->
-
         <div class="col">
           <!--table-->
           <table class="table">
@@ -122,7 +110,7 @@
                       <div class="d-flex justify-content-between">
                         <a
                         class="btn btn-primary btn-sm"
-                        href="/ticket/<%=item._id%>"
+                        href="/ticket/<%=item._id%>/ticket"
                         >View</a>
                         <a class="btn btn-primary btn-sm" href="/ticket/edit/<%=item._id%>">Update</a>
                         <a class="btn btn-primary btn-sm" href="/ticket/deleteItem/<%=item._id%>?_method=DELETE">Delete</a>
@@ -150,7 +138,6 @@
             <thead>
               <tr class="text-center">
                 <th scope="col">#</th>
-                <th scope="col">ID</th>
                 <th scope="col">Repair Type</th>
                 <th scope="col">Hours</th>
                 <th scope="col">Cost</th>
@@ -163,7 +150,6 @@
                 <%if(item.closed){%>
                   <tr>
                     <td><%=indx + 1%></td>
-                    <td><%=item._id%></td>
                     <td><%=item.repairType%></td>
                     <td><%=item.hour%></td>
                     <td><%=item.cost%></td>
@@ -176,10 +162,10 @@
                     </td>
                     <td><%=item.date%></td>
                     <td class="">
-                      <div class="d-flex justify-content-between">
+                      <div class="d-flex justify-content-around">
                         <a
                         class="btn btn-primary btn-sm"
-                        href="/ticket/closedTicket/<%=item._id%>"
+                        href="/ticket/closedTicket/<%=item._id%>/ticket"
                         >View</a>
                         <a class="btn btn-primary btn-sm" href="/ticket/openTicket/<%=item._id%>?_method=PUT">Open</a>
                       </div>

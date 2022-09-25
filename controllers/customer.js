@@ -1,6 +1,13 @@
 const customer = require('../models/Customer');
 const vehicle = require('../models/Vehicle');
 const employee = require('../models/Employee');
+const ticket = require('../models/Ticket');
+const status = [
+    'In progress',
+    'Delay',
+    'Terminate',
+    'Complete'
+];
 module.exports = {
     getIndex:async (req,res,next) => {
         try {
@@ -123,6 +130,17 @@ module.exports = {
             const employees = await employee.find({});
             const vehicles = await vehicle.find({customerId:req.params.id});
             return res.render('edit/customer',{title:'Update Customer',item,vehicles,employees});
+        } catch (error) {
+            return next(error);
+        }
+    },
+    custRepairHistory: async(req,res,next) => {
+        try {
+            const cusTicket = await ticket.find({customer:req.params.id});
+            const cust = await customer.findById(req.params.id);
+            const employees = await employee.find({});
+            // console.log(cusTicket)
+            res.render('repairHistory',{title:'Repair History',cust,cusTicket,employees,status});
         } catch (error) {
             return next(error);
         }

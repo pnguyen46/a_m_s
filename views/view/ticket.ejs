@@ -44,7 +44,11 @@
     </nav>
     <!--/nav-->
     <div class="container">
-      <a href="/ticket">View All Tickets</a>
+      <%if(historyFlag){%>
+        <a href="/customer/history/<%=ticCustomer._id%>">Back To Repair History</a>
+      <%}else{%>
+        <a href="/ticket">Back to Tickets</a>
+      <%}%>
       <h1 class="text-center">View Ticket</h1>
       <div class="row justify-content-center">
         <div class="col-5">

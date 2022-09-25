@@ -45,7 +45,13 @@ module.exports = {
                     currIndx = i;
                }
             }
-            res.render('view/ticket',{title:"View Ticket",employees,vehicles,objTic,ticCustomer,parts,status});
+            let historyFlag = false;
+            if(req.params.custId !== 'ticket'){
+                historyFlag = true;
+            }else{
+                historyFlag = false;
+            }
+            res.render('view/ticket',{title:"View Ticket",employees,vehicles,objTic,ticCustomer,parts,status,historyFlag});
         } catch (error) {
             return next(error);
         }
@@ -283,7 +289,13 @@ module.exports = {
                     currIndx = i;
                }
             }
-            res.render('view/closedTicket',{title:"View Closed Ticket",employees,vehicles,objTic,ticCustomer,parts,status});
+            let historyFlag = false;
+            if(req.params.custId !== 'ticket'){
+                historyFlag = true;
+            }else{
+                historyFlag = false;
+            }
+            res.render('view/closedTicket',{title:"View Closed Ticket",employees,vehicles,objTic,ticCustomer,parts,status,historyFlag});
         } catch (error) {
             return next(error);
         }

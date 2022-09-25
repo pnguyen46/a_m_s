@@ -17,7 +17,6 @@
     <title><%=title%></title>
   </head>
   <body>
-    <!--container-->
     <!--nav-->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container-fluid">
@@ -43,79 +42,100 @@
       </div>
     </nav>
     <!--/nav-->
+    <!--Active Container-->
     <div class="container">
-      <h1 class="text-center">Customers</h1>
-      <div class="row">
+      <h1 class="text-center"><%=cust.name%> Repair History</h1>
+      <a href="/customer">Back to Customers</a>
+      <div class="row mt-5">
+        <h2 class="text-center">Current</h2>
         <div class="col">
-          <a href="/customer/register" class="btn btn-primary">Add Customer</a>
-        </div>
-      </div>
-      <div class="row">
-        <!-- <div class="col-2 border">
-          <a
-            class="btn btn-primary btn-sm"
-            data-bs-toggle="modal"
-            data-bs-target="#itemForm"
-            data-bs-type="edit"
-            data-bs-identifier="customer"
-            id="resetBtn"
-            >Add Customer</a
-          >
-          <a class="btn btn-primary btn-sm">View All Customer</a>
-        </div> -->
-
-        <div class="col mt-2">
           <!--table-->
-          <table class="table justify-content-end">
+          <table class="table">
             <thead class="text-center">
               <tr>
                 <th scope="col">#</th>
-                <th scope="col">Name</th>
-                <th scope="col">Address</th>
-                <th scope="col">Phone Number</th>
-                <th scope="col">Joined Date</th>
-                <th scope="col">Repair History</th>
-                <th scope="col">Perfer Technician</th>
+                <th scope="col">Repair Type</th>
+                <th scope="col">Hours</th>
+                <th scope="col">Cost</th>
+                <th scope="col">Technician</th>
+                <th scope="col">Date</th>
+                <th scope="col">Status</th>
               </tr>
             </thead>
             <tbody class="text-center">
-              <%customers.forEach((item,indx) => {%>
+              <%cusTicket.forEach((tic,indx) => {%> <%if(!tic.closed){%>
               <tr>
                 <td><%=indx + 1%></td>
-                <td><%=item.name%></td>
-                <td><%=item.address%></td>
-                <td><%=item.phone_number%></td>
-                <td><%=item.joined_date%></td>
-                <td><a href="/customer/history/<%=item._id%>">View</a></td>
+                <td><%=tic.repairType%></td>
+                <td><%=tic.hour%></td>
+                <td><%=tic.cost%></td>
                 <td>
-                  <%if(!item.fav_tech.length){%> None <%}else{%>
-                  <%employees.forEach(employee=>{%> <%if(String(item.fav_tech)
-                  == employee._id){%> <%=employee.name%> <%}%> <%})%> <%}%>
+                    <%employees.forEach(ele => {%>
+                        <%if(String(ele._id) == tic.technician){%>
+                            <%=ele.name%>
+                        <%}%>
+                    <%})%>
                 </td>
-                <td class="d-flex justify-content-between">
-                  <a
-                    class="btn btn-primary btn-sm"
-                    href="/customer/<%=item._id%>"
-                    >View</a
-                  >
-                  <a
-                    class="btn btn-primary btn-sm"
-                    href="/customer/edit/<%=item._id%>"
-                    >Update</a
-                  >
-                  <a
-                    class="btn btn-primary btn-sm"
-                    href="/customer/deleteItem/<%=item._id%>?_method=DELETE"
-                    >Delete</a
-                  >
-                  <a
-                    class="btn btn-primary btn-sm"
-                    href="/ticket/register/<%=item._id%>"
-                    >Create Ticket</a
-                  >
+                <td><%=tic.date%></td>
+                <td>
+                    <%status.forEach((ele,indx) => {%>
+                        <%if(tic.status == String(indx)){%>
+                          <%=ele%>
+                        <%}%>
+                      <%})%>
+                </td>
+                <td>
+                  <a href="/ticket/<%=tic._id%>/<%=cust._id%>">View</a>
                 </td>
               </tr>
-              <%})%>
+              <%}%> <%})%>
+            </tbody>
+          </table>
+          <!--/table-->
+        </div>
+      </div>
+    </div>
+    <!--/container-->
+
+    <!--closed Container-->
+    <div class="container mt-5">
+      <div class="row">
+        <h2 class="text-center">Past</h2>
+        <div class="col">
+          <!--table-->
+          <table class="table">
+            <thead class="text-center">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Repair Type</th>
+                <th scope="col">Hours</th>
+                <th scope="col">Cost</th>
+                <th scope="col">Technician</th>
+                <th scope="col">Date</th>
+                <th scope="col">Ticket</th>
+              </tr>
+            </thead>
+            <tbody class="text-center">
+              <%cusTicket.forEach((tic,indx) => {%> <%if(tic.closed &&
+              tic.status === '3'){%>
+              <tr>
+                <td><%=indx + 1%></td>
+                <td><%=tic.repairType%></td>
+                <td><%=tic.hour%></td>
+                <td><%=tic.cost%></td>
+                <td>
+                    <%employees.forEach(ele => {%>
+                        <%if(String(ele._id) == tic.technician){%>
+                            <%=ele.name%>
+                        <%}%>
+                    <%})%>    
+                </td>
+                <td><%=tic.date%></td>
+                <td>
+                    <a href="/ticket/closedTicket/<%=tic._id%>/<%=cust._id%>">View</a>
+                </td>
+              </tr>
+              <%}%> <%})%>
             </tbody>
           </table>
           <!--/table-->

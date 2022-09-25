@@ -4,10 +4,10 @@ const ticketController = require('../controllers/ticket');
 
 router.get('/',ticketController.getIndex);
 router.get('/register',ticketController.register);
-router.get('/closedTicket/:id',ticketController.closedTickets);
+router.get('/closedTicket/:id/:custId',ticketController.closedTickets);
 router.get('/edit/:id',ticketController.editTicket)
 router.get('/register/:id',ticketController.customerRegister);
-router.get('/:id',ticketController.getTicket);
+router.get('/:id/:custId',ticketController.getTicket);
 router.post('/',ticketController.postTicket);
 router.post('/:id',ticketController.postCusTicket);
 router.put('/openTicket/:id',ticketController.openTicket);
