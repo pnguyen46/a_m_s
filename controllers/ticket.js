@@ -13,7 +13,8 @@ module.exports = {
     getIndex:async function(req,res,next){
         try {
             const filteredArr = [];
-            const tickets = await ticket.find({userId:req.user._id});
+            const tickets = await ticket.find({});
+            console.log(tickets)
             const employees = await employee.find({});
             const parts = tickets.map(item => item.parts);
             parts.forEach(item => {
@@ -239,7 +240,13 @@ module.exports = {
                     currIndx = i;
                }
             }
-            res.render('edit/ticket',{title:'Update Ticket',employees,tickets,ticketId,ticCustomer,vehicles,parts});
+            let historyFlag = false;
+            if(req.params.page !== 'ticket'){
+                historyFlag = true;
+            }else{
+                historyFlag = false;
+            }
+            res.render('edit/ticket',{title:'Update Ticket',employees,tickets,ticketId,ticCustomer,vehicles,parts,historyFlag,status});
         } catch (error) {
             return next(error);
         }

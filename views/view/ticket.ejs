@@ -275,9 +275,15 @@
                 <%}%>  
               </div>
             </div>
-            <a type="button" class="btn btn-primary" href="/ticket/edit/<%=objTic._id%>">
-              Edit
-            </a>
+            <%if(historyFlag){%>
+              <a type="button" class="btn btn-primary" href="/ticket/edit/<%=objTic._id%>/customer">
+                Edit
+              </a>
+            <%}else{%>
+              <a type="button" class="btn btn-primary" href="/ticket/edit/<%=objTic._id%>/ticket">
+                Edit
+              </a>
+            <%}%>
           </form>
           <!--/form-->
         </div>

@@ -94,18 +94,33 @@
                 value="<%=tickets.date%>"
               />
             </div>
-            <div class="mb-3">
-              <label for="technician" class="form-label"><h3>Technician:</h3></label>
-              <select name="repairTech" id="technician">
-                <option value="">None</option>
-                <%employees.forEach(employee =>{%>
-                  <%if(String(employee._id) == tickets.technician){%>
-                    <option value="<%=employee._id%>" selected><%=employee.name%></option>
-                  <%}else{%>
-                    <option value="<%=employee._id%>"><%=employee.name%></option>
-                  <%}%>
-                <%})%>
-              </select>
+            <div class="mb-3 d-flex justify-content-between">
+              <div>
+                <label for="technician" class="form-label"><h3>Technician:</h3></label>
+                <select name="repairTech" id="technician">
+                  <option value="">None</option>
+                  <%employees.forEach(employee =>{%>
+                    <%if(String(employee._id) == tickets.technician){%>
+                      <option value="<%=employee._id%>" selected><%=employee.name%></option>
+                    <%}else{%>
+                      <option value="<%=employee._id%>"><%=employee.name%></option>
+                    <%}%>
+                  <%})%>
+                </select>
+              </div>
+              <div>
+                <label for="repairStatus"><h3>Status:</h3></label>
+                <select name="repairStatus" id="statusOption">
+                  <%status.forEach((ele,indx) => {%>
+                    <%if(tickets.status == String(indx)){%>
+                      <option value="<%=indx%>"selected><%=ele%></option>
+                    <%}else{%>
+                      <option value="<%=indx%>"><%=ele%></option>
+                    <%}%>
+                  <%})%>
+                </select>
+              </div>
+
             </div>
             <div class="mb-3">
               <h3>Customer Information</h3>
@@ -254,7 +269,11 @@
             <button type="reset" id="hiddenBtn" class="btn btn-primary">
               Reset
             </button>
-            <a type="button" class="btn btn-danger" href="/ticket/<%=ticketId%>/ticket">Cancel</a>
+            <%if(historyFlag){%>
+              <a type="button" class="btn btn-danger" href="/ticket/<%=ticketId%>/customer">Cancel</a>
+            <%}else{%>
+              <a type="button" class="btn btn-danger" href="/ticket/<%=ticketId%>/ticket">Cancel</a>
+            <%}%>
           </form>
           <!--/form-->
         </div>
