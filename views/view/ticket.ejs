@@ -44,8 +44,10 @@
     </nav>
     <!--/nav-->
     <div class="container">
-      <%if(historyFlag){%>
-        <a href="/customer/history/<%=ticCustomer._id%>">Back To Repair History</a>
+      <%if(location === 'customer'){%>
+        <a href="/customer/history/<%=ticCustomer._id%>">Back To Customer History</a>
+      <%}else if(location === 'employee'){%>
+        <a href="/employee/history/<%=objTic.technician%>">Back To Employee History</a>
       <%}else{%>
         <a href="/ticket">Back to Tickets</a>
       <%}%>
@@ -275,8 +277,12 @@
                 <%}%>  
               </div>
             </div>
-            <%if(historyFlag){%>
+            <%if(location === 'customer'){%>
               <a type="button" class="btn btn-primary" href="/ticket/edit/<%=objTic._id%>/customer">
+                Edit
+              </a>
+            <%}else if(location === 'employee'){%>
+              <a type="button" class="btn btn-primary" href="/ticket/edit/<%=objTic._id%>/employee">
                 Edit
               </a>
             <%}else{%>

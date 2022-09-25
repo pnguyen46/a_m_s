@@ -29,7 +29,9 @@ module.exports = {
     getTicket:async (req,res,next) => {
         try {
             const vehicles = [];
-            const reTicket = await ticket.find({_id:req.params.id,userId:req.user._id});
+            const location = req.params.id;
+            console.log(location)
+            const reTicket = await ticket.find({_id:req.params.ticId,userId:req.user._id});
             const [tickVehicle] = reTicket.map(item => item.vehicles);
             tickVehicle.forEach(async item => {
                 const result = await vehicle.findById(item);
@@ -46,13 +48,7 @@ module.exports = {
                     currIndx = i;
                }
             }
-            let historyFlag = false;
-            if(req.params.custId !== 'ticket'){
-                historyFlag = true;
-            }else{
-                historyFlag = false;
-            }
-            res.render('view/ticket',{title:"View Ticket",employees,vehicles,objTic,ticCustomer,parts,status,historyFlag});
+            res.render('view/ticket',{title:"View Ticket",employees,vehicles,objTic,ticCustomer,parts,status,location});
         } catch (error) {
             return next(error);
         }
@@ -227,7 +223,8 @@ module.exports = {
     },
     editTicket:async(req,res,next) => {
         try {
-            const ticketId = req.params.id;
+            const ticketId = req.params.ticId;
+            const location = req.params.id;
             const tickets = await ticket.findById(ticketId);
             const employees = await employee.find({});
             const ticCustomer = await customer.findById(tickets.customer);
@@ -240,13 +237,7 @@ module.exports = {
                     currIndx = i;
                }
             }
-            let historyFlag = false;
-            if(req.params.page !== 'ticket'){
-                historyFlag = true;
-            }else{
-                historyFlag = false;
-            }
-            res.render('edit/ticket',{title:'Update Ticket',employees,tickets,ticketId,ticCustomer,vehicles,parts,historyFlag,status});
+            res.render('edit/ticket',{title:'Update Ticket',employees,tickets,ticketId,ticCustomer,vehicles,parts,location,status});
         } catch (error) {
             return next(error);
         }
@@ -279,7 +270,8 @@ module.exports = {
     closedTickets:async (req,res,next) => {
         try {
             const vehicles = [];
-            const reTicket = await ticket.find({_id:req.params.id,userId:req.user._id});
+            const location = req.params.id;
+            const reTicket = await ticket.find({_id:req.params.ticId,userId:req.user._id});
             const [tickVehicle] = reTicket.map(item => item.vehicles);
             tickVehicle.forEach(async item => {
                 const result = await vehicle.findById(item);
@@ -296,13 +288,7 @@ module.exports = {
                     currIndx = i;
                }
             }
-            let historyFlag = false;
-            if(req.params.custId !== 'ticket'){
-                historyFlag = true;
-            }else{
-                historyFlag = false;
-            }
-            res.render('view/closedTicket',{title:"View Closed Ticket",employees,vehicles,objTic,ticCustomer,parts,status,historyFlag});
+            res.render('view/closedTicket',{title:"View Closed Ticket",employees,vehicles,objTic,ticCustomer,parts,status,location});
         } catch (error) {
             return next(error);
         }

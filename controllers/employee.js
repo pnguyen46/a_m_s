@@ -3,22 +3,20 @@ const ticket = require('../models/Ticket');
 module.exports = {
     getIndex: async (req,res,next) => {
         try {
-            // const empIdRepair = await employee.find({},{_id:1});
-            // // console.log(empIdRepair)
-            // empIdRepair.forEach(async emp => {
-            //     const techRepairs = await ticket.find({},{_id:1},{}).where('technician').equals(emp._id);
-            //     // console.log(techRepairs)
-            //     if(techRepairs.length > 0){
-            //         const employRepair = await employee.findById(emp._id,{repair:1,_id:0});
-            //         techRepairs.forEach(async ticId => {
-            //             if(!employRepair.repair.includes(ticId._id)){
-            //                 await employee.findByIdAndUpdate(emp._id,{
-            //                 $push:{repair:ticId._id}
-            //                 });
-            //             }
-            //         })
-            //     }
-            // });
+            const empIdRepair = await employee.find({},{_id:1});
+            empIdRepair.forEach(async emp => {
+                const techRepairs = await ticket.find({},{_id:1},{}).where('technician').equals(emp._id);
+                if(techRepairs.length > 0){
+                    const employRepair = await employee.findById(emp._id,{repair:1,_id:0});
+                    techRepairs.forEach(async ticId => {
+                        if(!employRepair.repair.includes(ticId._id)){
+                            await employee.findByIdAndUpdate(emp._id,{
+                            $push:{repair:ticId._id}
+                            });
+                        }
+                    })
+                }
+            });
             const employees = await employee.find({});
             res.render('employee',{title:'Employee',employees});
         } catch (error) {
@@ -95,6 +93,23 @@ module.exports = {
             // console.log(req.params.id)
             const employ = await employee.findById(req.params.id);
             res.render('edit/employee',{title:'Update Employee',employ});
+        } catch (error) {
+            return next(error);
+        }
+    },
+    empRepairHis: async (req,res,next) => {
+        try {
+            const empTicket = await ticket.find({technician:req.params.id});
+            // console.log(empTicket)
+            const employ = await employee.findById(req.params.id);
+            const employees = await employee.find({});
+            const status = [
+                'In progress',
+                'Delay',
+                'Terminate',
+                'Complete'
+            ];
+            res.render('view/empRepairHistory',{title:'Repair History',employ,empTicket,employees,status});
         } catch (error) {
             return next(error);
         }

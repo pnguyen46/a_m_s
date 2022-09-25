@@ -17,7 +17,6 @@
     <title><%=title%></title>
   </head>
   <body>
-    <!--container-->
     <!--nav-->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container-fluid">
@@ -43,66 +42,84 @@
       </div>
     </nav>
     <!--/nav-->
+    <!--Active Container-->
     <div class="container">
-      <h1 class="text-center">Employees</h1>
-      <div class="row">
+      <h1 class="text-center"><%=employ.name%> Repair History</h1>
+      <a href="/employee">Back to Employee</a>
+      <div class="row mt-5">
+        <h2 class="text-center">Current</h2>
         <div class="col">
-          <a href="employee/register" class="btn btn-primary">Add Employee</a>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col mt-2">
           <!--table-->
-          <table class="table border">
-            <thead>
-              <tr class="">
+          <table class="table">
+            <thead class="text-center">
+              <tr>
                 <th scope="col">#</th>
-                <th scope="col">Name</th>
-                <th scope="col">DOB</th>
-                <th scope="col">Address</th>
-                <th scope="col">Phone Number</th>
-                <th scope="col">Repair</th>
-                <th scope="col">Specialty</th>
-                <th scope="col">Class</th>
+                <th scope="col">Repair Type</th>
+                <th scope="col">Hours</th>
+                <th scope="col">Cost</th>
+                <th scope="col">Date</th>
                 <th scope="col">Status</th>
               </tr>
             </thead>
-            <tbody>
-              <%employees.forEach((item,indx) => {%>
+            <tbody class="text-center">
+              <%empTicket.forEach((tic,indx) => {%> <%if(!tic.closed){%>
               <tr>
                 <td><%=indx + 1%></td>
-                <td><%=item.name%></td>
-                <td><%=item.DOB%></td>
-                <td><%=item.address%></td>
-                <td><%=item.phone_number%></td>
+                <td><%=tic.repairType%></td>
+                <td><%=tic.hour%></td>
+                <td><%=tic.cost%></td>
+                <td><%=tic.date%></td>
                 <td>
-                  <a href="/employee/history/<%=item._id%>">View</a>
+                    <%status.forEach((ele,indx) => {%>
+                        <%if(tic.status == String(indx)){%>
+                          <%=ele%>
+                        <%}%>
+                      <%})%>
                 </td>
-                <td><%=item.specialty%></td>
-                <td><%=item.class%></td>
-                <td><%=item.status%></td>
                 <td>
-                  <div class="d-flex justify-content-between">
-                    <a
-                      href="employee/<%=item._id%>"
-                      class="btn btn-primary btn-sm"
-                      >View</a
-                    >
-                    <a
-                      href="employee/edit/<%=item._id%>"
-                      class="btn btn-primary btn-sm"
-                      >Update</a
-                    >
-                    <a
-                      href="employee/deleteItem/<%=item._id%>?_method=DELETE"
-                      class="btn btn-primary btn-sm"
-                      >Delete</a
-                    >
-                  </div>
-                </td>
+                  <a href="/ticket/<%=tic._id%>/employee">View</a>
                 </td>
               </tr>
-              <%})%>
+              <%}%> <%})%>
+            </tbody>
+          </table>
+          <!--/table-->
+        </div>
+      </div>
+    </div>
+    <!--/container-->
+
+    <!--closed Container-->
+    <div class="container mt-5">
+      <div class="row">
+        <h2 class="text-center">Past</h2>
+        <div class="col">
+          <!--table-->
+          <table class="table">
+            <thead class="text-center">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Repair Type</th>
+                <th scope="col">Hours</th>
+                <th scope="col">Cost</th>
+                <th scope="col">Date</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody class="text-center">
+              <%empTicket.forEach((tic,indx) => {%> <%if(tic.closed &&
+              tic.status === '3'){%>
+              <tr>
+                <td><%=indx + 1%></td>
+                <td><%=tic.repairType%></td>
+                <td><%=tic.hour%></td>
+                <td><%=tic.cost%></td>
+                <td><%=tic.date%></td>
+                <td>
+                    <a href="/ticket/closedTicket/<%=tic._id%>/employee">View</a>
+                </td>
+              </tr>
+              <%}%> <%})%>
             </tbody>
           </table>
           <!--/table-->

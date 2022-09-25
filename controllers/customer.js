@@ -140,7 +140,7 @@ module.exports = {
             const cust = await customer.findById(req.params.id);
             const employees = await employee.find({});
             // console.log(cusTicket)
-            res.render('repairHistory',{title:'Repair History',cust,cusTicket,employees,status});
+            res.render('view/cusRepairHistory',{title:'Repair History',cust,cusTicket,employees,status});
         } catch (error) {
             return next(error);
         }

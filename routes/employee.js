@@ -3,6 +3,7 @@ const router = Router();
 const employeeController = require('../controllers/employee');
 
 router.get('/',employeeController.getIndex);
+router.get('/history/:id',employeeController.empRepairHis)
 router.get('/edit/:id',employeeController.updateEmployee)
 router.get('/register',employeeController.registerEmployee)
 router.get('/:id',employeeController.getEmployee);
