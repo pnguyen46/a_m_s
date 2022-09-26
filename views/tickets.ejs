@@ -86,7 +86,7 @@
                     <td>
                       <%employees.forEach(ele => {%>
                           <%if(String(ele._id) == item.technician){%>
-                            <a href="">
+                            <a href="/employee/<%=item.technician%>/ticket">
                               <%=ele.name%>
                             </a>
                           <%}%>

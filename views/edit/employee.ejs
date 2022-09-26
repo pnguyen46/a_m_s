@@ -138,12 +138,19 @@
               Update
             </button>
             <a id="resetBtn" class="btn btn-primary" type="reset">Reset</a>
-            <a
-              href="/employee/<%=employ._id%>"
+            <%if(location === 'ticket'){%>
+              <a
+                href="/employee/<%=employ._id%>/ticket"
+                type="button"
+                class="btn btn-danger"
+                >Cancel</a>
+            <%}else{%>
+              <a
+              href="/employee/<%=employ._id%>/employee"
               type="button"
               class="btn btn-danger"
-              >Cancel</a
-            >
+              >Cancel</a>
+            <%}%>
           </form>
           <!--/form-->
         </div>

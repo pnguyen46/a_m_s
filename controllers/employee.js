@@ -25,9 +25,10 @@ module.exports = {
     },
     getEmployee:async (req,res,next) => {
         try {
-            const employ = await employee.findById({_id:req.params.id});
+            const employ = await employee.findById({_id:req.params.employeeId});
+            const location = req.params.id;
             console.log(employ);
-            res.render('view/employee',{title:'View Employee',employ});
+            res.render('view/employee',{title:'View Employee',employ,location});
         } catch (error) {
             return next(error);
         }
@@ -91,8 +92,9 @@ module.exports = {
     updateEmployee:async (req,res,next) => {
         try {
             // console.log(req.params.id)
-            const employ = await employee.findById(req.params.id);
-            res.render('edit/employee',{title:'Update Employee',employ});
+            const employ = await employee.findById(req.params.employeeId);
+            const location = req.params.id;
+            res.render('edit/employee',{title:'Update Employee',employ,location});
         } catch (error) {
             return next(error);
         }

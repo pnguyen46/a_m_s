@@ -44,7 +44,11 @@
     </nav>
     <!--/nav-->
     <div class="container">
-      <a href="/employee">Back to Employees</a>
+      <%if(location === 'ticket'){%>
+        <a href="/ticket">Back to Ticket</a>
+      <%}else{%>
+        <a href="/employee">Back to Employee</a>
+      <%}%>
       <h1 class="text-center">View Employee</h1>
       <div class="row justify-content-center">
         <div class="col-5">
@@ -139,14 +143,23 @@
                 disabled
               />
             </div>
-            <a
+            <%if(location === 'ticket'){%>
+              <a
               id="updateBtn"
               type="button"
               class="btn btn-primary"
-              href="/employee/edit/<%=employ._id%>"
-            >
+              href="/employee/edit/<%=employ._id%>/ticket">
               Edit
-            </a>
+              </a>
+            <%}else{%>
+              <a
+              id="updateBtn"
+              type="button"
+              class="btn btn-primary"
+              href="/employee/edit/<%=employ._id%>/employee">
+              Edit
+              </a>
+            <%}%>
           </form>
           <!--/form-->
         </div>
