@@ -14,7 +14,7 @@ module.exports = {
         try {
             const filteredArr = [];
             const tickets = await ticket.find({});
-            console.log(tickets)
+            // console.log(tickets)
             const employees = await employee.find({});
             const parts = tickets.map(item => item.parts);
             parts.forEach(item => {
@@ -156,10 +156,16 @@ module.exports = {
     },
     deleteTicket: async (req,res,next) => {
         try {
-            const {technician} = await ticket.findById(req.params.id);
-            await employee.findByIdAndUpdate(technician,{
-                $pull:{currentTickets:{ $in: [req.params.id]}}
+            const delTic = await ticket.findById(req.params.id);
+            await employee.findByIdAndUpdate(delTic.technician,{
+                $pullAll:{currentTickets:[delTic._id]}
             });
+            await employee.findByIdAndUpdate(delTic.technician,{
+                $pullAll:{repair:[delTic._id]}
+            });
+            await customer.findByIdAndUpdate(delTic.customer,{
+                $pullAll:{repair:[delTic._id]}
+            })
             await ticket.findOneAndDelete({_id:req.params.id,userId:req.user._id});
             console.log('Ticket Deleted');
             res.redirect('/ticket');
@@ -267,6 +273,10 @@ module.exports = {
                     closed:true
                 });
             }
+            const delTic = await ticket.findById(req.params.id);
+            await employee.findByIdAndUpdate(delTic.technician,{
+                $pullAll:{currentTickets:[delTic._id]}
+            });
             console.log('Ticket Closed');
             res.redirect('/ticket');
         } catch (error) {
@@ -308,6 +318,10 @@ module.exports = {
                     status:'0'
                 });
             }
+
+            await employee.findByIdAndUpdate(currTic.technician,{
+                $push:{currentTickets:currTic._id}
+            });
             res.redirect('/ticket');
         } catch (error) {
             return next(error);
