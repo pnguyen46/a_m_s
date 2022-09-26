@@ -35,7 +35,7 @@ const EmployeeSchema = new mongoose.Schema({
     status:{
         type:String,
         required:true,
-        default:'Active'
+        default:'0'
     },
     currentTickets:{
         type:Array,

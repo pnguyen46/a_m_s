@@ -1,5 +1,15 @@
 const employee = require('../models/Employee');
 const ticket = require('../models/Ticket');
+const status = [
+    'Active',
+    'Vacation',
+    'Terminated'
+];
+const classes = [
+    'Apprentice',
+    'Junior',
+    'Master'
+]
 module.exports = {
     getIndex: async (req,res,next) => {
         try {
@@ -18,7 +28,7 @@ module.exports = {
                 }
             });
             const employees = await employee.find({});
-            res.render('employee',{title:'Employee',employees});
+            res.render('employee',{title:'Employee',employees,status,classes});
         } catch (error) {
             return next(error);
         }
@@ -28,18 +38,13 @@ module.exports = {
             const employ = await employee.findById({_id:req.params.employeeId});
             const location = req.params.id;
             console.log(employ);
-            res.render('view/employee',{title:'View Employee',employ,location});
+            res.render('view/employee',{title:'View Employee',employ,location,status,classes});
         } catch (error) {
             return next(error);
         }
     },
     addEmployee: async (req,res,next) => {
         try {
-            // console.log(req.body);
-            // if(!req.body.employeeClass){
-            //     req.body.employeeClass = undefined;
-            // }
-
             await employee.create({
                 name:req.body.employeeName,
                 address:req.body.employeeAddr,
@@ -47,8 +52,6 @@ module.exports = {
                 joined_date:req.body.employeeJDate,
                 DOB:req.body.employeeDOB,
                 specialty:req.body.employeeSpecialty,
-                class:undefined,
-                status:undefined
             });
             return res.redirect('/employee');
         } catch (error) {
@@ -94,7 +97,7 @@ module.exports = {
             // console.log(req.params.id)
             const employ = await employee.findById(req.params.employeeId);
             const location = req.params.id;
-            res.render('edit/employee',{title:'Update Employee',employ,location});
+            res.render('edit/employee',{title:'Update Employee',employ,location,status,classes});
         } catch (error) {
             return next(error);
         }
@@ -112,6 +115,17 @@ module.exports = {
                 'Complete'
             ];
             res.render('view/empRepairHistory',{title:'Repair History',employ,empTicket,employees,status});
+        } catch (error) {
+            return next(error);
+        }
+    },
+    updateEmployStatus:async (req,res,next) => {
+        try {
+            await employee.findByIdAndUpdate(req.params.id,{
+                status:req.body.employeeStatus
+            });
+            console.log('Employee Status Updated');
+            res.redirect('/employee');
         } catch (error) {
             return next(error);
         }

@@ -67,6 +67,36 @@
               />
             </div>
             <div class="mb-3">
+              <label for="class" class="form-label">Class</label>
+              <%classes.forEach((rank,indx) => {%>
+                <%if(employ.class === String(indx)){%>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="class"
+                  name="employeeClass"
+                  value="<%=rank%>"
+                  disabled
+                />
+                <%}%>
+              <%})%>
+            </div>
+            <div class="mb-3">
+              <label for="status" class="form-label">Status</label>
+              <%status.forEach((stat,indx) => {%>
+                <%if(employ.status === String(indx)){%>
+                  <input
+                  type="text"
+                  class="form-control"
+                  id="status"
+                  name="employeeStatus"
+                  value="<%=stat%>"
+                  disabled
+                />
+                <%}%>
+              <%})%>
+            </div>
+            <div class="mb-3">
               <label for="address" class="form-label">Address</label>
               <input
                 type="text"
@@ -89,17 +119,6 @@
               />
             </div>
             <div class="mb-3">
-              <label for="joined_date" class="form-label">Joined Date</label>
-              <input
-                type="date"
-                class="form-control"
-                id="joined_date"
-                name="employeeJDate"
-                value="<%=employ.joined_date%>"
-                disabled
-              />
-            </div>
-            <div class="mb-3">
               <label for="DOB" class="form-label">DOB</label>
               <input
                 type="date"
@@ -111,6 +130,17 @@
               />
             </div>
             <div class="mb-3">
+              <label for="joined_date" class="form-label">Joined Date</label>
+              <input
+                type="date"
+                class="form-control"
+                id="joined_date"
+                name="employeeJDate"
+                value="<%=employ.joined_date%>"
+                disabled
+              />
+            </div>
+            <div class="mb-3">
               <label for="specialty" class="form-label">Specialty</label>
               <input
                 type="text"
@@ -118,28 +148,6 @@
                 id="specialty"
                 name="employeeSpecialty"
                 value="<%=employ.specialty%>"
-                disabled
-              />
-            </div>
-            <div class="mb-3">
-              <label for="class" class="form-label">Class</label>
-              <input
-                type="text"
-                class="form-control"
-                id="class"
-                name="employeeClass"
-                value="<%=employ.class%>"
-                disabled
-              />
-            </div>
-            <div class="mb-3">
-              <label for="status" class="form-label">Status</label>
-              <input
-                type="text"
-                class="form-control"
-                id="status"
-                name="employeeStatus"
-                value="<%=employ.status%>"
                 disabled
               />
             </div>

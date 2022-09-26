@@ -54,12 +54,10 @@
         <div class="col mt-2">
           <!--table-->
           <table class="table border">
-            <thead>
+            <thead class="text-center">
               <tr class="">
                 <th scope="col">#</th>
                 <th scope="col">Name</th>
-                <th scope="col">DOB</th>
-                <th scope="col">Address</th>
                 <th scope="col">Phone Number</th>
                 <th scope="col">Curent Ticket</th>
                 <th scope="col">Work History</th>
@@ -73,16 +71,33 @@
               <tr class="text-center">
                 <td><%=indx + 1%></td>
                 <td><%=item.name%></td>
-                <td><%=item.DOB%></td>
-                <td><%=item.address%></td>
                 <td><%=item.phone_number%></td>
                 <td><%=item.currentTickets.length%></td>
                 <td>
                   <a href="/employee/history/<%=item._id%>">View</a>
                 </td>
                 <td><%=item.specialty%></td>
-                <td><%=item.class%></td>
-                <td><%=item.status%></td>
+                <td>
+                  <%classes.forEach((rank,indx) => {%>
+                      <%if(item.class === String(indx)){%>
+                        <%=rank%>
+                      <%}%>
+                  <%})%>
+                </td>
+                <td>
+                  <form action="/employee/<%=item._id%>?_method=PUT" method="POST">
+                    <select name="employeeStatus" id="status">
+                      <%status.forEach((stat,indx) => {%>
+                        <%if(item.status === String(indx)){%>
+                          <option value="<%=indx%>" selected><%=stat%></option>
+                        <%}else{%>
+                          <option value="<%=indx%>"><%=stat%></option>
+                        <%}%>
+                      <%})%>
+                    </select>
+                    <button type="submit" class="btn btn-primary btn-sm">Update</button>
+                  </form>
+                </td>
                 <td>
                   <div class="d-flex justify-content-between">
                     <a
