@@ -36,6 +36,10 @@ const EmployeeSchema = new mongoose.Schema({
         type:String,
         required:true,
         default:'Active'
+    },
+    currentTickets:{
+        type:Array,
+        default:[]
     }
 });
   

@@ -30,7 +30,6 @@ module.exports = {
         try {
             const vehicles = [];
             const location = req.params.id;
-            console.log(location)
             const reTicket = await ticket.find({_id:req.params.ticId,userId:req.user._id});
             const [tickVehicle] = reTicket.map(item => item.vehicles);
             tickVehicle.forEach(async item => {
@@ -157,6 +156,10 @@ module.exports = {
     },
     deleteTicket: async (req,res,next) => {
         try {
+            const {technician} = await ticket.findById(req.params.id);
+            await employee.findByIdAndUpdate(technician,{
+                $pull:{currentTickets:{ $in: [req.params.id]}}
+            });
             await ticket.findOneAndDelete({_id:req.params.id,userId:req.user._id});
             console.log('Ticket Deleted');
             res.redirect('/ticket');
@@ -202,7 +205,10 @@ module.exports = {
             await employee.findByIdAndUpdate(req.body.repairTech,{
                 $push:{repair:repairTicket._id}
             });
-
+            await employee.findByIdAndUpdate(req.body.repairTech,{
+                $push:{currentTickets:repairTicket._id}
+            });
+            
             if(Array.isArray(req.body.vehicles)){
                 const vehicles = req.body.vehicles;
                 vehicles.forEach(async vehicle => {

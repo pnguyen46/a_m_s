@@ -61,7 +61,8 @@
                 <th scope="col">DOB</th>
                 <th scope="col">Address</th>
                 <th scope="col">Phone Number</th>
-                <th scope="col">Repair</th>
+                <th scope="col">Curent Ticket</th>
+                <th scope="col">Work History</th>
                 <th scope="col">Specialty</th>
                 <th scope="col">Class</th>
                 <th scope="col">Status</th>
@@ -69,12 +70,13 @@
             </thead>
             <tbody>
               <%employees.forEach((item,indx) => {%>
-              <tr>
+              <tr class="text-center">
                 <td><%=indx + 1%></td>
                 <td><%=item.name%></td>
                 <td><%=item.DOB%></td>
                 <td><%=item.address%></td>
                 <td><%=item.phone_number%></td>
+                <td><%=item.currentTickets.length%></td>
                 <td>
                   <a href="/employee/history/<%=item._id%>">View</a>
                 </td>
