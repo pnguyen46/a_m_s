@@ -28,7 +28,7 @@ module.exports = {
                 }
             });
             const employees = await employee.find({});
-            res.render('employee',{title:'Employee',employees,status,classes});
+            res.render('employee',{title:'Employee',employees,status,classes,user:req.user});
         } catch (error) {
             return next(error);
         }
@@ -38,7 +38,7 @@ module.exports = {
             const employ = await employee.findById({_id:req.params.employeeId});
             const location = req.params.id;
             console.log(employ);
-            res.render('view/employee',{title:'View Employee',employ,location,status,classes});
+            res.render('view/employee',{title:'View Employee',employ,location,status,classes,user:req.user});
         } catch (error) {
             return next(error);
         }
@@ -87,7 +87,7 @@ module.exports = {
     },
     registerEmployee: async (req,res,next) => {
         try {
-            res.render('create/employee',{title:'Create Employee'});
+            res.render('create/employee',{title:'Create Employee',user:req.user});
         } catch (error) {
             return next(error);
         }
@@ -97,7 +97,7 @@ module.exports = {
             // console.log(req.params.id)
             const employ = await employee.findById(req.params.employeeId);
             const location = req.params.id;
-            res.render('edit/employee',{title:'Update Employee',employ,location,status,classes});
+            res.render('edit/employee',{title:'Update Employee',employ,location,status,classes,user:req.user});
         } catch (error) {
             return next(error);
         }
@@ -114,7 +114,7 @@ module.exports = {
                 'Terminate',
                 'Complete'
             ];
-            res.render('view/empRepairHistory',{title:'Repair History',employ,empTicket,employees,status});
+            res.render('view/empRepairHistory',{title:'Repair History',employ,empTicket,employees,status,user:req.user});
         } catch (error) {
             return next(error);
         }

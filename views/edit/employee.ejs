@@ -1,186 +1,129 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-    <!-- Bootstrap CSS -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
-      crossorigin="anonymous"
-    />
-    <link rel="stylesheet" href="/css/style.css" />
-
-    <title><%=title%></title>
-  </head>
-  <body>
-    <!--container-->
-    <!--nav-->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">Navbar</a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNavAltMarkup"
-          aria-controls="navbarNavAltMarkup"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
+<%-include("../partials/header.ejs")%>
+<!--container-->
+  <div class="container">
+    <h1 class="text-center">Update Employee</h1>
+    <div class="row justify-content-center">
+      <div class="col-5">
+        <!--form-->
+        <form
+          action="/employee/editItem/<%=employ._id%>?_method=PUT"
+          method="POST"
+          id="form"
         >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-          <div class="navbar-nav">
-            <a class="nav-link" href="#">Home</a>
-            <a class="nav-link" href="#">Features</a>
-            <a class="nav-link" href="#">Pricing</a>
+          <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="name"
+              name="employeeName"
+              aria-describedby=""
+              value="<%=employ.name%>"
+            />
           </div>
-        </div>
-      </div>
-    </nav>
-    <!--/nav-->
-    <div class="container">
-      <h1 class="text-center">Update Employee</h1>
-      <div class="row justify-content-center">
-        <div class="col-5">
-          <!--form-->
-          <form
-            action="/employee/editItem/<%=employ._id%>?_method=PUT"
-            method="POST"
-            id="form"
-          >
-            <div class="mb-3">
-              <label for="name" class="form-label">Name</label>
-              <input
-                type="text"
-                class="form-control"
-                id="name"
-                name="employeeName"
-                aria-describedby=""
-                value="<%=employ.name%>"
-              />
-            </div>
-            <div class="mb-3 d-flex justify-content-between">
-              <div>
-                <label for="class" class="form-label">Class</label>
-                <select name="employeeClass" id="rank">
-                  <%classes.forEach((rank,indx) => {%>
-                      <%if(employ.class === String(indx)){%>
-                        <option value="<%=indx%>" selected><%=rank%></option>
-                      <%}else{%>
-                        <option value="<%=indx%>"><%=rank%></option>
-                      <%}%>
-                  <%})%>
-                </select>
-              </div>
-              <div>
-                <label for="status" class="form-label">Status</label>
-                <select name="employeeStatus" id="status">
-                  <%status.forEach((stat,indx) => {%>
-                    <%if(employ.status === String(indx)){%>
-                      <option value="<%=indx%>" selected><%=stat%></option>
+          <div class="mb-3 d-flex justify-content-between">
+            <div>
+              <label for="class" class="form-label">Class</label>
+              <select name="employeeClass" id="rank">
+                <%classes.forEach((rank,indx) => {%>
+                    <%if(employ.class === String(indx)){%>
+                      <option value="<%=indx%>" selected><%=rank%></option>
                     <%}else{%>
-                      <option value="<%=indx%>"><%=stat%></option>
+                      <option value="<%=indx%>"><%=rank%></option>
                     <%}%>
-                  <%})%>
-                </select>
-              </div>
+                <%})%>
+              </select>
             </div>
-            <div class="mb-3">
-              <label for="address" class="form-label">Address</label>
-              <input
-                type="text"
-                class="form-control"
-                id="address"
-                name="employeeAddr"
-                value="<%=employ.address%>"
-              />
+            <div>
+              <label for="status" class="form-label">Status</label>
+              <select name="employeeStatus" id="status">
+                <%status.forEach((stat,indx) => {%>
+                  <%if(employ.status === String(indx)){%>
+                    <option value="<%=indx%>" selected><%=stat%></option>
+                  <%}else{%>
+                    <option value="<%=indx%>"><%=stat%></option>
+                  <%}%>
+                <%})%>
+              </select>
             </div>
-            <div class="mb-3">
-              <label for="phone_number" class="form-label">Phone Number</label>
-              <input
-                type="tel"
-                class="form-control"
-                id="phone_number"
-                name="employeePhone"
-                value="<%=employ.phone_number%>"
-              />
-            </div>
-            <div class="mb-3">
-              <label for="DOB" class="form-label">DOB</label>
-              <input
-                type="date"
-                class="form-control"
-                id="DOB"
-                name="employeeDOB"
-                value="<%=employ.DOB%>"
-              />
-            </div>
-            <div class="mb-3">
-              <label for="joined_date" class="form-label">Joined Date</label>
-              <input
-                type="date"
-                class="form-control"
-                id="joined_date"
-                name="employeeJDate"
-                value="<%=employ.joined_date%>"
-              />
-            </div>
-            <div class="mb-3">
-              <label for="specialty" class="form-label">Specialty</label>
-              <input
-                type="text"
-                class="form-control"
-                id="specialty"
-                name="employeeSpecialty"
-                value="<%=employ.specialty%>"
-              />
-            </div>
-            <button id="updateBtn" class="btn btn-primary" type="submit">
-              Update
-            </button>
-            <a id="resetBtn" class="btn btn-primary" type="reset">Reset</a>
-            <%if(location === 'ticket'){%>
-              <a
-                href="/employee/<%=employ._id%>/ticket"
-                type="button"
-                class="btn btn-danger"
-                >Cancel</a>
-            <%}else{%>
-              <a
-              href="/employee/<%=employ._id%>/employee"
+          </div>
+          <div class="mb-3">
+            <label for="address" class="form-label">Address</label>
+            <input
+              type="text"
+              class="form-control"
+              id="address"
+              name="employeeAddr"
+              value="<%=employ.address%>"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="phone_number" class="form-label">Phone Number</label>
+            <input
+              type="tel"
+              class="form-control"
+              id="phone_number"
+              name="employeePhone"
+              value="<%=employ.phone_number%>"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="DOB" class="form-label">DOB</label>
+            <input
+              type="date"
+              class="form-control"
+              id="DOB"
+              name="employeeDOB"
+              value="<%=employ.DOB%>"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="joined_date" class="form-label">Joined Date</label>
+            <input
+              type="date"
+              class="form-control"
+              id="joined_date"
+              name="employeeJDate"
+              value="<%=employ.joined_date%>"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="specialty" class="form-label">Specialty</label>
+            <input
+              type="text"
+              class="form-control"
+              id="specialty"
+              name="employeeSpecialty"
+              value="<%=employ.specialty%>"
+            />
+          </div>
+          <button id="updateBtn" class="btn btn-primary" type="submit">
+            Update
+          </button>
+          <a id="resetBtn" class="btn btn-primary" type="reset">Reset</a>
+          <%if(location === "ticket"){%>
+            <a
+              href="/employee/<%=employ._id%>/ticket"
               type="button"
               class="btn btn-danger"
               >Cancel</a>
-            <%}%>
-          </form>
-          <!--/form-->
-        </div>
+          <%}else if(location === "employee"){%>
+            <a
+            href="/employee/<%=employ._id%>/employee"
+            type="button"
+            class="btn btn-danger"
+            >Cancel</a>
+          <%}else{%>
+            <a
+            href="/employee/<%=employ._id%>/<%=location%>"
+            type="button"
+            class="btn btn-danger"
+            >Cancel</a>
+          <%}%>
+        </form>
+        <!--/form-->
       </div>
     </div>
-    <!--/container-->
-
-    <!-- Optional JavaScript; choose one of the two! -->
-
-    <!-- Option 1: Bootstrap Bundle with Popper -->
-    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script> -->
-
-    <!-- Option 2: Separate Popper and Bootstrap JS -->
-
-    <script
-      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
-      integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
-      integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
-      crossorigin="anonymous"
-    ></script>
-    <script src="/js/main.js"></script>
-  </body>
-</html>
+  </div>
+<!--/container-->
+<%-include("../partials/footer.ejs")%>

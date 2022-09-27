@@ -21,7 +21,7 @@ module.exports = {
                 filteredArr.push(module.exports.partListBuilder(item));
             })
             tickets.forEach((item,indx) => item['parts'] = filteredArr[indx]);
-            res.render('tickets',{title:'Ticket',tickets,employees,status});
+            res.render('tickets',{title:'Ticket',tickets,employees,status,user:req.user});
         } catch (error) {
             return next(error);
         }
@@ -47,7 +47,7 @@ module.exports = {
                     currIndx = i;
                }
             }
-            res.render('view/ticket',{title:"View Ticket",employees,vehicles,objTic,ticCustomer,parts,status,location});
+            res.render('view/ticket',{title:"View Ticket",employees,vehicles,objTic,ticCustomer,parts,status,location,user:req.user});
         } catch (error) {
             return next(error);
         }
@@ -176,7 +176,7 @@ module.exports = {
     register:async (req,res,next) => {
         try {
             const employees = await employee.find({});
-            res.render('create/ticket',{title:'Create Ticket',employees});
+            res.render('create/ticket',{title:'Create Ticket',employees,user:req.user});
         } catch (error) {
             return next(error);
         }
@@ -186,7 +186,7 @@ module.exports = {
             const customerId = req.params.id;
             const employees = await employee.find({});
             const vehicles = await vehicle.find({customerId});
-            res.render('create/cusTicket',{title:'Create Ticket',employees,customerId,vehicles});
+            res.render('create/cusTicket',{title:'Create Ticket',employees,customerId,vehicles,user:req.user});
         } catch (error) {
             return next(error);
         }
@@ -249,7 +249,7 @@ module.exports = {
                     currIndx = i;
                }
             }
-            res.render('edit/ticket',{title:'Update Ticket',employees,tickets,ticketId,ticCustomer,vehicles,parts,location,status});
+            res.render('edit/ticket',{title:'Update Ticket',employees,tickets,ticketId,ticCustomer,vehicles,parts,location,status,user:req.user});
         } catch (error) {
             return next(error);
         }
@@ -304,7 +304,7 @@ module.exports = {
                     currIndx = i;
                }
             }
-            res.render('view/closedTicket',{title:"View Closed Ticket",employees,vehicles,objTic,ticCustomer,parts,status,location});
+            res.render('view/closedTicket',{title:"View Closed Ticket",employees,vehicles,objTic,ticCustomer,parts,status,location,user:req.user});
         } catch (error) {
             return next(error);
         }

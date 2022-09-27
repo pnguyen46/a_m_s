@@ -13,7 +13,7 @@ module.exports = {
         try {
             const customers = await customer.find({});
             const employees = await employee.find({});
-            return res.render('customers',{title:'Customer',customers,employees});
+            return res.render('customers',{title:'Customer',customers,employees,user:req.user});
         } catch (error) {
             return next(error);
         }
@@ -23,7 +23,7 @@ module.exports = {
             const [item] = await customer.find({_id:req.params.id}).lean();
             const vehicles = await vehicle.find({customerId:req.params.id});
             const employees = await employee.find({});
-            return res.render('view/customer',{title:'View Customer',item,vehicles,employees});
+            return res.render('view/customer',{title:'View Customer',item,vehicles,employees,user:req.user});
         } catch (error) {
             return next(error);
         }
@@ -118,7 +118,7 @@ module.exports = {
     registerCustomer:async (req,res,next) => {
         try {
             const employees = await employee.find({});
-            res.render('create/customer',{title:'Create Customer',employees})
+            res.render('create/customer',{title:'Create Customer',employees,user:req.user})
         } catch (error) {
             return next(error);
         }
@@ -129,7 +129,7 @@ module.exports = {
             console.log(item);
             const employees = await employee.find({});
             const vehicles = await vehicle.find({customerId:req.params.id});
-            return res.render('edit/customer',{title:'Update Customer',item,vehicles,employees});
+            return res.render('edit/customer',{title:'Update Customer',item,vehicles,employees,user:req.user});
         } catch (error) {
             return next(error);
         }
@@ -140,7 +140,7 @@ module.exports = {
             const cust = await customer.findById(req.params.id);
             const employees = await employee.find({});
             // console.log(cusTicket)
-            res.render('view/cusRepairHistory',{title:'Repair History',cust,cusTicket,employees,status});
+            res.render('view/cusRepairHistory',{title:'Repair History',cust,cusTicket,employees,status,user:req.user});
         } catch (error) {
             return next(error);
         }
