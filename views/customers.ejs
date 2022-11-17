@@ -4,28 +4,15 @@
       <h1 class="text-center">Customers</h1>
       <div class="row">
         <div class="col">
-          <a href="/customer/register" class="btn btn-primary">Add Customer</a>
+          <a href="/customer/register" class="btn btn-primary"> Add Customer</a>
         </div>
       </div>
       <div class="row">
-        <!-- <div class="col-2 border">
-          <a
-            class="btn btn-primary btn-sm"
-            data-bs-toggle="modal"
-            data-bs-target="#itemForm"
-            data-bs-type="edit"
-            data-bs-identifier="customer"
-            id="resetBtn"
-            >Add Customer</a
-          >
-          <a class="btn btn-primary btn-sm">View All Customer</a>
-        </div> -->
-
         <div class="col mt-2">
           <!--table-->
-          <table class="table justify-content-end">
+          <table class="table table-striped justify-content-end">
             <thead class="text-center">
-              <tr>
+              <tr class="border border-3 border-secondary">
                 <th scope="col">#</th>
                 <th scope="col">Name</th>
                 <th scope="col">Address</th>
@@ -35,7 +22,7 @@
                 <th scope="col">Perfer Technician</th>
               </tr>
             </thead>
-            <tbody class="text-center">
+            <tbody class="text-center border border-3 border-secondary">
               <%customers.forEach((item,indx) => {%>
               <tr>
                 <td><%=indx + 1%></td>
@@ -49,7 +36,7 @@
                   <%employees.forEach(employee=>{%> <%if(String(item.fav_tech)
                   == employee._id){%> <%=employee.name%> <%}%> <%})%> <%}%>
                 </td>
-                <td class="d-flex justify-content-between">
+                <td class="d-flex justify-content-between" style="border: none;">
                   <a
                     class="btn btn-primary btn-sm"
                     href="/customer/<%=item._id%>"

@@ -10,8 +10,8 @@
       <div class="row">
         <div class="col mt-2">
           <!--table-->
-          <table class="table border">
-            <thead class="text-center">
+          <table class="table table-striped">
+            <thead class="text-center border border-3 border-secondary">
               <tr class="">
                 <th scope="col">#</th>
                 <th scope="col">Name</th>
@@ -23,7 +23,7 @@
                 <th scope="col">Status</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody class="border border-3 border-secondary">
               <%employees.forEach((item,indx) => {%>
               <tr class="text-center">
                 <td><%=indx + 1%></td>
