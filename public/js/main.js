@@ -20,7 +20,7 @@ function setAttributes(element, attributes) {
 function addInputBox() {
   const formEle = addInputBoxBtn.parentElement.previousElementSibling;
   const container = document.createElement("div");
-  container.setAttribute("class", "d-flex gap-2 my-2");
+  container.setAttribute("class", "d-flex gap-2 my-2 mb-3");
 
   const partNameInputBox = document.createElement("input");
   const partNameAttr = {
@@ -44,7 +44,7 @@ function addInputBox() {
   const deleteBtn = document.createElement("button");
   const deleteBtnAttr = {
     type: "button",
-    class: "btn btn-primary btn-sm deleteInputBox",
+    class: "btn btn-danger btn-sm deleteInputBox",
   };
   setAttributes(deleteBtn, deleteBtnAttr);
   deleteBtn.innerText = "Delete";
@@ -73,20 +73,20 @@ function addVehicleInputBox() {
   const partContainer = document.getElementById("vehicleContainer");
   const vForms = partContainer.children;
   const baseFormInput = vForms[vForms.length - 1].innerHTML;
-  const deleteBtn = document.createElement('a');
-  deleteBtn.setAttribute('class','btn btn-primary btn-sm ms-auto deleteVBtn');
-  deleteBtn.innerText = 'Delete';
+  const deleteBtn = document.createElement("a");
+  deleteBtn.setAttribute("class", "btn btn-danger btn-sm ms-auto deleteVBtn");
+  deleteBtn.innerText = "Delete";
   const form = document.createElement("div");
   form.setAttribute("class", vForms[0].getAttribute("class"));
   form.innerHTML = baseFormInput;
-  if(form.lastElementChild.tagName === 'A'){
+  if (form.lastElementChild.tagName === "A") {
     form.removeChild(form.lastElementChild);
   }
   form.appendChild(deleteBtn);
   Array.from(form.children).forEach((item) => {
     item.setAttribute("value", "");
   });
-  
+
   partContainer.appendChild(form);
 
   const deleteVehicleBtn = document.querySelectorAll(".deleteVBtn");
@@ -99,7 +99,6 @@ function addVehicleInputBox() {
     })
   );
 }
-
 
 //Preset element in view form
 const editMode = document.getElementById("editMode");
@@ -118,5 +117,3 @@ if (editMode !== null) {
     editMode.classList.add("d-none");
   });
 }
-
-
