@@ -31,7 +31,7 @@
                 <td><%=item.phone_number%></td>
                 <td><%=item.currentTickets.length%></td>
                 <td>
-                  <a href="/employee/history/<%=item._id%>">View</a>
+                  <a href="/employee/history/<%=item._id%>" class="text-decoration-none">View</a>
                 </td>
                 <td><%=item.specialty%></td>
                 <td>
@@ -52,7 +52,7 @@
                         <%}%>
                       <%})%>
                     </select>
-                    <button type="submit" class="btn btn-primary btn-sm">Update</button>
+                    <button type="submit" class="btn btn-primary btn-sm ms-1">Update</button>
                   </form>
                 </td>
                 <td>
