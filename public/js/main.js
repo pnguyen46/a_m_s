@@ -74,7 +74,7 @@ function addVehicleInputBox() {
   const vForms = partContainer.children;
   const baseFormInput = vForms[vForms.length - 1].innerHTML;
   const deleteBtn = document.createElement("a");
-  deleteBtn.setAttribute("class", "btn btn-danger btn-sm ms-auto deleteVBtn");
+  deleteBtn.setAttribute("class", "btn btn-danger mb-3 ms-auto deleteVBtn");
   deleteBtn.innerText = "Delete";
   const form = document.createElement("div");
   form.setAttribute("class", vForms[0].getAttribute("class"));

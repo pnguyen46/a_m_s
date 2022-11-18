@@ -30,7 +30,7 @@
                 <td><%=item.address%></td>
                 <td><%=item.phone_number%></td>
                 <td><%=item.joined_date%></td>
-                <td><a href="/customer/history/<%=item._id%>">View</a></td>
+                <td><a href="/customer/history/<%=item._id%>" class="text-decoration-none">View</a></td>
                 <td>
                   <%if(!item.fav_tech.length){%> None <%}else{%>
                   <%employees.forEach(employee=>{%> <%if(String(item.fav_tech)

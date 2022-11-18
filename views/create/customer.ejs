@@ -1,13 +1,13 @@
 <%-include("../partials/header.ejs")%>
 <!--container-->
     <div class="container">
-      <a href="/customer">Views All Customers</a>
+      <a href="/customer" class="text-decoration-none">Views All Customers</a>
       <h1 class="text-center">Create Customer</h1>
       <div class="row justify-content-center">
-        <div class="col-5">
+        <div class="col-5 py-4 px-3 border border-3 border-secondary">
           <!--form-->
           <form action="/customer" method="POST" id="form">
-            <div class="mb-3">
+            <div class="mb-3 d-flex gap-2">
               <label for="name" class="form-label">Name</label>
               <input
                 type="text"
@@ -15,8 +15,16 @@
                 id="name"
                 name="customerName"
               />
+              <label for="phone_number" class="form-label">Phone</label>
+              <input
+                type="tel"
+                class="form-control"
+                id="phone_number"
+                name="customerPhone"
+                style="flex-basis: 80%;"
+              />
             </div>
-            <div class="mb-3">
+            <div class="mb-3 d-flex gap-2">
               <label for="address" class="form-label">Address</label>
               <input
                 type="text"
@@ -25,38 +33,28 @@
                 name="customerAddr"
               />
             </div>
-            <div class="mb-3">
-              <label for="phone_number" class="form-label">Phone Number</label>
-              <input
-                type="tel"
-                class="form-control"
-                id="phone_number"
-                name="customerPhone"
-              />
+            <div class="mb-3 d-flex gap-5">
+              <div class="">
+                <label for="joined_date" class="form-label">Joined Date</label>
+                <input
+                  type="date"
+                  class="form-control"
+                  id="joined_date"
+                  name="joinedDate"
+                />
+              </div>
+              <div>
+                <label for="fav_tech" class="form-label d-block">Perfer Technician</label>
+                <select name="customerTech" id="fav_tech">
+                  <option value="">None</option>
+                  <%employees.forEach(employee => {%>
+                  <option value="<%=employee._id%>"><%=employee.name%></option>
+                  <%})%>
+                </select>
+              </div>
             </div>
             <div class="mb-3">
-              <label for="joined_date" class="form-label">Joined Date</label>
-              <input
-                type="date"
-                class="form-control"
-                id="joined_date"
-                name="joinedDate"
-              />
-            </div>
-            <div class="mb-3">
-              <label for="fav_tech" class="form-label">Perfer Technician</label>
-              <!-- <input
-                type="text"
-                class="form-control"
-                id="fav_tech"
-                name="customerTech"
-              /> -->
-              <select name="customerTech" id="fav_tech">
-                <option value="">None</option>
-                <%employees.forEach(employee => {%>
-                <option value="<%=employee._id%>"><%=employee.name%></option>
-                <%})%>
-              </select>
+
             </div>
             <div class="mb-3">
               <h3>Vehicle Information:</h3>
@@ -65,30 +63,28 @@
                   <label for="vehicleYear" class="form-label">Year:</label>
                   <input
                     type="text"
-                    class="form-control"
+                    class="form-control w-25 mb-2"
                     id="vehicles"
                     name="vehicle"
-                    style="flex-basis: 20%"
                   />
                   <label for="vehicleMake" class="form-label">Make:</label>
                   <input
                     type="text"
-                    class="form-control"
+                    class="form-control w-50 mb-2"
                     id="vehicles"
                     name="vehicle"
-                    style="flex-basis: 50%"
                   />
                   <label for="vehicleModel" class="form-label">Model:</label>
                   <input
                     type="text"
-                    class="form-control w-50"
+                    class="form-control w-50 mb-2"
                     id="vehicles"
                     name="vehicle"
                   />
                   <label for="vehicleEngine" class="form-label">Engine:</label>
                   <input
                     type="text"
-                    class="form-control"
+                    class="form-control mb-2"
                     id="vehicles"
                     name="vehicle"
                     style="flex-basis: 20%"
@@ -112,8 +108,8 @@
                     step="0.01"
                     style="flex-basis: 40%"
                   />
-                  <a class="btn btn-primary ms-auto deleteVBtn" type="button">
-                    delete
+                  <a class="btn btn-danger ms-auto mb-3 deleteVBtn" type="button">
+                    Delete
                   </a>
                 </div>
               </div>
@@ -122,13 +118,17 @@
               <button class="btn btn-primary" type="button" id="newVBtn">
                 Add New Vehicle
               </button>
+            </div> 
+            <div class="d-flex gap-2 justify-content-end pt-3">
+              <div class="d-grid col-3">
+                <button type="submit" id="updateBtn" class="btn btn-success">Create</button>
+              </div>
+              <div class="d-grid col-3">
+                <button type="reset" id="hiddenBtn" class="btn btn-danger">
+                  Reset
+                </button>
+              </div>
             </div>
-            <button id="updateBtn" type="submit" class="btn btn-primary">
-              Add
-            </button>
-            <button id="hiddenBtn" type="reset" class="btn btn-primary">
-              Reset
-            </button>
           </form>
           <!--/form-->
         </div>
