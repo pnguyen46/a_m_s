@@ -43,7 +43,7 @@
                     <td>
                       <%employees.forEach(ele => {%>
                           <%if(String(ele._id) == item.technician){%>
-                            <a href="/employee/<%=item.technician%>/ticket">
+                            <a href="/employee/<%=item.technician%>/ticket" class="text-decoration-none">
                               <%=ele.name%>
                             </a>
                           <%}%>
