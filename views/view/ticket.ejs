@@ -2,19 +2,19 @@
     <!--container-->
     <div class="container">
       <%if(location === 'customer'){%>
-        <a href="/customer/history/<%=ticCustomer._id%>">Back To Customer History</a>
+        <a href="/customer/history/<%=ticCustomer._id%>"><i class="fa-solid fa-caret-left"></i> Back To Customer History</a>
       <%}else if(location === 'employee'){%>
-        <a href="/employee/history/<%=objTic.technician%>">Back To Employee History</a>
+        <a href="/employee/history/<%=objTic.technician%>"><i class="fa-solid fa-caret-left"></i> Back To Employee History</a>
       <%}else{%>
-        <a href="/ticket">Back to Tickets</a>
+        <a href="/ticket" class="text-decoration-none"><i class="fa-solid fa-caret-left"></i> Back to Tickets</a>
       <%}%>
       <h1 class="text-center">View Ticket</h1>
       <div class="row justify-content-center">
-        <div class="col-5">
+        <div class="col-5 border border-3 border-secondary py-4 px-3">
           <!--form-->
           <form action="/ticket" method="POST" id="form">
-            <div class="mb-3">
-              <label for="repairType" class="form-label">Repair Type</label>
+            <div class="mb-3 d-flex gap-2">
+              <label for="repairType" class="form-label">Repair</label>
               <input
                 type="text"
                 class="form-control"
@@ -24,12 +24,10 @@
                 value="<%=objTic.repairType%>"
                 disabled
               />
-            </div>
-            <div class="mb-3">
               <label for="hour" class="form-label">Hours</label>
               <input
                 type="number"
-                class="form-control"
+                class="form-control w-25"
                 id="hour"
                 name="repairHours"
                 min="0"
@@ -38,20 +36,7 @@
                 disabled
               />
             </div>
-            <div class="mb-3">
-              <label for="cost" class="form-label">Cost</label>
-              <input
-                type="number"
-                class="form-control"
-                id="cost"
-                name="repairCost"
-                min="0"
-                step="0.01"
-                value="<%=objTic.cost%>"
-                disabled
-              />
-            </div>
-            <div class="mb-3">
+            <div class="mb-3 d-flex gap-2">
               <label for="repairDate" class="form-label">Date</label>
               <input
                 type="date"
@@ -60,38 +45,56 @@
                 name="repairDate"
                 value="<%=objTic.date%>"
                 disabled
+                style="flex-basis: 30%;"
+              />
+              <label for="cost" class="form-label">Cost</label>
+              <input
+                type="number"
+                class="form-control w-25"
+                id="cost"
+                name="repairCost"
+                min="0"
+                step="0.01"
+                value="<%=objTic.cost%>"
+                disabled
               />
             </div>
-            <div class="mb-3">
-              <label for="technician" class="form-label"><h3>Technician:</h3></label>
-              <select name="repairTech" id="technician" disabled>
-                <%employees.forEach(el => {%>
-                  <%if(String(el._id) == objTic.technician){%>
-                    <option value="<%=el._id%>" selected><%=el.name%></option>
-                  <%}else{%>
-                    <option value="<%=el._id%>"><%=el.name%></option>
-                  <%}%>
+            <div class="mb-3 d-flex gap-2">
+              <div class="">
+                <label for="technician" class="form-label"><h3>Technician</h3></label>
+                <select name="repairTech" id="technician" class="ms-1" disabled>
+                  <%employees.forEach(el => {%>
+                    <%if(String(el._id) == objTic.technician){%>
+                      <option value="<%=el._id%>" selected><%=el.name%></option>
+                    <%}else{%>
+                      <option value="<%=el._id%>"><%=el.name%></option>
+                    <%}%>
+                  <%})%>
+                </select>
+              </div>
+              <div class=" d-flex gap-2">
+                <label for="status" class="form-label"><h3>Status</h3></label>
+                <%status.forEach((stat,indx) => {%>
+                    <%if(objTic.status == indx){%>
+                      <input
+                      type="text"
+                      class="form-control"
+                      id="status"
+                      name="repairStatus"
+                      value="<%=stat%>"
+                      style="height:70% ;"
+                      disabled
+                    />
+                    <%}%>
                 <%})%>
-              </select>
+              </div>
             </div>
             <div class="mb-3">
-              <label for="status" class="form-label">Status</label>
-              <%status.forEach((stat,indx) => {%>
-                  <%if(objTic.status == indx){%>
-                    <input
-                    type="text"
-                    class="form-control"
-                    id="status"
-                    name="repairStatus"
-                    value="<%=stat%>"
-                    disabled
-                  />
-                  <%}%>
-              <%})%>
+              
             </div>
             <div class="mb-3">
-              <h3>Customer Information</h3>
-              <div class="mb-3">
+              <h3 class="text-center mb-3">Customer Information</h3>
+              <div class="mb-3 d-flex gap-2">
                 <label for="name" class="form-label">Name</label>
                 <input
                   type="text"
@@ -102,8 +105,19 @@
                   value="<%=ticCustomer.name%>"
                   disabled
                 />
+                <label for="phone_number" class="form-label"
+                >Phone</label
+              >
+              <input
+                type="tel"
+                class="form-control"
+                id="phone_number"
+                name="customerPhone"
+                value="<%=ticCustomer.phone_number%>"
+                disabled
+              />
               </div>
-              <div class="mb-3">
+              <div class="mb-3 d-flex gap-2">
                 <label for="address" class="form-label">Address</label>
                 <input
                   type="text"
@@ -116,21 +130,10 @@
                 />
               </div>
               <div class="mb-3">
-                <label for="phone_number" class="form-label"
-                  >Phone Number</label
-                >
-                <input
-                  type="tel"
-                  class="form-control"
-                  id="phone_number"
-                  name="customerPhone"
-                  value="<%=ticCustomer.phone_number%>"
-                  disabled
-                />
               </div>
             </div>
             <div class="mb-3">
-              <h3>Vehicle Information:</h3>
+              <h3 class="text-center mb-3">Vehicle Information:</h3>
               <div id="vehicleContainer">
                 <%vehicles.forEach(el => {%>
                 <div class="col d-flex gap-2 mt-2 flex-wrap">
@@ -206,7 +209,7 @@
               </div>
             </div>
             <div class="mb-3">
-              <label for="parts" class="form-label"><h3>Parts</h3></label>
+              <label for="parts" class="form-label d-flex justify-content-center"><h3>Parts</h3></label>
               <div id="partContainer">
                 <%if(parts){%>
                   <%parts.forEach(part => {%>
@@ -235,17 +238,23 @@
               </div>
             </div>
             <%if(location === 'customer'){%>
-              <a type="button" class="btn btn-primary" href="/ticket/edit/<%=objTic._id%>/customer">
-                Edit
-              </a>
+              <div class="d-flex justify-content-end">
+                <a type="button" class="btn btn-danger mt-3" href="/ticket/edit/<%=objTic._id%>/customer">
+                  Edit
+                </a>
+              </div>
             <%}else if(location === 'employee'){%>
-              <a type="button" class="btn btn-primary" href="/ticket/edit/<%=objTic._id%>/employee">
-                Edit
-              </a>
+              <div class="d-flex justify-content-end">
+                <a type="button" class="btn btn-danger mt-3" href="/ticket/edit/<%=objTic._id%>/employee">
+                  Edit
+                </a>
+              </div>
             <%}else{%>
-              <a type="button" class="btn btn-primary" href="/ticket/edit/<%=objTic._id%>/ticket">
-                Edit
-              </a>
+              <div class="d-flex justify-content-end">
+                <a type="button" class="btn btn-danger mt-3" href="/ticket/edit/<%=objTic._id%>/ticket">
+                  Edit
+                </a>
+              </div>
             <%}%>
           </form>
           <!--/form-->
