@@ -1,17 +1,16 @@
-
 <%-include("../partials/header.ejs")%>
 <!--container-->
     <div class="container">
       <h1 class="text-center">Edit Customer</h1>
       <div class="row justify-content-center">
-        <div class="col-5">
+        <div class="col-5 border border-3 border-secondary py-4 px-3">
           <!--form-->
           <form
             action="/customer/editItem/<%=item._id%>?_method=PUT"
             method="POST"
             id="form"
           >
-            <div class="mb-3">
+            <div class="mb-3 d-flex gap-2">
               <label for="name" class="form-label">Name</label>
               <input
                 type="text"
@@ -20,6 +19,14 @@
                 name="customerName"
                 aria-describedby=""
                 value="<%=item.name%>"
+              />
+              <label for="phone_number" class="form-label">Phone</label>
+              <input
+                type="tel"
+                class="form-control"
+                id="phone_number"
+                name="customerPhone"
+                value="<%=item.phone_number%>"
               />
             </div>
             <div class="mb-3">
@@ -33,46 +40,38 @@
               />
             </div>
             <div class="mb-3">
-              <label for="phone_number" class="form-label">Phone Number</label>
-              <input
-                type="tel"
-                class="form-control"
-                id="phone_number"
-                name="customerPhone"
-                value="<%=item.phone_number%>"
-              />
+
+            </div>
+            <div class="mb-3 d-flex gap-2">
+              <div class="">
+                <label for="joined_date" class="form-label">Joined Date</label>
+                <input
+                  type="date"
+                  class="form-control"
+                  id="joined_date"
+                  name="joinedDate"
+                  value="<%=item.joined_date%>"
+                />
+              </div>
+              <div class="">
+                <label for="fav_tech" class="form-label">Perfer Technician</label>
+                <select name="customerTech" id="fav_tech" class="d-block">
+                  <option value="">None</option>
+                  <%employees.forEach(employee =>{%>
+                    <%if(employee._id == item.fav_tech){%>
+                      <option value="<%=employee._id%>" selected><%=employee.name%></option>
+                    <%}else{%>
+                      <option value="<%=employee._id%>"><%=employee.name%></option>
+                    <%}%>
+                  <%})%>
+                </select>
+              </div>
             </div>
             <div class="mb-3">
-              <label for="joined_date" class="form-label">Joined Date</label>
-              <input
-                type="date"
-                class="form-control"
-                id="joined_date"
-                name="joinedDate"
-                value="<%=item.joined_date%>"
-              />
+
             </div>
             <div class="mb-3">
-              <label for="fav_tech" class="form-label">Perfer Technician</label>
-              <!-- <input
-                type="text"
-                class="form-control"
-                id="fav_tech"
-                name="customerTech"
-              /> -->
-              <select name="customerTech" id="fav_tech">
-                <option value="">None</option>
-                <%employees.forEach(employee =>{%>
-                  <%if(employee._id == item.fav_tech){%>
-                    <option value="<%=employee._id%>" selected><%=employee.name%></option>
-                  <%}else{%>
-                    <option value="<%=employee._id%>"><%=employee.name%></option>
-                  <%}%>
-                <%})%>
-              </select>
-            </div>
-            <div class="mb-3">
-              <h3>Vehicle Information:</h3>
+              <h3 class="text-center mb-3">Vehicle Information</h3>
               <div id="vehicleContainer">
                 <%vehicles.forEach(el => {%>
                 <div class="col d-flex gap-2 mt-2 flex-wrap">
@@ -85,7 +84,7 @@
                   <label for="vehicleYear" class="form-label">Year:</label>
                   <input
                     type="text"
-                    class="form-control"
+                    class="form-control mb-2"
                     id="vehicles"
                     name="vehicle"
                     style="flex-basis: 20%"
@@ -94,7 +93,7 @@
                   <label for="vehicleMake" class="form-label">Make:</label>
                   <input
                     type="text"
-                    class="form-control"
+                    class="form-control mb-2"
                     id="vehicles"
                     name="vehicle"
                     style="flex-basis: 50%"
@@ -103,7 +102,7 @@
                   <label for="vehicleModel" class="form-label">Model:</label>
                   <input
                     type="text"
-                    class="form-control w-50"
+                    class="form-control w-50 mb-2"
                     id="vehicles"
                     name="vehicle"
                     value="<%=el.vehicleModel%>"
@@ -111,7 +110,7 @@
                   <label for="vehicleEngine" class="form-label">Engine:</label>
                   <input
                     type="text"
-                    class="form-control"
+                    class="form-control mb-2"
                     id="vehicles"
                     name="vehicle"
                     style="flex-basis: 20%"
@@ -122,7 +121,7 @@
                   >
                   <input
                     type="text"
-                    class="form-control"
+                    class="form-control mb-2"
                     id="vehicles"
                     name="vehicle"
                     style="flex-basis: 20%"
@@ -131,14 +130,14 @@
                   <label for="vehicleVIN" class="form-label">VIN number:</label>
                   <input
                     type="text"
-                    class="form-control"
+                    class="form-control mb-2"
                     id="vehicles"
                     name="vehicle"
                     style="flex-basis: 40%"
                     value="<%=el.vehicleVIN%>"
                   />
                   <a
-                    class="btn btn-danger btn-sm ms-auto deleteVBtn"
+                    class="btn btn-danger ms-auto deleteVBtn my-2"
                     type="button"
                     href="/vehicle/<%=item._id%>/<%=el._id%>?_method=DELETE"
                     >Delete Vehicle</a
@@ -150,7 +149,7 @@
                   <label for="vehicleYear" class="form-label">Year:</label>
                   <input
                     type="text"
-                    class="form-control"
+                    class="form-control mb-2"
                     id="vehicles"
                     name="vehicle"
                     style="flex-basis: 20%"
@@ -158,7 +157,7 @@
                   <label for="vehicleMake" class="form-label">Make:</label>
                   <input
                     type="text"
-                    class="form-control"
+                    class="form-control mb-2"
                     id="vehicles"
                     name="vehicle"
                     style="flex-basis: 50%"
@@ -166,14 +165,14 @@
                   <label for="vehicleModel" class="form-label">Model:</label>
                   <input
                     type="text"
-                    class="form-control w-50"
+                    class="form-control w-50 mb-2"
                     id="vehicles"
                     name="vehicle"
                   />
                   <label for="vehicleEngine" class="form-label">Engine:</label>
                   <input
                     type="text"
-                    class="form-control"
+                    class="form-control mb-2"
                     id="vehicles"
                     name="vehicle"
                     style="flex-basis: 20%"
@@ -197,7 +196,7 @@
                     style="flex-basis: 40%"
                   />
                   <a
-                    class="btn btn-primary btn-sm ms-auto deleteVBtn"
+                    class="btn btn-danger ms-auto deleteVBtn my-2"
                     type="button"
                     >Delete</a
                   >

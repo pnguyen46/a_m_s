@@ -4,7 +4,7 @@
       <%if(location === 'ticket'){%>
         <a href="/ticket" class="text-decoration-none"><i class="fa-solid fa-caret-left"></i>Back to Tickets</a>
       <%}else if(location === 'employee'){%>
-        <a href="/employee" class="text-decoration-none"><i class="fa-solid fa-caret-left"></i>Back to Employees</a>
+        <!-- <a href="/employee" class="text-decoration-none"><i class="fa-solid fa-caret-left"></i>Back to Employees</a> -->
       <%}else{%>
         <a href="/customer/history/<%=location%>" class="text-decoration-none"><i class="fa-solid fa-caret-left"></i>Back to Customer</a>
       <%}%>
@@ -116,34 +116,37 @@
               </div>
             </div>
             <%if(location === 'ticket'){%>
-              <div class="d-flex justify-content-end">
+              <div class="d-flex gap-1 justify-content-end">
                 <a
                 id="updateBtn"
                 type="button"
-                class="btn btn-danger"
+                class="btn btn-primary"
                 href="/employee/edit/<%=employ._id%>/ticket">
                 Edit
                 </a>
+                <a href="/employee" type="button" class="btn btn-danger">Cancel</a>
               </div>
             <%}else if(location === 'employee'){%>
-              <div class="d-flex justify-content-end">
+              <div class="d-flex gap-1 justify-content-end">
                 <a
                 id="updateBtn"
                 type="button"
-                class="btn btn-danger"
+                class="btn btn-primary"
                 href="/employee/edit/<%=employ._id%>/employee">
                 Edit
                 </a>
+                <a href="/employee" type="button" class="btn btn-danger">Cancel</a>
               </div>
             <%}else{%>
-              <div class="d-flex justify-content-end">
+              <div class="d-flex gap-1 justify-content-end">
                 <a
                 id="updateBtn"
                 type="button"
-                class="btn btn-danger"
+                class="btn btn-primary"
                 href="/employee/edit/<%=employ._id%>/<%=location%>">
                 Edit
                 </a>
+                <a href="/employee" type="button" class="btn btn-danger">Cancel</a>
               </div>
             <%}%>
           </form>

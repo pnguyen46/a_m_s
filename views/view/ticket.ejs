@@ -2,9 +2,9 @@
     <!--container-->
     <div class="container">
       <%if(location === 'customer'){%>
-        <a href="/customer/history/<%=ticCustomer._id%>"><i class="fa-solid fa-caret-left"></i> Back To Customer History</a>
+        <a href="/customer/history/<%=ticCustomer._id%>" class="text-decoration-none"><i class="fa-solid fa-caret-left"></i> Back To Customer History</a>
       <%}else if(location === 'employee'){%>
-        <a href="/employee/history/<%=objTic.technician%>"><i class="fa-solid fa-caret-left"></i> Back To Employee History</a>
+        <a href="/employee/history/<%=objTic.technician%>" class="text-decoration-none"><i class="fa-solid fa-caret-left"></i> Back To Employee History</a>
       <%}else{%>
         <a href="/ticket" class="text-decoration-none"><i class="fa-solid fa-caret-left"></i> Back to Tickets</a>
       <%}%>

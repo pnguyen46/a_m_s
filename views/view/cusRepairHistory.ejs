@@ -2,10 +2,10 @@
     <!--Active Container-->
     <div class="container">
       <h1 class="text-center"><%=cust.name%> Repair History</h1>
-      <a href="/customer">Back to Customers</a>
+      <a href="/customer" class="text-decoration-none"><i class="fa-solid fa-caret-left"></i>Back to Customers</a>
       <div class="row mt-5">
         <h2 class="text-center">Current</h2>
-        <div class="col">
+        <div class="col border border-3 border-secondary">
           <!--table-->
           <table class="table">
             <thead class="text-center">
@@ -29,7 +29,7 @@
                 <td>
                     <%employees.forEach(ele => {%>
                         <%if(String(ele._id) == tic.technician){%>
-                            <a href="/employee/<%=ele._id%>/<%=cust._id%>"><%=ele.name%></a>
+                            <a href="/employee/<%=ele._id%>/<%=cust._id%>" class="text-decoration-none"><%=ele.name%></a>
                         <%}%>
                     <%})%>
                 </td>
@@ -42,7 +42,7 @@
                       <%})%>
                 </td>
                 <td>
-                  <a href="/ticket/<%=tic._id%>/customer">View</a>
+                  <a href="/ticket/<%=tic._id%>/customer" class="text-decoration-none">View</a>
                 </td>
               </tr>
               <%}%> <%})%>
@@ -58,7 +58,7 @@
     <div class="container mt-5">
       <div class="row">
         <h2 class="text-center">Past</h2>
-        <div class="col">
+        <div class="col border border-3 border-secondary">
           <!--table-->
           <table class="table">
             <thead class="text-center">

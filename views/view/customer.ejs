@@ -10,7 +10,7 @@
             action="editItem/<%=item._id%>?_method=PUT"
             method="POST"
             id="form" class="p-2">
-            <div class="mb-3">
+            <div class="mb-3 d-flex gap-2">
               <label for="name" class="form-label">Name</label>
               <input
                 type="text"
@@ -19,6 +19,15 @@
                 name="customerName"
                 aria-describedby=""
                 value="<%=item.name%>"
+                disabled
+              />
+              <label for="phone_number" class="form-label">Phone</label>
+              <input
+                type="tel"
+                class="form-control"
+                id="phone_number"
+                name="customerPhone"
+                value="<%=item.phone_number%>"
                 disabled
               />
             </div>
@@ -33,43 +42,36 @@
                 disabled
               />
             </div>
-            <div class="mb-3">
-              <label for="phone_number" class="form-label">Phone Number</label>
-              <input
-                type="tel"
-                class="form-control"
-                id="phone_number"
-                name="customerPhone"
-                value="<%=item.phone_number%>"
-                disabled
-              />
+            <div class="mb-3 d-flex">
+              <div class="">
+                <label for="joined_date" class="form-label">Joined Date</label>
+                <input
+                  type="date"
+                  class="form-control"
+                  id="joined_date"
+                  name="joinedDate"
+                  value="<%=item.joined_date%>"
+                  disabled
+                />
+              </div>
+              <div class="ms-3">
+                <label for="fav_tech" class="form-label">Perfer Technician</label>
+                <select name="customerTech" id="fav_tech" class="d-block" disabled>
+                  <option value="">None</option>
+                  <%employees.forEach(employee =>{%>
+                    <%if(employee._id == item.fav_tech){%>
+                      <option value="<%=employee._id%>" selected><%=employee.name%></option>
+                    <%}else{%>
+                      <option value="<%=employee._id%>"><%=employee.name%></option>
+                    <%}%>
+                  <%})%>
+                </select>
+              </div>
             </div>
             <div class="mb-3">
-              <label for="joined_date" class="form-label">Joined Date</label>
-              <input
-                type="date"
-                class="form-control"
-                id="joined_date"
-                name="joinedDate"
-                value="<%=item.joined_date%>"
-                disabled
-              />
             </div>
             <div class="mb-3">
-              <label for="fav_tech" class="form-label">Perfer Technician</label>
-              <select name="customerTech" id="fav_tech" disabled>
-                <option value="">None</option>
-                <%employees.forEach(employee =>{%>
-                  <%if(employee._id == item.fav_tech){%>
-                    <option value="<%=employee._id%>" selected><%=employee.name%></option>
-                  <%}else{%>
-                    <option value="<%=employee._id%>"><%=employee.name%></option>
-                  <%}%>
-                <%})%>
-              </select>
-            </div>
-            <div class="mb-3">
-              <h3>Vehicle Information:</h3>
+              <h3 class="text-center">Vehicle Information</h3>
               <div id="vehicleContainer" class="pt-2">
                 <%vehicles.forEach(el => {%>
                 <div class="col d-flex gap-3 mt-2 flex-wrap">
