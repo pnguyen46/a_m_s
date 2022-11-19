@@ -60,7 +60,7 @@
                             <%}%>
                           <%})%>
                         </select>
-                        <button class="btn btn-primary btn-sm" type="submit">Update Status</button>
+                        <button class="btn btn-success btn-sm" type="submit">Update Status</button>
                       </form>
                     </td>
                     <td class="">
@@ -71,7 +71,7 @@
                         >View</a>
                         <a class="btn btn-primary btn-sm" href="/ticket/edit/<%=item._id%>/ticket">Update</a>
                         <a class="btn btn-primary btn-sm" href="/ticket/deleteItem/<%=item._id%>?_method=DELETE">Delete</a>
-                        <a class="btn btn-primary btn-sm" href="/ticket/closeTicket/<%=item._id%>?_method=PUT">Close</a>
+                        <a class="btn btn-danger btn-sm" href="/ticket/closeTicket/<%=item._id%>?_method=PUT">Close</a>
                       </div>
                     </td>
                   </tr>
@@ -124,7 +124,7 @@
                         class="btn btn-primary btn-sm"
                         href="/ticket/closedTicket/<%=item._id%>/ticket"
                         >View</a>
-                        <a class="btn btn-primary btn-sm" href="/ticket/openTicket/<%=item._id%>?_method=PUT">Open</a>
+                        <a class="btn btn-success btn-sm" href="/ticket/openTicket/<%=item._id%>?_method=PUT">Open</a>
                       </div>
                     </td>
                   </tr>

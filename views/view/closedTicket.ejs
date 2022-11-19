@@ -6,7 +6,7 @@
       <%}else if(location === 'employee'){%>
         <a href="/employee/history/<%=objTic.technician%>" class="text-decoration-none"><i class="fa-solid fa-caret-left"></i>Back to Employee History</a>
       <%}else{%>
-        <a href="/ticket" class="text-decoration-none">View All Tickets</a>
+        <!-- <a href="/ticket" class="text-decoration-none">View All Tickets</a> -->
       <%}%>
       <h1 class="text-center">Closed Ticket</h1>
       <div class="row justify-content-center">
@@ -235,10 +235,11 @@
                 <%}%>  
               </div>
             </div>
-            <div class="d-flex justify-content-end">
-              <a type="button" class="btn btn-primary" href="/ticket/openTicket/<%=objTic._id%>?_method=PUT">
+            <div class="d-flex justify-content-end gap-1">
+              <a type="button" class="btn btn-success" href="/ticket/openTicket/<%=objTic._id%>?_method=PUT">
                 Open
               </a>
+              <a href="/ticket" type="button" class="btn btn-danger">Cancel</a>
             </div>
           </form>
           <!--/form-->

@@ -2,10 +2,10 @@
     <!--Active Container-->
     <div class="container">
       <h1 class="text-center"><%=employ.name%> Repair History</h1>
-      <a href="/employee">Back to Employee</a>
+      <a href="/employee" class="text-decoration-none"><i class="fa-solid fa-caret-left"></i>Back to Employee</a>
       <div class="row mt-5">
         <h2 class="text-center">Current</h2>
-        <div class="col">
+        <div class="col border border-3 border-secondary">
           <!--table-->
           <table class="table">
             <thead class="text-center">
@@ -34,7 +34,7 @@
                       <%})%>
                 </td>
                 <td>
-                  <a href="/ticket/<%=tic._id%>/employee">View</a>
+                  <a href="/ticket/<%=tic._id%>/employee" class="text-decoration-none">View</a>
                 </td>
               </tr>
               <%}%> <%})%>
@@ -50,7 +50,7 @@
     <div class="container mt-5">
       <div class="row">
         <h2 class="text-center">Past</h2>
-        <div class="col">
+        <div class="col border border-3 border-secondary">
           <!--table-->
           <table class="table">
             <thead class="text-center">

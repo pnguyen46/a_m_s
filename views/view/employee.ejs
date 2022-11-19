@@ -120,11 +120,10 @@
                 <a
                 id="updateBtn"
                 type="button"
-                class="btn btn-primary"
+                class="btn btn-danger"
                 href="/employee/edit/<%=employ._id%>/ticket">
                 Edit
                 </a>
-                <a href="/employee" type="button" class="btn btn-danger">Cancel</a>
               </div>
             <%}else if(location === 'employee'){%>
               <div class="d-flex gap-1 justify-content-end">
@@ -142,11 +141,11 @@
                 <a
                 id="updateBtn"
                 type="button"
-                class="btn btn-primary"
+                class="btn btn-danger"
                 href="/employee/edit/<%=employ._id%>/<%=location%>">
                 Edit
                 </a>
-                <a href="/employee" type="button" class="btn btn-danger">Cancel</a>
+                <!-- <a href="/employee" type="button" class="btn btn-danger">Cancel</a> -->
               </div>
             <%}%>
           </form>
